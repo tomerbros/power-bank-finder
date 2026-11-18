@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Power Bank Finder</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    :root {
+      --bg: #ffffff; --fg: #1a1a1a; --muted: #666; --card: #f6f6f7; --border: #e2e2e5;
+      --accent: #1f6feb; --you: #1f6feb; --warn-bg: #fff4ce; --warn-fg: #5c4400;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #111214; --fg: #ececec; --muted: #9a9a9a; --card: #1b1c1f; --border: #2c2d31; --accent: #4c8dff;
+        --warn-bg: #3a3115; --warn-fg: #f3dc9b; }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .app { display: grid; grid-template-columns: 360px 1fr; height: 100%; }
+    aside { border-right: 1px solid var(--border); overflow-y: auto; padding: 16px; }
+    #map { height: 100%; }
+    h1 { font-size: 18px; margin: 0 0 4px; }
+    .sub { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
+    .note { background: var(--warn-bg); color: var(--warn-fg); border-radius: 8px; padding: 8px 10px; font-size: 12px; margin-bottom: 12px; }
+    button.primary { width: 100%; padding: 10px; border: 0; border-radius: 8px; background: var(--accent);
+      color: #fff; font-size: 15px; cursor: pointer; }
+    .hint { color: var(--muted); font-size: 12px; margin: 6px 0 12px; }
+    .filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border); border-radius: 999px;
+      padding: 4px 10px; font-size: 13px; cursor: pointer; user-select: none; }
+    .chip input { margin: 0; }
+    .chip .count { color: var(--muted); font-size: 12px; }
+    .toggle { display: flex; align-items: center; gap: 6px; font-size: 13px; margin-bottom: 12px; cursor: pointer; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
+    .status { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    ol.nearest { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; cursor: pointer; }
+    .card .row { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+    .card .name { font-weight: 600; font-size: 14px; display: flex; gap: 6px; align-items: center; }
+    .card .dist { font-weight: 600; font-size: 14px; white-space: nowrap; }
+    .card .meta { color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .badge { font-size: 11px; border-radius: 4px; padding: 1px 5px; margin-left: 4px; white-space: nowrap; }
+    .b-online { background: #d3f5df; color: #145c2e; }
+    .b-offline { background: #fde2e1; color: #8a1c17; }
+    .b-unknown { background: #e8e8ea; color: #444; }
+    .card a, .leaflet-popup-content a { display: inline-block; margin-top: 6px; font-size: 13px; color: var(--accent); text-decoration: none; }
+    .logo-sm { width: 16px; height: 16px; border-radius: 4px; object-fit: contain; flex: none; background: #fff; }
+    .logo-pin { width: 100%; height: 100%; border-radius: 50%; background: #fff; border: 2px solid;
+      box-shadow: 0 1px 4px rgba(0,0,0,.35); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .logo-pin img { width: 74%; height: 74%; object-fit: contain; }
+    .logo-pin.offline { opacity: .45; filter: grayscale(1); }
+    .you-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--you); border: 3px solid #fff;
+      box-shadow: 0 0 0 6px rgba(31,111,235,.25); }
+    @media (max-width: 760px) {
+      .app { grid-template-columns: 1fr; grid-template-rows: 55% 45%; }
+      aside { order: 2; border-right: 0; border-top: 1px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <h1>Power Bank Finder</h1>
+    <p class="sub">Power bank rental stations from every brand, on one map.</p>
+    <div class="note">Prototype. Station locations come from each operator's public website and may be incomplete or out of date. Rent through the operator's own app or station.</div>
+    <button class="primary" id="locate">📍 Find stations near me</button>
+    <p class="hint">No location access? Click anywhere on the map to set your position.</p>
+    <div class="filters" id="filters"></div>
+    <label class="toggle"><input type="checkbox" id="hideOffline" checked> Hide stations reported offline / closed</label>
+    <div class="status" id="status">Loading stations…</div>
+    <ol class="nearest" id="nearest"></ol>
+  </aside>
+  <div id="map"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  const OPERATOR_COLORS = {
+    Buzz: '#f5b400', Juice: '#30a46c', Revive: '#e5484d', ICCXX: '#0090ff',
+    Amlo: '#8e4ec6', AIRVALL: '#12a594', Wessview: '#f76b15', ChargeBuddies: '#d6409f'
+  };
+  const FALLBACK_COLORS = ['#5b5bd6', '#978365', '#6e56cf'];
+  // Icons downloaded from each operator's own website (scripts/fetch_logos.py)
+  const LOGOS = {
+    Buzz: 'logos/buzz.ico', Juice: 'logos/juice.png', Revive: 'logos/revive.svg', ICCXX: 'logos/iccxx.png',
+    Amlo: 'logos/amlo.png', AIRVALL: 'logos/airvall.svg', Wessview: 'logos/wessview.png', ChargeBuddies: 'logos/chargebuddies.png'
+  };
+  const brandMark = op => LOGOS[op]
+    ? `<img class="logo-sm" src="${LOGOS[op]}" alt="">`
+    : `<span class="dot" style="background:${operatorColor[op]}"></span>`;
+
+  // Logo badge marker; smaller when zoomed out so the country view stays readable
+  const pinSize = () => map.getZoom() >= 14 ? 34 : map.getZoom() >= 11 ? 28 : 20;
+  function logoIcon(s) {
+    const size = pinSize();
+    const inner = LOGOS[s.operator] ? `<img src="${LOGOS[s.operator]}" alt="">` : '';
+    return L.divIcon({
+      className: '',
+      html: `<div class="logo-pin${s.status === 'offline' ? ' offline' : ''}" style="border-color:${operatorColor[s.operator]};${inner ? '' : `background:${operatorColor[s.operator]}`}">${inner}</div>`,
+      iconSize: [size, size], iconAnchor: [size / 2, size / 2], popupAnchor: [0, -size / 2]
+    });
+  }
+  const NEAREST_COUNT = 5;
+  const WALK_KMH = 4.8;
+  const STATUS_LABEL = { online: 'Online', offline: 'Offline / closed', unknown: 'Status unknown' };
+
+  // Canvas rendering keeps ~1,500 markers fast
+  const map = L.map('map', { preferCanvas: true }).setView([52.2, 5.3], 8);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  let stations = [];
+  let operatorColor = {};
+  let enabled = new Set();
+  let markers = new Map();
+  let you = null;
+  let youMarker = null, youCircle = null;
+  const hideOffline = document.getElementById('hideOffline');
+
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  function haversineKm(a, b) {
+    const R = 6371, toRad = d => d * Math.PI / 180;
+    const dLat = toRad(b.lat - a.lat), dLng = toRad(b.lng - a.lng);
+    const h = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLng / 2) ** 2;
+    return 2 * R * Math.asin(Math.sqrt(h));
+  }
+  const fmtDist = km => km < 1 ? `${Math.round(km * 1000)} m` : `${km.toFixed(1)} km`;
+  const walkMin = km => Math.max(1, Math.round(km / WALK_KMH * 60));
+
+  // Opens the place in Google Maps (pin + place card; the user can tap Directions there).
+  // Uses the operator's Google place link when available, otherwise searches "venue, address"
+  // so Google shows the business itself; falls back to the raw coordinates.
+  function placeUrl(s) {
+    if (s.google_maps_url) return s.google_maps_url;
+    const isVenueName = s.name && s.address && !s.address.startsWith(s.name);
+    const query = s.address ? (isVenueName ? `${s.name}, ${s.address}` : s.address) : `${s.lat},${s.lng}`;
+    const p = new URLSearchParams({ api: '1', query });
+    return `https://www.google.com/maps/search/?${p}`;
+  }
+
+  const isVisible = s => enabled.has(s.operator) && !(hideOffline.checked && s.status === 'offline');
+  const badge = s => `<span class="badge b-${s.status}">${STATUS_LABEL[s.status]}${s.available != null && s.status === 'online' ? ` · ${s.available} available` : ''}</span>`;
+  const precisionNote = s => s.precision === 'street' ? '<br><i>Approximate location (street level)</i>' : '';
+
+  function popupHtml(s) {
+    const d = you ? `<br><b>${fmtDist(haversineKm(you, s))}</b> · ~${walkMin(haversineKm(you, s))} min walk` : '';
+    return `<b>${esc(s.name)}</b> ${badge(s)}<br>${esc(s.operator)}<br>${esc(s.address)}${precisionNote(s)}${d}<br>
+      <a href="${placeUrl(s)}" target="_blank" rel="noopener">View in Google Maps →</a>`;
+  }
+
+  function renderFilters() {
+    const el = document.getElementById('filters');
+    el.innerHTML = '';
+    Object.entries(operatorColor).forEach(([op, color]) => {
+      const n = stations.filter(s => s.operator === op).length;
+      const label = document.createElement('label');
+      label.className = 'chip';
+      label.innerHTML = `<input type="checkbox" ${enabled.has(op) ? 'checked' : ''}>${brandMark(op)}${esc(op)} <span class="count">${n}</span>`;
+      label.querySelector('input').addEventListener('change', e => {
+        e.target.checked ? enabled.add(op) : enabled.delete(op);
+        renderMarkers(); renderNearest();
+      });
+      el.appendChild(label);
+    });
+  }
+
+  // Only stations inside the (padded) viewport get a DOM marker, which keeps ~1,900 logos fast
+  let lastPinSize = null;
+  function renderMarkers() {
+    const view = map.getBounds().pad(0.25);
+    const size = pinSize();
+    const resize = size !== lastPinSize;
+    lastPinSize = size;
+    stations.forEach(s => {
+      const m = markers.get(s.id);
+      const show = isVisible(s) && view.contains([s.lat, s.lng]);
+      if (show && (resize || !map.hasLayer(m))) m.setIcon(logoIcon(s));
+      if (show && !map.hasLayer(m)) m.addTo(map);
+      if (!show && map.hasLayer(m)) m.remove();
+    });
+  }
+  map.on('moveend zoomend', () => renderMarkers());
+
+  function renderNearest() {
+    const list = document.getElementById('nearest');
+    const status = document.getElementById('status');
+    list.innerHTML = '';
+    const visibleCount = stations.filter(isVisible).length;
+    if (!you) { status.textContent = `${visibleCount} stations shown. Set your location to see the nearest ones.`; return; }
+    const nearest = stations.filter(isVisible)
+      .map(s => ({ s, km: haversineKm(you, s) }))
+      .sort((a, b) => a.km - b.km)
+      .slice(0, NEAREST_COUNT);
+    status.textContent = nearest.length ? `Nearest ${nearest.length} of ${visibleCount} stations:` : 'No stations for the selected brands.';
+    nearest.forEach(({ s, km }) => {
+      const li = document.createElement('li');
+      li.className = 'card';
+      li.innerHTML = `
+        <div class="row"><span class="name">${brandMark(s.operator)}${esc(s.name)}</span>
+        <span class="dist">${fmtDist(km)}</span></div>
+        <div class="meta">${esc(s.operator)} ${badge(s)} · ~${walkMin(km)} min walk</div>
+        <div class="meta">${esc(s.address)}${s.precision === 'street' ? ' (approximate)' : ''}</div>
+        <a href="${placeUrl(s)}" target="_blank" rel="noopener">View in Google Maps →</a>`;
+      li.addEventListener('click', e => {
+        if (e.target.tagName === 'A') return;
+        map.setView([s.lat, s.lng], 17);
+        markers.get(s.id).openPopup();
+      });
+      list.appendChild(li);
+    });
+  }
+
+  function setYou(lat, lng, accuracy) {
+    you = { lat, lng };
+    if (!youMarker) {
+      youMarker = L.marker([lat, lng], {
+        icon: L.divIcon({ className: '', html: '<div class="you-dot"></div>', iconSize: [16, 16], iconAnchor: [8, 8] }),
+        zIndexOffset: 1000
+      }).addTo(map).bindTooltip('You are here', { direction: 'top', offset: [0, -10] });
+    } else {
+      youMarker.setLatLng([lat, lng]);
+    }
+    if (youCircle) youCircle.remove();
+    youCircle = accuracy ? L.circle([lat, lng], { radius: accuracy, weight: 1, fillOpacity: 0.08 }).addTo(map) : null;
+
+    const near = stations.filter(isVisible)
+      .sort((a, b) => haversineKm(you, a) - haversineKm(you, b)).slice(0, 3);
+    map.fitBounds(L.latLngBounds([[lat, lng], ...near.map(s => [s.lat, s.lng])]).pad(0.3), { maxZoom: 17 });
+    stations.forEach(s => markers.get(s.id).setPopupContent(popupHtml(s)));
+    renderNearest();
+  }
+
+  document.getElementById('locate').addEventListener('click', () => {
+    const status = document.getElementById('status');
+    if (!navigator.geolocation) { status.textContent = 'Your browser does not support location. Click on the map instead.'; return; }
+    status.textContent = 'Finding your location…';
+    navigator.geolocation.getCurrentPosition(
+      p => setYou(p.coords.latitude, p.coords.longitude, p.coords.accuracy),
+      () => { status.textContent = 'Location unavailable or denied. Click on the map to set your position.'; },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  });
+
+  map.on('click', e => setYou(e.latlng.lat, e.latlng.lng));
+  hideOffline.addEventListener('change', () => { renderMarkers(); renderNearest(); });
+
+  fetch('stations.json')
+    .then(r => r.json())
+    .then(data => {
+      stations = data.stations;
+      [...new Set(stations.map(s => s.operator))].forEach((op, i) => {
+        operatorColor[op] = OPERATOR_COLORS[op] || FALLBACK_COLORS[i % FALLBACK_COLORS.length];
+        enabled.add(op);
+      });
+      stations.forEach(s => {
+        const m = L.marker([s.lat, s.lng], { title: `${s.operator}: ${s.name}` }).bindPopup(() => popupHtml(s));
+        markers.set(s.id, m);
+      });
+      renderFilters(); renderMarkers(); renderNearest();
+    })
+    .catch(() => { document.getElementById('status').textContent = 'Could not load station data.'; });
+</script>
+</body>
+</html>
