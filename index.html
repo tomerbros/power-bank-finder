@@ -66,7 +66,9 @@
     .price { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 6px 8px; margin-top: 8px; }
     .price-main { font-weight: 600; font-size: 13px; }
     .price-extra { font-size: 11px; color: var(--muted); margin-top: 2px; }
-    .price-line { color: var(--fg); font-weight: 600; }
+    .price-line { color: var(--fg); font-weight: 600; margin-top: 6px; }
+    .place { margin-top: 8px; padding: 0 2px; }
+    .place .venue { margin-top: 0; }
     .links { display: flex; gap: 14px; flex-wrap: wrap; }
     .leaflet-popup-content { margin: 12px 14px; min-width: 220px; }
     .leaflet-popup-content .station { color: #1a1a1a; }
@@ -252,10 +254,12 @@
     const km = you ? haversineKm(you, s) : null;
     const info = OPERATOR_INFO[s.operator];
     return `<div class="station">${opHeader(s)}
-      <div class="venue">${esc(s.name)}</div>
-      <div class="addr">${esc(s.address)}${precisionNote(s)}</div>
-      ${km != null ? `<div class="walk"><b>${fmtDist(km)}</b> · ~${walkMin(km)} min walk</div>` : ''}
       ${priceBox(s)}
+      <div class="place">
+        <div class="venue">${esc(s.name)}</div>
+        <div class="addr">${esc(s.address)}${precisionNote(s)}</div>
+        ${km != null ? `<div class="walk"><b>${fmtDist(km)}</b> · ~${walkMin(km)} min walk</div>` : ''}
+      </div>
       <div class="links"><a href="${placeUrl(s)}" target="_blank" rel="noopener">View in Google Maps →</a>
       ${info ? `<a href="${info.site}" target="_blank" rel="noopener">${esc(s.operator)} website</a>` : ''}</div></div>`;
   }
@@ -360,9 +364,9 @@
       const info = OPERATOR_INFO[s.operator];
       li.innerHTML = `
         <div class="row">${opHeader(s)}<span class="dist">${fmtDist(km)}</span></div>
+        ${info ? `<div class="meta price-line">💶 ${esc(info.price)}</div>` : ''}
         <div class="venue">${esc(s.name)}</div>
         <div class="meta">${esc(s.address)}${s.precision === 'street' ? ' (approximate)' : ''} · ~${walkMin(km)} min walk</div>
-        ${info ? `<div class="meta price-line">💶 ${esc(info.price)}</div>` : ''}
         <a href="${placeUrl(s)}" target="_blank" rel="noopener">View in Google Maps →</a>`;
       li.addEventListener('click', e => {
         if (e.target.tagName === 'A') return;
