@@ -71,6 +71,7 @@
     .avail { font-size: 12px; margin-top: 6px; color: #145c2e; }
     .avail.none { color: #8a1c17; }
     .avail .asof { color: #888; }
+    .avail.checking { color: #888; }
     .avail-chip { font-size: 11px; font-weight: 700; background: #d3f5df; color: #145c2e; border-radius: 4px; padding: 1px 5px; }
     .avail-chip.none { background: #fde2e1; color: #8a1c17; }
     .place { margin-top: 8px; padding: 0 2px; }
@@ -314,11 +315,62 @@
   let snapshot = {};
   const fmtDay = iso => iso ? new Date(iso + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : '';
   function availLine(s) {
-    if (s.available == null) return '';
-    const n = s.available, r = s.returnable;
+    const live = s.live;                       // set by refreshLive() when the operator answered just now
+    if (live?.loading && s.available == null) return `<div class="avail checking">🔋 Checking live availability…</div>`;
+    const n = live && !live.loading ? live.available : s.available;
+    const r = live && !live.loading ? live.returnable : s.returnable;
+    if (n == null) return live?.offline ? `<div class="avail none">🔋 Station is offline right now</div>` : '';
     const banks = `<b>${n}</b> power bank${n === 1 ? '' : 's'} available`;
     const slots = r != null ? ` · ${r} free slot${r === 1 ? '' : 's'} to return` : '';
-    return `<div class="avail${n === 0 ? ' none' : ''}">🔋 ${banks}${slots}<span class="asof"> · as of ${fmtDay(snapshot[s.country])}</span></div>`;
+    const when = live?.loading ? ' · checking live…'
+      : live ? ` · live, ${live.at.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}`
+      : ` · as of ${fmtDay(snapshot[s.country])}`;
+    return `<div class="avail${n === 0 ? ' none' : ''}">🔋 ${banks}${slots}<span class="asof">${when}</span></div>`;
+  }
+
+  // ---- Live availability, fetched when someone opens a station ----
+  // Only operators whose public feed lets other websites read it (CORS) can be asked from the browser.
+  // FireVolt allows it. Juice, ANYWATT, Fully and Amlo don't, so they keep the downloaded counts.
+  const LIVE_SOURCES = {
+    // FireVolt's web-app map feed: returns the stations around a point, with counts per station
+    FireVolt: async s => {
+      const form = new FormData();
+      Object.entries({ coordType: 'WGS－84', mapType: 'WGS－84', lat: s.lat, lng: s.lng, zoomLevel: '4' })
+        .forEach(([k, v]) => form.append(k, v));
+      const res = await fetch('https://app.firevolt.com/cdb-app-api/v1/app/cdb/shop/listnear', { method: 'POST', body: form });
+      const x = (await res.json()).list?.find(x => `firevolt-${x.newID}` === s.id);
+      if (!x) throw new Error('station not in feed');
+      const online = x.infoStatus === '在线';   // "online"
+      return { offline: !online, available: online ? +x.freeNum : null, returnable: online ? +x.canReturnNum : null };
+    },
+  };
+  // The other operators go through our relay (relay/ folder, a Cloudflare Worker), which fetches
+  // their feed server-side. Empty = no relay, so those stations keep the downloaded counts.
+  // (To test relay changes locally: run `npx wrangler dev` in relay/ and use http://127.0.0.1:8787.)
+  const RELAY_URL = 'https://powerbank-radar-relay.powerbankradar.workers.dev';
+  if (RELAY_URL) ['Juice', 'ANYWATT', 'Fully', 'Amlo'].forEach(op => {
+    LIVE_SOURCES[op] = async s => {
+      const res = await fetch(`${RELAY_URL}/live?op=${encodeURIComponent(op)}&id=${encodeURIComponent(s.id)}`);
+      if (!res.ok) throw new Error(`relay answered ${res.status}`);
+      return res.json();
+    };
+  });
+  const LIVE_MAX_AGE_MS = 60 * 1000;   // re-ask at most once a minute per station
+
+  async function refreshLive(s, marker) {
+    const source = LIVE_SOURCES[s.operator];
+    if (!source || (s.live && !s.live.loading && Date.now() - s.live.at < LIVE_MAX_AGE_MS)) return;
+    const redraw = () => marker.isPopupOpen() && marker.getPopup().setContent(popupHtml(s));
+    s.live = { ...(s.live || {}), loading: true };
+    redraw();
+    try {
+      s.live = { ...(await source(s)), at: new Date() };
+      if (s.live.offline) s.status = 'offline';
+      else if (s.status === 'offline') s.status = 'online';
+    } catch {
+      s.live = null;   // keep showing the downloaded counts
+    }
+    redraw();
   }
   const availChip = s => s.available == null ? '' : `<span class="avail-chip${s.available === 0 ? ' none' : ''}">🔋 ${s.available}</span>`;
   const precisionNote = s => s.precision === 'street' ? '<br><i>Approximate location (street level)</i>' : '';
@@ -658,6 +710,7 @@
       allTypes().forEach(t => enabledTypes.add(t));
       stations.forEach(s => {
         const m = L.marker([s.lat, s.lng], { title: `${s.operator}: ${s.name}`, icon: logoIcon(s) }).bindPopup(() => popupHtml(s));
+        if (LIVE_SOURCES[s.operator]) m.on('popupopen', () => refreshLive(s, m));
         markers.set(s.id, m);
       });
       renderFilters(); renderMarkers(); renderNearest();
