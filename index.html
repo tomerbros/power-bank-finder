@@ -55,6 +55,23 @@
     .b-offline { background: #fde2e1; color: #8a1c17; }
     .b-unknown { background: #e8e8ea; color: #444; }
     .card a, .leaflet-popup-content a { display: inline-block; margin-top: 6px; font-size: 13px; color: var(--accent); text-decoration: none; }
+    /* Station details (popup + nearest list) */
+    .op-head { display: flex; align-items: center; gap: 8px; min-width: 0; }
+    .op-logo { width: 32px; height: 32px; border-radius: 8px; border: 2px solid; background: #fff; object-fit: contain; padding: 2px; flex: none; }
+    .op-name { font-weight: 700; font-size: 15px; }
+    .op-head .badge { margin-left: 0; }
+    .venue { font-weight: 600; font-size: 14px; margin-top: 8px; }
+    .addr, .walk { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .walk b { color: var(--fg); }
+    .price { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 6px 8px; margin-top: 8px; }
+    .price-main { font-weight: 600; font-size: 13px; }
+    .price-extra { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .price-line { color: var(--fg); font-weight: 600; }
+    .links { display: flex; gap: 14px; flex-wrap: wrap; }
+    .leaflet-popup-content { margin: 12px 14px; min-width: 220px; }
+    .leaflet-popup-content .station { color: #1a1a1a; }
+    .leaflet-popup-content .price { background: #f6f6f7; border-color: #e2e2e5; }
+    .leaflet-popup-content .addr, .leaflet-popup-content .walk, .leaflet-popup-content .price-extra { color: #666; }
     .logo-sm { width: 16px; height: 16px; border-radius: 4px; object-fit: contain; flex: none; background: #fff; }
     .logo-pin { width: 100%; height: 100%; border-radius: 50%; background: #fff; border: 2px solid;
       box-shadow: 0 1px 4px rgba(0,0,0,.35); display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -129,6 +146,18 @@
   const LOGOS = {
     Buzz: 'logos/buzz.ico', Juice: 'logos/juice.png', Revive: 'logos/revive.svg', ICCXX: 'logos/iccxx.png',
     Amlo: 'logos/amlo.png', AIRVALL: 'logos/airvall.svg', Wessview: 'logos/wessview.png', ChargeBuddies: 'logos/chargebuddies.png'
+  };
+  // Consumer prices as published on each operator's website (checked 19 Nov 2026).
+  // `price` is the headline; `extra` the small print. Operators that don't publish a price say where to see it.
+  const OPERATOR_INFO = {
+    Buzz: { price: '€3 / hour · max €9 / day', extra: '€30 deposit, refunded on return · 33% cheaper in the Buzz app', site: 'https://buzzpowerbanks.nl/' },
+    Juice: { price: 'Price varies per location', extra: 'Shown on the station screen before you rent · deposit held on your card', site: 'https://getjuice.nl/' },
+    Revive: { price: 'Price shown in the Revive app', extra: 'Billed per started half hour', site: 'https://revivesharing.com/nl/en' },
+    Amlo: { price: '€2.50 / hour', extra: 'Rent by scanning the QR code on the station', site: 'https://amlo.nl/' },
+    ICCXX: { price: 'Max €3 per day', extra: 'Unused deposit is refunded', site: 'https://iccxx.nl/' },
+    AIRVALL: { price: '€4 per 24 hours', extra: 'No hourly rate · no deposit in the app, deposit when paying by card', site: 'https://www.airvall.nl/' },
+    Wessview: { price: '€2 / 30 min · max €10 / day', extra: '€20 deposit, refunded minus the rental', site: 'https://wessview.nl/' },
+    ChargeBuddies: { price: '€2 first hour, then per minute', extra: '+ €0.50 unlock fee', site: 'https://chargebuddies.nl/prijzen' },
   };
   const brandMark = op => LOGOS[op]
     ? `<img class="logo-sm" src="${LOGOS[op]}" alt="">`
@@ -209,10 +238,26 @@
   const badge = s => `<span class="badge b-${s.status}">${STATUS_LABEL[s.status]}${s.available != null && s.status === 'online' ? ` · ${s.available} available` : ''}</span>`;
   const precisionNote = s => s.precision === 'street' ? '<br><i>Approximate location (street level)</i>' : '';
 
+  // Operator header: big logo + operator name in its brand colour
+  const opHeader = s => `<div class="op-head">
+      ${LOGOS[s.operator] ? `<img class="op-logo" src="${LOGOS[s.operator]}" alt="" style="border-color:${operatorColor[s.operator]}">` : ''}
+      <span class="op-name" style="color:${operatorColor[s.operator]}">${esc(s.operator)}</span>${badge(s)}</div>`;
+  const priceBox = s => {
+    const info = OPERATOR_INFO[s.operator];
+    if (!info) return '';
+    return `<div class="price"><div class="price-main">💶 ${esc(info.price)}</div><div class="price-extra">${esc(info.extra)}</div></div>`;
+  };
+
   function popupHtml(s) {
-    const d = you ? `<br><b>${fmtDist(haversineKm(you, s))}</b> · ~${walkMin(haversineKm(you, s))} min walk` : '';
-    return `<b>${esc(s.name)}</b> ${badge(s)}<br>${esc(s.operator)}<br>${esc(s.address)}${precisionNote(s)}${d}<br>
-      <a href="${placeUrl(s)}" target="_blank" rel="noopener">View in Google Maps →</a>`;
+    const km = you ? haversineKm(you, s) : null;
+    const info = OPERATOR_INFO[s.operator];
+    return `<div class="station">${opHeader(s)}
+      <div class="venue">${esc(s.name)}</div>
+      <div class="addr">${esc(s.address)}${precisionNote(s)}</div>
+      ${km != null ? `<div class="walk"><b>${fmtDist(km)}</b> · ~${walkMin(km)} min walk</div>` : ''}
+      ${priceBox(s)}
+      <div class="links"><a href="${placeUrl(s)}" target="_blank" rel="noopener">View in Google Maps →</a>
+      ${info ? `<a href="${info.site}" target="_blank" rel="noopener">${esc(s.operator)} website</a>` : ''}</div></div>`;
   }
 
   // Filter dropdowns: only one open at a time
@@ -312,11 +357,12 @@
     nearest.forEach(({ s, km }) => {
       const li = document.createElement('li');
       li.className = 'card';
+      const info = OPERATOR_INFO[s.operator];
       li.innerHTML = `
-        <div class="row"><span class="name">${brandMark(s.operator)}${esc(s.name)}</span>
-        <span class="dist">${fmtDist(km)}</span></div>
-        <div class="meta">${esc(s.operator)} ${badge(s)} · ~${walkMin(km)} min walk</div>
-        <div class="meta">${esc(s.address)}${s.precision === 'street' ? ' (approximate)' : ''}</div>
+        <div class="row">${opHeader(s)}<span class="dist">${fmtDist(km)}</span></div>
+        <div class="venue">${esc(s.name)}</div>
+        <div class="meta">${esc(s.address)}${s.precision === 'street' ? ' (approximate)' : ''} · ~${walkMin(km)} min walk</div>
+        ${info ? `<div class="meta price-line">💶 ${esc(info.price)}</div>` : ''}
         <a href="${placeUrl(s)}" target="_blank" rel="noopener">View in Google Maps →</a>`;
       li.addEventListener('click', e => {
         if (e.target.tagName === 'A') return;
