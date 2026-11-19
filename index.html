@@ -69,6 +69,9 @@
     .price-line { color: var(--fg); font-weight: 600; margin-top: 6px; }
     .place { margin-top: 8px; padding: 0 2px; }
     .place .venue { margin-top: 0; }
+    .pdetails { display: flex; flex-wrap: wrap; gap: 4px 8px; margin-bottom: 6px; }
+    .ptype { font-size: 12px; font-weight: 600; background: #eef3ff; color: #1f4fa8; border-radius: 999px; padding: 2px 8px; }
+    .pnote { font-size: 12px; color: #444; padding: 2px 0; }
     .links { display: flex; gap: 14px; flex-wrap: wrap; }
     .leaflet-popup-content { margin: 12px 14px; min-width: 220px; }
     .leaflet-popup-content .station { color: #1a1a1a; }
@@ -143,9 +146,11 @@
       <div class="filter-bar">
         <button class="dd" id="countryBtn" aria-expanded="false" aria-controls="countryPanel"><span id="countryLabel">Country</span><span class="caret">▾</span></button>
         <button class="dd" id="opBtn" aria-expanded="false" aria-controls="opPanel"><span id="opLabel">Operators</span><span class="caret">▾</span></button>
+        <button class="dd" id="typeBtn" aria-expanded="false" aria-controls="typePanel"><span id="typeLabel">Types</span><span class="caret">▾</span></button>
       </div>
       <div class="dd-panel" id="countryPanel" hidden></div>
       <div class="dd-panel" id="opPanel" hidden></div>
+      <div class="dd-panel" id="typePanel" hidden></div>
       <label class="toggle"><input type="checkbox" id="hideOffline" checked> Hide stations reported offline / closed</label>
       <ol class="nearest" id="nearest"></ol>
     </div>
@@ -253,7 +258,19 @@
     return `https://www.google.com/maps/search/?${p}`;
   }
 
-  const isVisible = s => s.country === country && enabled.has(s.operator) && !(hideOffline.checked && s.status === 'offline');
+  // Venue type filter; stations without a known type are grouped under NO_TYPE
+  const NO_TYPE = '__none';
+  const typeKey = s => s.place_type || NO_TYPE;
+  let typeList = null;
+  const allTypes = () => typeList ??= (() => {   // most common first, "not known" last
+    const counts = {};
+    stations.forEach(s => { counts[typeKey(s)] = (counts[typeKey(s)] || 0) + 1; });
+    return Object.keys(counts).sort((a, b) => (a === NO_TYPE) - (b === NO_TYPE) || counts[b] - counts[a]);
+  })();
+  let enabledTypes = new Set();
+
+  const isVisible = s => s.country === country && enabled.has(s.operator) && enabledTypes.has(typeKey(s))
+    && !(hideOffline.checked && s.status === 'offline');
   const badge = s => `<span class="badge b-${s.status}">${STATUS_LABEL[s.status]}${s.available != null && s.status === 'online' ? ` · ${s.available} available` : ''}</span>`;
   const precisionNote = s => s.precision === 'street' ? '<br><i>Approximate location (street level)</i>' : '';
 
@@ -267,12 +284,37 @@
     return `<div class="price"><div class="price-main">💶 ${esc(info.price)}</div><div class="price-extra">${esc(info.extra)}</div></div>`;
   };
 
+  // Where the station is: type of venue (from the operator, or read from the venue name),
+  // the operator's placement note, and today's opening hours when published
+  const PLACE_ICONS = {
+    'Hotel': '🏨', 'Hostel': '🛏️', 'Restaurant': '🍽️', 'Café': '☕', 'Bar': '🍺', 'Club': '🎶', 'Nightclub': '🎶',
+    'Beach club': '🏖️', 'Supermarket': '🛒', 'Gym': '🏋️', 'Entertainment venue': '🎳', 'School / university': '🎓',
+    'Shopping centre': '🛍️', 'Train station': '🚉', 'Campsite / holiday park': '⛺', 'Phone shop': '📱',
+    'Temporary location (event)': '🎪',
+  };
+  const placeIcon = s => s.place_type ? (PLACE_ICONS[s.place_type] || '📍') : '';
+  function todaysHours(s) {
+    if (!s.opening_hours) return null;
+    const day = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+    const line = s.opening_hours.find(h => h.startsWith(day + ':'));
+    return line ? line.slice(day.length + 1).trim() : null;
+  }
+  function placeDetails(s) {
+    const rows = [];
+    if (s.place_type) rows.push(`<span class="ptype">${placeIcon(s)} ${esc(s.place_type)}</span>`);
+    if (s.placement_note) rows.push(`<span class="pnote">📌 ${esc(s.placement_note)}</span>`);
+    const hours = todaysHours(s);
+    if (hours) rows.push(`<span class="pnote">🕒 Today: ${esc(hours)}</span>`);
+    return rows.length ? `<div class="pdetails">${rows.join('')}</div>` : '';
+  }
+
   function popupHtml(s) {
     const km = you ? haversineKm(you, s) : null;
     const info = OPERATOR_INFO[s.operator];
     return `<div class="station">${opHeader(s)}
       ${priceBox(s)}
       <div class="place">
+        ${placeDetails(s)}
         <div class="venue">${esc(s.name)}</div>
         <div class="addr">${esc(s.address)}${precisionNote(s)}</div>
         ${km != null ? `<div class="walk"><b>${fmtDist(km)}</b> · ~${walkMin(km)} min walk</div>` : ''}
@@ -282,7 +324,7 @@
   }
 
   // Filter dropdowns: only one open at a time
-  const DROPDOWNS = [['countryBtn', 'countryPanel'], ['opBtn', 'opPanel']];
+  const DROPDOWNS = [['countryBtn', 'countryPanel'], ['opBtn', 'opPanel'], ['typeBtn', 'typePanel']];
   function openDropdown(btnId) {
     DROPDOWNS.forEach(([b, p]) => {
       const open = b === btnId && document.getElementById(p).hidden;
@@ -296,10 +338,14 @@
 
   function renderFilterLabels() {
     const c = COUNTRIES[country] || { name: country, flag: '' };
-    document.getElementById('countryLabel').textContent = `${c.flag} ${c.name}`.trim();
+    // Three filter buttons share a phone-width row, so phones show the short country code
+    document.getElementById('countryLabel').textContent = `${c.flag} ${isPhone() ? country : c.name}`.trim();
     const total = Object.keys(operatorColor).length;
     document.getElementById('opLabel').textContent = enabled.size === total ? 'All operators' : `Operators (${enabled.size}/${total})`;
-    document.getElementById('filterCount').textContent = enabled.size < total ? ` (${enabled.size}/${total})` : '';
+    const typesTotal = allTypes().length;
+    document.getElementById('typeLabel').textContent = enabledTypes.size === typesTotal ? 'All types' : `Types (${enabledTypes.size}/${typesTotal})`;
+    const narrowed = enabled.size < total || enabledTypes.size < typesTotal;
+    document.getElementById('filterCount').textContent = narrowed ? ' •' : '';
   }
 
   function renderFilters() {
@@ -340,6 +386,28 @@
           applyFilters();
         });
         op.appendChild(label);
+      });
+
+    // Types: checklist of venue types, plus one row for stations whose type isn't known
+    const tp = document.getElementById('typePanel');
+    tp.innerHTML = `<div class="dd-actions"><button type="button" data-all="1">Select all</button><button type="button" data-all="0">Clear all</button></div>`;
+    tp.querySelectorAll('[data-all]').forEach(b => b.addEventListener('click', () => {
+      allTypes().forEach(t => b.dataset.all === '1' ? enabledTypes.add(t) : enabledTypes.delete(t));
+      renderFilters(); applyFilters();
+    }));
+    allTypes()
+      .map(t => [t, stations.filter(s => typeKey(s) === t && s.country === country).length])
+      .filter(([, n]) => n > 0)
+      .forEach(([t, n]) => {
+        const label = document.createElement('label');
+        label.className = 'opt';
+        const name = t === NO_TYPE ? '❔ Type not known' : `${PLACE_ICONS[t] || '📍'} ${esc(t)}`;
+        label.innerHTML = `<input type="checkbox" ${enabledTypes.has(t) ? 'checked' : ''}>${name}<span class="count">${n}</span>`;
+        label.querySelector('input').addEventListener('change', e => {
+          e.target.checked ? enabledTypes.add(t) : enabledTypes.delete(t);
+          applyFilters();
+        });
+        tp.appendChild(label);
       });
     renderFilterLabels();
   }
@@ -382,7 +450,7 @@
       li.innerHTML = `
         <div class="row">${opHeader(s)}<span class="dist">${fmtDist(km)}</span></div>
         ${info ? `<div class="meta price-line">💶 ${esc(info.price)}</div>` : ''}
-        <div class="venue">${esc(s.name)}</div>
+        <div class="venue">${placeIcon(s)} ${esc(s.name)}</div>
         <div class="meta">${esc(s.address)}${s.precision === 'street' ? ' (approximate)' : ''} · ~${walkMin(km)} min walk</div>
         <a href="${placeUrl(s)}" target="_blank" rel="noopener">View in Google Maps →</a>`;
       li.addEventListener('click', e => {
@@ -409,7 +477,7 @@
       card.className = 'mini';
       card.innerHTML = `<div class="top">${brandMark(s.operator)}<span class="op" style="color:${operatorColor[s.operator]}">${esc(s.operator)}</span>
           <span class="km">${fmtDist(km)}</span></div>
-        <div class="v">${esc(s.name)}</div>
+        <div class="v">${placeIcon(s)} ${esc(s.name)}</div>
         ${info ? `<div class="p">💶 ${esc(info.price)}</div>` : ''}`;
       card.addEventListener('click', () => {
         map.setView([s.lat, s.lng], 17);
@@ -469,6 +537,7 @@
         operatorColor[op] = OPERATOR_COLORS[op] || FALLBACK_COLORS[i % FALLBACK_COLORS.length];
         enabled.add(op);
       });
+      allTypes().forEach(t => enabledTypes.add(t));
       stations.forEach(s => {
         const m = L.marker([s.lat, s.lng], { title: `${s.operator}: ${s.name}` }).bindPopup(() => popupHtml(s));
         markers.set(s.id, m);
