@@ -179,7 +179,8 @@
     Buzz: '#f5b400', Juice: '#30a46c', Revive: '#e5484d', ICCXX: '#0090ff',
     Amlo: '#8e4ec6', AIRVALL: '#12a594', Wessview: '#f76b15', ChargeBuddies: '#d6409f',
     FireVolt: '#ff6a13', ANYWATT: '#e54666', VolterGy: '#3e63dd', Fully: '#46a758',
-    'Fast Charger': '#0d74ce', Rechargy: '#6e56cf', 'Dead Batt': '#7cb518'
+    'Fast Charger': '#0d74ce', Rechargy: '#6e56cf', 'Dead Batt': '#7cb518',
+    Mobbi: '#1a1a1a', 'Recharge.me': '#e5484d'
   };
   const FALLBACK_COLORS = ['#5b5bd6', '#978365', '#6e56cf'];
   // Icons downloaded from each operator's own website (scripts/fetch_logos.py)
@@ -187,7 +188,8 @@
     Buzz: 'logos/buzz.ico', Juice: 'logos/juice.png', Revive: 'logos/revive.svg', ICCXX: 'logos/iccxx.png',
     Amlo: 'logos/amlo.png', AIRVALL: 'logos/airvall.svg', Wessview: 'logos/wessview.png', ChargeBuddies: 'logos/chargebuddies.png',
     FireVolt: 'logos/firevolt.png', ANYWATT: 'logos/anywatt.ico', VolterGy: 'logos/voltergy.png', Fully: 'logos/fully.svg',
-    'Fast Charger': 'logos/fastcharger.svg', Rechargy: 'logos/rechargy.webp', 'Dead Batt': 'logos/deadbatt.png'
+    'Fast Charger': 'logos/fastcharger.svg', Rechargy: 'logos/rechargy.webp', 'Dead Batt': 'logos/deadbatt.png',
+    Mobbi: 'logos/mobbi.png', 'Recharge.me': 'logos/rechargeme.png'
   };
   // Consumer prices as published on each operator's website (checked 19 Nov 2026).
   // `price` is the headline; `extra` the small print. Operators that don't publish a price say where to see it.
@@ -211,6 +213,9 @@
     Rechargy: { price: 'Price shown in the app or at the terminal', extra: 'Rent with a QR code · return at any Rechargy station', site: 'https://rechargy.de/standorte/' },
     // Israel
     'Dead Batt': { price: '₪15 / hour · max ₪30 / 24 h', extra: 'No app: tap your card or phone on the station · return at any Dead Batt station', site: 'https://dead-batt.com/stations' },
+    // Italy
+    Mobbi: { price: '€1 / 30 min', extra: 'First 3 min free · rent by scanning the QR code', site: 'https://www.mobbi.it/' },
+    'Recharge.me': { price: 'Price shown on the station screen', extra: 'Pay only for the time you use', site: 'https://rechargeme.app/' },
   };
   // Where an operator charges differently per country (keyed "operator:country")
   const OPERATOR_INFO_BY_COUNTRY = {
@@ -278,6 +283,8 @@
     FR: { name: 'France', flag: '🇫🇷', bounds: [[42.3, -4.8], [51.1, 8.2]] },
     DE: { name: 'Germany', flag: '🇩🇪', bounds: [[47.3, 5.9], [55.1, 15.0]] },
     IL: { name: 'Israel', flag: '🇮🇱', bounds: [[29.5, 34.25], [33.3, 35.9]] },
+    IT: { name: 'Italy', flag: '🇮🇹', bounds: [[36.6, 6.6], [47.1, 18.5]] },
+    CH: { name: 'Switzerland', flag: '🇨🇭', bounds: [[45.8, 5.95], [47.8, 10.5]] },
   };
   const ALL = 'ALL';  // "All countries", the default
   const ALL_COUNTRIES = { name: 'All countries', short: 'All', flag: '🌍', bounds: [[29.4, -9.3], [58.6, 35.9]] };
@@ -345,7 +352,7 @@
 
   // ---- Live availability, fetched when someone opens a station ----
   // Only operators whose public feed lets other websites read it (CORS) can be asked from the browser.
-  // FireVolt allows it. Juice, ANYWATT, Fully and Amlo don't, so they keep the downloaded counts.
+  // FireVolt and Mobbi allow it. Juice, ANYWATT, Fully, Amlo and Recharge.me don't, so they go through the relay.
   const LIVE_SOURCES = {
     // FireVolt's web-app map feed: returns the stations around a point, with counts per station
     FireVolt: async s => {
@@ -358,12 +365,31 @@
       const online = x.infoStatus === '在线';   // "online"
       return { offline: !online, available: online ? +x.freeNum : null, returnable: online ? +x.canReturnNum : null };
     },
+    // Mobbi's web-app feed lists the whole network at once (~500 KB), so one download serves
+    // every Mobbi station opened within a minute
+    Mobbi: async s => {
+      const list = await mobbiFeed();
+      const x = list.find(x => `mobbi-${x.id}` === s.id);
+      if (!x) throw new Error('station not in feed');
+      return { offline: false, available: +x.borrow, returnable: +x.back };
+    },
   };
+  let mobbiCache = null;   // { at, promise }
+  function mobbiFeed() {
+    if (!mobbiCache || Date.now() - mobbiCache.at > 60 * 1000) {
+      mobbiCache = { at: Date.now(), promise: fetch('https://console.mobbi.it/api/v1/merchants/listMerchantsForApp.json', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ memberId: '1', lat: '45.4642', lng: '9.19' }),
+      }).then(r => r.json()) };
+      mobbiCache.promise.catch(() => { mobbiCache = null; });
+    }
+    return mobbiCache.promise;
+  }
   // The other operators go through our relay (relay/ folder, a Cloudflare Worker), which fetches
   // their feed server-side. Empty = no relay, so those stations keep the downloaded counts.
   // (To test relay changes locally: run `npx wrangler dev` in relay/ and use http://127.0.0.1:8787.)
   const RELAY_URL = 'https://powerbank-radar-relay.powerbankradar.workers.dev';
-  if (RELAY_URL) ['Juice', 'ANYWATT', 'Fully', 'Amlo'].forEach(op => {
+  if (RELAY_URL) ['Juice', 'ANYWATT', 'Fully', 'Amlo', 'Recharge.me'].forEach(op => {
     LIVE_SOURCES[op] = async s => {
       const res = await fetch(`${RELAY_URL}/live?op=${encodeURIComponent(op)}&id=${encodeURIComponent(s.id)}`);
       if (!res.ok) throw new Error(`relay answered ${res.status}`);
