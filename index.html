@@ -162,13 +162,15 @@
 <script>
   const OPERATOR_COLORS = {
     Buzz: '#f5b400', Juice: '#30a46c', Revive: '#e5484d', ICCXX: '#0090ff',
-    Amlo: '#8e4ec6', AIRVALL: '#12a594', Wessview: '#f76b15', ChargeBuddies: '#d6409f'
+    Amlo: '#8e4ec6', AIRVALL: '#12a594', Wessview: '#f76b15', ChargeBuddies: '#d6409f',
+    FireVolt: '#ff6a13', ANYWATT: '#e54666', VolterGy: '#3e63dd', Fully: '#46a758'
   };
   const FALLBACK_COLORS = ['#5b5bd6', '#978365', '#6e56cf'];
   // Icons downloaded from each operator's own website (scripts/fetch_logos.py)
   const LOGOS = {
     Buzz: 'logos/buzz.ico', Juice: 'logos/juice.png', Revive: 'logos/revive.svg', ICCXX: 'logos/iccxx.png',
-    Amlo: 'logos/amlo.png', AIRVALL: 'logos/airvall.svg', Wessview: 'logos/wessview.png', ChargeBuddies: 'logos/chargebuddies.png'
+    Amlo: 'logos/amlo.png', AIRVALL: 'logos/airvall.svg', Wessview: 'logos/wessview.png', ChargeBuddies: 'logos/chargebuddies.png',
+    FireVolt: 'logos/firevolt.png', ANYWATT: 'logos/anywatt.ico', VolterGy: 'logos/voltergy.png', Fully: 'logos/fully.svg'
   };
   // Consumer prices as published on each operator's website (checked 19 Nov 2026).
   // `price` is the headline; `extra` the small print. Operators that don't publish a price say where to see it.
@@ -181,7 +183,23 @@
     AIRVALL: { price: '€4 per 24 hours', extra: 'No hourly rate · no deposit in the app, deposit when paying by card', site: 'https://www.airvall.nl/' },
     Wessview: { price: '€2 / 30 min · max €10 / day', extra: '€20 deposit, refunded minus the rental', site: 'https://wessview.nl/' },
     ChargeBuddies: { price: '€2 first hour, then per minute', extra: '+ €0.50 unlock fee', site: 'https://chargebuddies.nl/prijzen' },
+    // Spain
+    FireVolt: { price: 'Price varies per station', extra: 'Shown on the station before you rent', site: 'https://www.firevolt.com/en/' },
+    ANYWATT: { price: 'Price shown at the station', extra: 'Deposit pre-authorised on your card · pay only for the time used', site: 'https://anywatt.es/' },
+    VolterGy: { price: '€1.75 / 30 min · max €8.75 / day', extra: 'First 5 min free · €19 deposit, refunded within 48 h', site: 'https://voltergy.es/' },
+    Fully: { price: '€2–3 / hour', extra: 'Price depends on the venue', site: 'https://www.fullygo.com/' },
   };
+  // Where an operator charges differently per country (keyed "operator:country")
+  const OPERATOR_INFO_BY_COUNTRY = {
+    'Buzz:ES': { price: '€1.99 / 30 min · max €10 / day', extra: 'Return at any Buzz station in the city', site: 'https://buzzpowerbanks.es/' },
+    'Revive:ES': { price: 'Price shown in the Revive app', extra: 'Billed per started half hour', site: 'https://revivesharing.com/' },
+  };
+  // A station's own published price (FireVolt, Fully) beats the operator's general one
+  function infoFor(s) {
+    const base = OPERATOR_INFO_BY_COUNTRY[`${s.operator}:${s.country}`] || OPERATOR_INFO[s.operator];
+    if (!base) return null;
+    return s.price ? { ...base, price: s.price, extra: s.price_extra || base.extra } : base;
+  }
   const brandMark = op => LOGOS[op]
     ? `<img class="logo-sm" src="${LOGOS[op]}" alt="">`
     : `<span class="dot" style="background:${operatorColor[op]}"></span>`;
@@ -202,7 +220,7 @@
   const STATUS_LABEL = { online: 'Online', offline: 'Offline / closed', unknown: 'Status unknown' };
 
   // Canvas rendering keeps ~1,500 markers fast
-  const map = L.map('map', { preferCanvas: true }).setView([52.2, 5.3], 8);
+  const map = L.map('map', { preferCanvas: true }).fitBounds([[50.75, 3.36], [53.55, 7.23]]); // Netherlands, the default country
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OSM</a>'
   }).addTo(map);
@@ -228,7 +246,8 @@
   let enabled = new Set();
   // Add a country here when its stations are added to stations.json (keyed by ISO code)
   const COUNTRIES = {
-    NL: { name: 'Netherlands', flag: '🇳🇱', center: [52.2, 5.3], zoom: 8 },
+    NL: { name: 'Netherlands', flag: '🇳🇱', bounds: [[50.75, 3.36], [53.55, 7.23]] },
+    ES: { name: 'Spain', flag: '🇪🇸', bounds: [[36.0, -9.3], [43.8, 4.3]] },  // mainland + Balearics
   };
   let country = 'NL';
   let markers = new Map();
@@ -279,7 +298,7 @@
       ${LOGOS[s.operator] ? `<img class="op-logo" src="${LOGOS[s.operator]}" alt="" style="border-color:${operatorColor[s.operator]}">` : ''}
       <span class="op-name" style="color:${operatorColor[s.operator]}">${esc(s.operator)}</span>${badge(s)}</div>`;
   const priceBox = s => {
-    const info = OPERATOR_INFO[s.operator];
+    const info = infoFor(s);
     if (!info) return '';
     return `<div class="price"><div class="price-main">💶 ${esc(info.price)}</div><div class="price-extra">${esc(info.extra)}</div></div>`;
   };
@@ -290,7 +309,7 @@
     'Hotel': '🏨', 'Hostel': '🛏️', 'Restaurant': '🍽️', 'Café': '☕', 'Bar': '🍺', 'Club': '🎶', 'Nightclub': '🎶',
     'Beach club': '🏖️', 'Supermarket': '🛒', 'Gym': '🏋️', 'Entertainment venue': '🎳', 'School / university': '🎓',
     'Shopping centre': '🛍️', 'Train station': '🚉', 'Campsite / holiday park': '⛺', 'Phone shop': '📱',
-    'Temporary location (event)': '🎪',
+    'Temporary location (event)': '🎪', 'Sports club': '🎾', 'Hair salon': '💇', 'Shop': '🛍️',
   };
   const placeIcon = s => s.place_type ? (PLACE_ICONS[s.place_type] || '📍') : '';
   function todaysHours(s) {
@@ -305,12 +324,13 @@
     if (s.placement_note) rows.push(`<span class="pnote">📌 ${esc(s.placement_note)}</span>`);
     const hours = todaysHours(s);
     if (hours) rows.push(`<span class="pnote">🕒 Today: ${esc(hours)}</span>`);
+    else if (s.hours) rows.push(`<span class="pnote">🕒 ${esc(s.hours)}</span>`);
     return rows.length ? `<div class="pdetails">${rows.join('')}</div>` : '';
   }
 
   function popupHtml(s) {
     const km = you ? haversineKm(you, s) : null;
-    const info = OPERATOR_INFO[s.operator];
+    const info = infoFor(s);
     return `<div class="station">${opHeader(s)}
       ${priceBox(s)}
       <div class="place">
@@ -360,7 +380,7 @@
       label.innerHTML = `<input type="radio" name="country" ${code === country ? 'checked' : ''}>${c.flag} ${esc(c.name)}<span class="count">${n}</span>`;
       label.querySelector('input').addEventListener('change', () => {
         country = code;
-        if (c.center) map.setView(c.center, c.zoom);
+        if (c.bounds) map.fitBounds(c.bounds);
         renderFilters(); applyFilters();
       });
       cp.appendChild(label);
@@ -446,7 +466,7 @@
     nearest.forEach(({ s, km }) => {
       const li = document.createElement('li');
       li.className = 'card';
-      const info = OPERATOR_INFO[s.operator];
+      const info = infoFor(s);
       li.innerHTML = `
         <div class="row">${opHeader(s)}<span class="dist">${fmtDist(km)}</span></div>
         ${info ? `<div class="meta price-line">💶 ${esc(info.price)}</div>` : ''}
@@ -472,7 +492,7 @@
     strip.innerHTML = '';
     strip.hidden = stripDismissed || !nearest.length;
     nearest.forEach(({ s, km }) => {
-      const info = OPERATOR_INFO[s.operator];
+      const info = infoFor(s);
       const card = document.createElement('div');
       card.className = 'mini';
       card.innerHTML = `<div class="top">${brandMark(s.operator)}<span class="op" style="color:${operatorColor[s.operator]}">${esc(s.operator)}</span>
@@ -494,9 +514,20 @@
     strip.scrollLeft = 0;
   }
 
+  // When you're in another supported country than the one selected, switch to it
+  function followCountry() {
+    let best = null, bestKm = Infinity;
+    stations.forEach(s => { const km = haversineKm(you, s); if (km < bestKm) { bestKm = km; best = s; } });
+    if (best && bestKm < 300 && best.country !== country) {
+      country = best.country;
+      renderFilters(); renderFilterLabels();
+    }
+  }
+
   function setYou(lat, lng, accuracy) {
     stripDismissed = false;
     you = { lat, lng };
+    followCountry();
     if (!youMarker) {
       youMarker = L.marker([lat, lng], {
         icon: L.divIcon({ className: '', html: '<div class="you-dot"></div>', iconSize: [16, 16], iconAnchor: [8, 8] }),
