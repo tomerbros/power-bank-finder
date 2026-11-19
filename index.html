@@ -107,7 +107,23 @@
       .card .name, .card .dist { font-size: 13px; }
       .card a { margin-top: 3px; font-size: 12px; }
       .leaflet-control-attribution { font-size: 9px; opacity: .7; }
+      /* Nearest stations float above the bar as a slim strip of cards, so the sheet stays closed */
+      .sheet-body .nearest { display: none; }
+      .near-strip:not([hidden]) { display: flex; }
     }
+    /* Sits at the bottom of the map; 22px clears the sheet's rounded top that overlaps the map */
+    .near-strip { display: none; position: absolute; left: 0; right: 0; bottom: 22px; gap: 8px;
+      overflow-x: auto; padding: 0 12px; scroll-snap-type: x mandatory; scrollbar-width: none; z-index: 1000; }
+    .near-strip::-webkit-scrollbar { display: none; }
+    .mini { flex: none; width: 72%; max-width: 260px; scroll-snap-align: start; background: var(--bg);
+      border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,.18); padding: 8px 10px; cursor: pointer; }
+    .mini .top { display: flex; align-items: center; gap: 6px; }
+    .mini .logo-sm { width: 22px; height: 22px; border-radius: 6px; }
+    .mini .op { font-weight: 700; font-size: 13px; }
+    .mini .km { margin-left: auto; font-weight: 700; font-size: 13px; white-space: nowrap; }
+    .mini .v { font-size: 12px; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mini .p { font-size: 11px; color: var(--muted); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mini.close-card { width: auto; display: flex; align-items: center; color: var(--muted); font-size: 18px; padding: 8px 14px; }
   </style>
 </head>
 <body>
@@ -134,7 +150,7 @@
       <ol class="nearest" id="nearest"></ol>
     </div>
   </aside>
-  <div id="map"></div>
+  <div id="map"><div class="near-strip" id="nearStrip" hidden></div></div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -200,6 +216,7 @@
   filterToggle.addEventListener('click', () => setSheet(!panel.classList.contains('open')));
   document.getElementById('status').addEventListener('click', () => setSheet(!panel.classList.contains('open')));
   const isPhone = () => matchMedia('(max-width: 760px)').matches;
+  if (isPhone()) map.attributionControl.setPosition('topright'); // keep the OSM credit clear of the nearest-stations strip
 
   let stations = [];
   let operatorColor = {};
@@ -355,9 +372,9 @@
       .sort((a, b) => a.km - b.km)
       .slice(0, NEAREST_COUNT);
     if (!nearest.length) status.textContent = 'No stations for the selected brands.';
-    else if (isPhone() && !panel.classList.contains('open'))
-      status.textContent = `Nearest: ${nearest[0].s.name} · ${fmtDist(nearest[0].km)} · tap for ${nearest.length} closest`;
+    else if (isPhone()) status.textContent = `${nearest.length} nearest of ${visibleCount} stations shown on the map`;
     else status.textContent = `Nearest ${nearest.length} of ${visibleCount} stations:`;
+    renderStrip(nearest);
     nearest.forEach(({ s, km }) => {
       const li = document.createElement('li');
       li.className = 'card';
@@ -378,7 +395,39 @@
     });
   }
 
+  // Phone: nearest stations as a swipeable strip of small cards at the bottom of the map
+  const strip = document.getElementById('nearStrip');
+  L.DomEvent.disableClickPropagation(strip);
+  L.DomEvent.disableScrollPropagation(strip);
+  let stripDismissed = false;
+  function renderStrip(nearest) {
+    strip.innerHTML = '';
+    strip.hidden = stripDismissed || !nearest.length;
+    nearest.forEach(({ s, km }) => {
+      const info = OPERATOR_INFO[s.operator];
+      const card = document.createElement('div');
+      card.className = 'mini';
+      card.innerHTML = `<div class="top">${brandMark(s.operator)}<span class="op" style="color:${operatorColor[s.operator]}">${esc(s.operator)}</span>
+          <span class="km">${fmtDist(km)}</span></div>
+        <div class="v">${esc(s.name)}</div>
+        ${info ? `<div class="p">💶 ${esc(info.price)}</div>` : ''}`;
+      card.addEventListener('click', () => {
+        map.setView([s.lat, s.lng], 17);
+        markers.get(s.id).openPopup();
+      });
+      strip.appendChild(card);
+    });
+    const close = document.createElement('div');
+    close.className = 'mini close-card';
+    close.title = 'Hide list';
+    close.textContent = '✕';
+    close.addEventListener('click', () => { stripDismissed = true; strip.hidden = true; });
+    strip.appendChild(close);
+    strip.scrollLeft = 0;
+  }
+
   function setYou(lat, lng, accuracy) {
+    stripDismissed = false;
     you = { lat, lng };
     if (!youMarker) {
       youMarker = L.marker([lat, lng], {
