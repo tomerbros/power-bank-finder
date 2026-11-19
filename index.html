@@ -63,12 +63,22 @@
       .app { grid-template-columns: 1fr; grid-template-rows: 1fr auto; height: 100dvh; }
       aside { order: 2; border-right: 0; border-top: 1px solid var(--border); border-radius: 14px 14px 0 0;
         box-shadow: 0 -4px 16px rgba(0,0,0,.12); padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
-        max-height: 50dvh; overflow-y: auto; position: relative; z-index: 500; margin-top: -14px; background: var(--bg); }
+        max-height: 30dvh; overflow-y: auto; position: relative; z-index: 500; margin-top: -14px; background: var(--bg); }
       .brand, .hint { display: none; }
+      .sheet-head button.primary, button.filter-toggle { padding: 8px 12px; font-size: 14px; }
       button.filter-toggle { display: inline-block; }
-      .status { margin: 8px 2px 0; font-size: 12px; cursor: pointer; }
-      .sheet-body { display: none; padding-top: 10px; }
+      .status { margin: 6px 2px 0; font-size: 12px; cursor: pointer; }
+      .sheet-body { display: none; padding-top: 8px; }
       aside.open .sheet-body { display: block; }
+      /* One swipeable row of brand chips instead of a wrapping block */
+      .filters { flex-wrap: nowrap; overflow-x: auto; margin: 0 -12px 6px; padding: 0 12px 2px; scrollbar-width: none; }
+      .filters::-webkit-scrollbar { display: none; }
+      .chip { flex: none; padding: 3px 9px; font-size: 12px; }
+      .toggle { font-size: 12px; margin-bottom: 8px; }
+      ol.nearest { gap: 6px; }
+      .card { padding: 7px 10px; }
+      .card .name, .card .dist { font-size: 13px; }
+      .card a { margin-top: 3px; font-size: 12px; }
       .leaflet-control-attribution { font-size: 9px; opacity: .7; }
     }
   </style>
