@@ -179,7 +179,7 @@
     Buzz: '#f5b400', Juice: '#30a46c', Revive: '#e5484d', ICCXX: '#0090ff',
     Amlo: '#8e4ec6', AIRVALL: '#12a594', Wessview: '#f76b15', ChargeBuddies: '#d6409f',
     FireVolt: '#ff6a13', ANYWATT: '#e54666', VolterGy: '#3e63dd', Fully: '#46a758',
-    'Fast Charger': '#0d74ce'
+    'Fast Charger': '#0d74ce', Rechargy: '#6e56cf'
   };
   const FALLBACK_COLORS = ['#5b5bd6', '#978365', '#6e56cf'];
   // Icons downloaded from each operator's own website (scripts/fetch_logos.py)
@@ -187,7 +187,7 @@
     Buzz: 'logos/buzz.ico', Juice: 'logos/juice.png', Revive: 'logos/revive.svg', ICCXX: 'logos/iccxx.png',
     Amlo: 'logos/amlo.png', AIRVALL: 'logos/airvall.svg', Wessview: 'logos/wessview.png', ChargeBuddies: 'logos/chargebuddies.png',
     FireVolt: 'logos/firevolt.png', ANYWATT: 'logos/anywatt.ico', VolterGy: 'logos/voltergy.png', Fully: 'logos/fully.svg',
-    'Fast Charger': 'logos/fastcharger.svg'
+    'Fast Charger': 'logos/fastcharger.svg', Rechargy: 'logos/rechargy.webp'
   };
   // Consumer prices as published on each operator's website (checked 19 Nov 2026).
   // `price` is the headline; `extra` the small print. Operators that don't publish a price say where to see it.
@@ -207,12 +207,16 @@
     Fully: { price: '€2–3 / hour', extra: 'Price depends on the venue', site: 'https://www.fullygo.com/' },
     // United Kingdom
     'Fast Charger': { price: 'Price shown in the Fast Charger app', extra: 'Rent by scanning the station with the app', site: 'https://www.fastcharger.uk/' },
+    // Germany
+    Rechargy: { price: 'Price shown in the app or at the terminal', extra: 'Rent with a QR code · return at any Rechargy station', site: 'https://rechargy.de/standorte/' },
   };
   // Where an operator charges differently per country (keyed "operator:country")
   const OPERATOR_INFO_BY_COUNTRY = {
     'Buzz:ES': { price: '€1.99 / 30 min · max €10 / day', extra: 'Return at any Buzz station in the city', site: 'https://buzzpowerbanks.es/' },
     'Revive:ES': { price: 'Price shown in the Revive app', extra: 'Billed per started half hour', site: 'https://revivesharing.com/' },
     'Revive:GB': { price: 'Price shown in the Revive app', extra: 'Billed per started half hour', site: 'https://revivesharing.com/' },
+    'Juice:FR': { price: 'Price varies per location', extra: 'Shown on the station screen before you rent', site: 'https://getjuice.fr/' },
+    'Juice:DE': { price: 'Price varies per location', extra: 'Shown on the station screen before you rent', site: 'https://getjuice.nl/' },
   };
   // A station's own published price (FireVolt, Fully) beats the operator's general one
   function infoFor(s) {
@@ -240,7 +244,7 @@
   const STATUS_LABEL = { online: 'Online', offline: 'Offline / closed', unknown: 'Status unknown' };
 
   // Circle overlays (your accuracy ring) draw on canvas
-  const map = L.map('map', { preferCanvas: true }).fitBounds([[36.0, -9.3], [58.6, 7.23]]); // all countries (the default)
+  const map = L.map('map', { preferCanvas: true }).fitBounds([[36.0, -9.3], [58.6, 15.0]]); // all countries (the default)
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OSM</a>'
   }).addTo(map);
@@ -269,9 +273,11 @@
     NL: { name: 'Netherlands', flag: '🇳🇱', bounds: [[50.75, 3.36], [53.55, 7.23]] },
     ES: { name: 'Spain', flag: '🇪🇸', bounds: [[36.0, -9.3], [43.8, 4.3]] },  // mainland + Balearics
     GB: { name: 'United Kingdom', flag: '🇬🇧', bounds: [[50.0, -6.0], [58.6, 1.8]] },
+    FR: { name: 'France', flag: '🇫🇷', bounds: [[42.3, -4.8], [51.1, 8.2]] },
+    DE: { name: 'Germany', flag: '🇩🇪', bounds: [[47.3, 5.9], [55.1, 15.0]] },
   };
   const ALL = 'ALL';  // "All countries", the default
-  const ALL_COUNTRIES = { name: 'All countries', short: 'All', flag: '🌍', bounds: [[36.0, -9.3], [58.6, 7.23]] };
+  const ALL_COUNTRIES = { name: 'All countries', short: 'All', flag: '🌍', bounds: [[36.0, -9.3], [58.6, 15.0]] };
   let country = ALL;
   const inCountry = s => country === ALL || s.country === country;
   let markers = new Map();
