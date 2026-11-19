@@ -8,11 +8,10 @@
   <style>
     :root {
       --bg: #ffffff; --fg: #1a1a1a; --muted: #666; --card: #f6f6f7; --border: #e2e2e5;
-      --accent: #1f6feb; --you: #1f6feb; --warn-bg: #fff4ce; --warn-fg: #5c4400;
+      --accent: #1f6feb; --you: #1f6feb;
     }
     @media (prefers-color-scheme: dark) {
-      :root { --bg: #111214; --fg: #ececec; --muted: #9a9a9a; --card: #1b1c1f; --border: #2c2d31; --accent: #4c8dff;
-        --warn-bg: #3a3115; --warn-fg: #f3dc9b; }
+      :root { --bg: #111214; --fg: #ececec; --muted: #9a9a9a; --card: #1b1c1f; --border: #2c2d31; --accent: #4c8dff; }
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg);
@@ -22,7 +21,6 @@
     #map { height: 100%; }
     h1 { font-size: 18px; margin: 0 0 4px; }
     .sub { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
-    .note { background: var(--warn-bg); color: var(--warn-fg); border-radius: 8px; padding: 8px 10px; font-size: 12px; margin-bottom: 12px; }
     button.primary { width: 100%; padding: 10px; border: 0; border-radius: 8px; background: var(--accent);
       color: #fff; font-size: 15px; cursor: pointer; }
     .hint { color: var(--muted); font-size: 12px; margin: 6px 0 12px; }
@@ -52,24 +50,47 @@
     .logo-pin.offline { opacity: .45; filter: grayscale(1); }
     .you-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--you); border: 3px solid #fff;
       box-shadow: 0 0 0 6px rgba(31,111,235,.25); }
+    .sheet-head { display: flex; gap: 8px; }
+    .sheet-head button.primary { flex: 1; }
+    button.filter-toggle { display: none; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px;
+      background: var(--card); color: var(--fg); font-size: 15px; cursor: pointer; white-space: nowrap; }
+    button.filter-toggle .caret { display: inline-block; transition: transform .2s; }
+    aside.open button.filter-toggle .caret { transform: rotate(180deg); }
+    .status { margin-top: 10px; }
+    .leaflet-control-attribution { font-size: 10px; }
+    /* Phones: map fills the screen; the panel is a compact bar that opens into a filter sheet */
     @media (max-width: 760px) {
-      .app { grid-template-columns: 1fr; grid-template-rows: 55% 45%; }
-      aside { order: 2; border-right: 0; border-top: 1px solid var(--border); }
+      .app { grid-template-columns: 1fr; grid-template-rows: 1fr auto; height: 100dvh; }
+      aside { order: 2; border-right: 0; border-top: 1px solid var(--border); border-radius: 14px 14px 0 0;
+        box-shadow: 0 -4px 16px rgba(0,0,0,.12); padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+        max-height: 50dvh; overflow-y: auto; position: relative; z-index: 500; margin-top: -14px; background: var(--bg); }
+      .brand, .hint { display: none; }
+      button.filter-toggle { display: inline-block; }
+      .status { margin: 8px 2px 0; font-size: 12px; cursor: pointer; }
+      .sheet-body { display: none; padding-top: 10px; }
+      aside.open .sheet-body { display: block; }
+      .leaflet-control-attribution { font-size: 9px; opacity: .7; }
     }
   </style>
 </head>
 <body>
 <div class="app">
-  <aside>
-    <h1>Powerbank Radar</h1>
-    <p class="sub">Power bank rental stations from every brand, on one map.</p>
-    <div class="note">Prototype. Station locations come from each operator's public website and may be incomplete or out of date. Rent through the operator's own app or station.</div>
-    <button class="primary" id="locate">📍 Find stations near me</button>
-    <p class="hint">No location access? Click anywhere on the map to set your position.</p>
-    <div class="filters" id="filters"></div>
-    <label class="toggle"><input type="checkbox" id="hideOffline" checked> Hide stations reported offline / closed</label>
+  <aside id="panel">
+    <div class="brand">
+      <h1>Powerbank Radar</h1>
+      <p class="sub">Power bank rental stations from every brand, on one map.</p>
+    </div>
+    <div class="sheet-head">
+      <button class="primary" id="locate">📍 Find stations near me</button>
+      <button class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="sheetBody">Filters<span id="filterCount"></span> <span class="caret">▴</span></button>
+    </div>
     <div class="status" id="status">Loading stations…</div>
-    <ol class="nearest" id="nearest"></ol>
+    <div class="sheet-body" id="sheetBody">
+      <p class="hint">No location access? Click anywhere on the map to set your position.</p>
+      <div class="filters" id="filters"></div>
+      <label class="toggle"><input type="checkbox" id="hideOffline" checked> Hide stations reported offline / closed</label>
+      <ol class="nearest" id="nearest"></ol>
+    </div>
   </aside>
   <div id="map"></div>
 </div>
@@ -108,8 +129,23 @@
   // Canvas rendering keeps ~1,500 markers fast
   const map = L.map('map', { preferCanvas: true }).setView([52.2, 5.3], 8);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'
+    maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OSM</a>'
   }).addTo(map);
+  map.attributionControl.setPrefix(false); // drop the "Leaflet" credit; OSM credit is required by its tile policy
+
+  // Phone bottom sheet: tap "Filters" (or the status line) to open/close
+  const panel = document.getElementById('panel');
+  const filterToggle = document.getElementById('filterToggle');
+  function setSheet(open) {
+    panel.classList.toggle('open', open);
+    filterToggle.setAttribute('aria-expanded', open);
+    if (open) panel.scrollTop = 0;
+    setTimeout(() => map.invalidateSize(), 50);
+    if (stations.length) renderNearest();
+  }
+  filterToggle.addEventListener('click', () => setSheet(!panel.classList.contains('open')));
+  document.getElementById('status').addEventListener('click', () => setSheet(!panel.classList.contains('open')));
+  const isPhone = () => matchMedia('(max-width: 760px)').matches;
 
   let stations = [];
   let operatorColor = {};
@@ -185,6 +221,8 @@
   map.on('moveend zoomend', () => renderMarkers());
 
   function renderNearest() {
+    const total = Object.keys(operatorColor).length;
+    document.getElementById('filterCount').textContent = enabled.size < total ? ` (${enabled.size}/${total})` : '';
     const list = document.getElementById('nearest');
     const status = document.getElementById('status');
     list.innerHTML = '';
@@ -194,7 +232,10 @@
       .map(s => ({ s, km: haversineKm(you, s) }))
       .sort((a, b) => a.km - b.km)
       .slice(0, NEAREST_COUNT);
-    status.textContent = nearest.length ? `Nearest ${nearest.length} of ${visibleCount} stations:` : 'No stations for the selected brands.';
+    if (!nearest.length) status.textContent = 'No stations for the selected brands.';
+    else if (isPhone() && !panel.classList.contains('open'))
+      status.textContent = `Nearest: ${nearest[0].s.name} · ${fmtDist(nearest[0].km)} · tap for ${nearest.length} closest`;
+    else status.textContent = `Nearest ${nearest.length} of ${visibleCount} stations:`;
     nearest.forEach(({ s, km }) => {
       const li = document.createElement('li');
       li.className = 'card';
@@ -206,6 +247,7 @@
         <a href="${placeUrl(s)}" target="_blank" rel="noopener">View in Google Maps →</a>`;
       li.addEventListener('click', e => {
         if (e.target.tagName === 'A') return;
+        if (isPhone()) setSheet(false);
         map.setView([s.lat, s.lng], 17);
         markers.get(s.id).openPopup();
       });
