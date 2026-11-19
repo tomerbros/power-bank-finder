@@ -68,11 +68,21 @@
     .price-main { font-weight: 600; font-size: 13px; }
     .price-extra { font-size: 11px; color: var(--muted); margin-top: 2px; }
     .price-line { color: var(--fg); font-weight: 600; margin-top: 6px; }
+    .avail { font-size: 12px; margin-top: 6px; color: #145c2e; }
+    .avail.none { color: #8a1c17; }
+    .avail .asof { color: #888; }
+    .avail-chip { font-size: 11px; font-weight: 700; background: #d3f5df; color: #145c2e; border-radius: 4px; padding: 1px 5px; }
+    .avail-chip.none { background: #fde2e1; color: #8a1c17; }
     .place { margin-top: 8px; padding: 0 2px; }
     .place .venue { margin-top: 0; }
     .pdetails { display: flex; flex-wrap: wrap; gap: 4px 8px; margin-bottom: 6px; }
     .ptype { font-size: 12px; font-weight: 600; background: #eef3ff; color: #1f4fa8; border-radius: 999px; padding: 2px 8px; }
     .pnote { font-size: 12px; color: #444; padding: 2px 0; }
+    .hours { font-size: 12px; color: #444; display: inline-flex; align-items: center; gap: 4px; }
+    .open-pill { font-size: 11px; font-weight: 700; border-radius: 4px; padding: 1px 5px; }
+    .open-pill.is-open { background: #d3f5df; color: #145c2e; }
+    .open-pill.is-closed { background: #fde2e1; color: #8a1c17; }
+    .hours.muted { color: #888; }
     .links { display: flex; gap: 14px; flex-wrap: wrap; }
     .leaflet-popup-content { margin: 12px 14px; min-width: 220px; }
     .leaflet-popup-content .station { color: #1a1a1a; }
@@ -154,8 +164,7 @@
       </div>
       <div class="dd-panel" id="countryPanel" hidden></div>
       <div class="dd-panel" id="opPanel" hidden></div>
-      <div class="dd-panel" id="typePanel" hidden></div>
-      <label class="toggle"><input type="checkbox" id="hideOffline" checked> Hide stations reported offline / closed</label>
+      <div class="dd-panel" id="typePanel" hidden></div>      <label class="toggle"><input type="checkbox" id="hideOffline" checked> Hide stations reported offline / closed</label>
       <ol class="nearest" id="nearest"></ol>
     </div>
   </aside>
@@ -298,7 +307,20 @@
 
   const isVisible = s => inCountry(s) && enabled.has(s.operator) && enabledTypes.has(typeKey(s))
     && !(hideOffline.checked && s.status === 'offline');
-  const badge = s => `<span class="badge b-${s.status}">${STATUS_LABEL[s.status]}${s.available != null && s.status === 'online' ? ` · ${s.available} available` : ''}</span>`;
+  const badge = s => `<span class="badge b-${s.status}">${STATUS_LABEL[s.status]}</span>`;
+
+  // Power banks ready to rent and empty slots to return one, as counted when the data was downloaded
+  // (Juice, Amlo, FireVolt, ANYWATT, Fully publish this; it is not live)
+  let snapshot = {};
+  const fmtDay = iso => iso ? new Date(iso + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : '';
+  function availLine(s) {
+    if (s.available == null) return '';
+    const n = s.available, r = s.returnable;
+    const banks = `<b>${n}</b> power bank${n === 1 ? '' : 's'} available`;
+    const slots = r != null ? ` · ${r} free slot${r === 1 ? '' : 's'} to return` : '';
+    return `<div class="avail${n === 0 ? ' none' : ''}">🔋 ${banks}${slots}<span class="asof"> · as of ${fmtDay(snapshot[s.country])}</span></div>`;
+  }
+  const availChip = s => s.available == null ? '' : `<span class="avail-chip${s.available === 0 ? ' none' : ''}">🔋 ${s.available}</span>`;
   const precisionNote = s => s.precision === 'street' ? '<br><i>Approximate location (street level)</i>' : '';
 
   // Operator header: big logo + operator name in its brand colour
@@ -320,19 +342,53 @@
     'Temporary location (event)': '🎪', 'Sports club': '🎾', 'Hair salon': '💇', 'Shop': '🛍️',
   };
   const placeIcon = s => s.place_type ? (PLACE_ICONS[s.place_type] || '📍') : '';
-  function todaysHours(s) {
-    if (!s.opening_hours) return null;
-    const day = new Date().toLocaleDateString('en-US', { weekday: 'long' });
-    const line = s.opening_hours.find(h => h.startsWith(day + ':'));
-    return line ? line.slice(day.length + 1).trim() : null;
+  // ---- Opening hours ----
+  // s.schedule: 7 lists (Mon..Sun) of [open, close] minutes; close > 1440 = open past midnight.
+  // Times are the venue's local time (the Canary Islands are an hour behind the rest).
+  const zoneOf = s => (s.lat < 30 && s.lng < -13) ? 'Atlantic/Canary' : 'Europe/Amsterdam';
+  const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const nowCache = {};
+  function localNow(zone) {      // { day: 0=Mon..6=Sun, min: minutes after midnight }
+    const stamp = Math.floor(Date.now() / 60000);
+    if (nowCache[zone]?.stamp === stamp) return nowCache[zone];
+    const parts = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: zone, weekday: 'short',
+      hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date()).map(p => [p.type, p.value]));
+    return nowCache[zone] = { stamp, day: WEEKDAYS.indexOf(parts.weekday), min: +parts.hour * 60 + +parts.minute };
   }
+  const hhmm = m => `${String(Math.floor(m / 60) % 24).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
+
+  // { open, today: "09:00–04:00" | "Closed today", change: "closes 04:00" | "opens 10:00" | "opens Tue 10:00" }
+  // or null when the operator publishes no hours
+  function openState(s) {
+    if (!s.schedule) return null;
+    const { day, min } = localNow(zoneOf(s));
+    const today = s.schedule[day], yesterday = s.schedule[(day + 6) % 7];
+    const allDay = today.some(([a, b]) => a === 0 && b >= 1440);
+    const todayText = !today.length ? 'Closed today' : allDay ? 'Open 24 hours'
+      : today.map(([a, b]) => `${hhmm(a)}–${hhmm(b)}`).join(', ');
+    const late = yesterday.find(([, b]) => b > 1440 && min < b - 1440);   // still open from last night
+    if (late) return { open: true, today: todayText, change: `closes ${hhmm(late[1])}` };
+    const now = today.find(([a, b]) => a <= min && min < b);
+    if (now) return { open: true, today: todayText, change: allDay ? '' : `closes ${hhmm(now[1])}` };
+    const later = today.find(([a]) => a > min);
+    if (later) return { open: false, today: todayText, change: `opens ${hhmm(later[0])}` };
+    for (let k = 1; k <= 7; k++) {
+      const next = s.schedule[(day + k) % 7];
+      if (next.length) return { open: false, today: todayText,
+        change: `opens ${k === 1 ? 'tomorrow' : WEEKDAYS[(day + k) % 7]} ${hhmm(next[0][0])}` };
+    }
+    return { open: false, today: todayText, change: '' };
+  }
+  const openPill = st => st ? `<span class="open-pill ${st.open ? 'is-open' : 'is-closed'}">${st.open ? 'Open' : 'Closed'}</span>` : '';
+
   function placeDetails(s) {
     const rows = [];
     if (s.place_type) rows.push(`<span class="ptype">${placeIcon(s)} ${esc(s.place_type)}</span>`);
+    const st = openState(s);
+    rows.push(st
+      ? `<span class="hours">${openPill(st)} 🕒 ${esc(st.today)}${st.change ? ` · ${esc(st.change)}` : ''}</span>`
+      : `<span class="hours muted">🕒 Opening hours not published</span>`);
     if (s.placement_note) rows.push(`<span class="pnote">📌 ${esc(s.placement_note)}</span>`);
-    const hours = todaysHours(s);
-    if (hours) rows.push(`<span class="pnote">🕒 Today: ${esc(hours)}</span>`);
-    else if (s.hours) rows.push(`<span class="pnote">🕒 ${esc(s.hours)}</span>`);
     return rows.length ? `<div class="pdetails">${rows.join('')}</div>` : '';
   }
 
@@ -341,6 +397,7 @@
     const info = infoFor(s);
     return `<div class="station">${opHeader(s)}
       ${priceBox(s)}
+      ${availLine(s)}
       <div class="place">
         ${placeDetails(s)}
         <div class="venue">${esc(s.name)}</div>
@@ -466,6 +523,8 @@
   function openStation(s, zoom = 17) {
     const m = markers.get(s.id);
     map.setView([s.lat, s.lng], zoom);
+    // Right after a filter change the cluster layer is still adding markers in chunks; wait for it
+    if (!m.__parent) { setTimeout(() => cluster.hasLayer(m) && openStation(s, zoom), 300); return; }
     cluster.zoomToShowLayer(m, () => m.openPopup());
   }
 
@@ -493,8 +552,8 @@
       const info = infoFor(s);
       li.innerHTML = `
         <div class="row">${opHeader(s)}<span class="dist">${fmtDist(km)}</span></div>
-        ${info ? `<div class="meta price-line">💶 ${esc(info.price)}</div>` : ''}
-        <div class="venue">${placeIcon(s)} ${esc(s.name)}</div>
+        ${info ? `<div class="meta price-line">💶 ${esc(info.price)} ${availChip(s)}</div>` : ''}
+        <div class="venue">${openPill(openState(s))} ${placeIcon(s)} ${esc(s.name)}</div>
         <div class="meta">${esc(s.address)}${s.precision === 'street' ? ' (approximate)' : ''} · ~${walkMin(km)} min walk</div>
         <a href="${placeUrl(s)}" target="_blank" rel="noopener">View in Google Maps →</a>`;
       li.addEventListener('click', e => {
@@ -520,7 +579,7 @@
       card.className = 'mini';
       card.innerHTML = `<div class="top">${brandMark(s.operator)}<span class="op" style="color:${operatorColor[s.operator]}">${esc(s.operator)}</span>
           <span class="km">${fmtDist(km)}</span></div>
-        <div class="v">${placeIcon(s)} ${esc(s.name)}</div>
+        <div class="v">${openPill(openState(s))} ${availChip(s)} ${placeIcon(s)} ${esc(s.name)}</div>
         ${info ? `<div class="p">💶 ${esc(info.price)}</div>` : ''}`;
       card.addEventListener('click', () => openStation(s));
       strip.appendChild(card);
@@ -583,10 +642,15 @@
   map.on('click', e => setYou(e.latlng.lat, e.latlng.lng));
   hideOffline.addEventListener('change', () => { renderMarkers(); renderNearest(); });
 
+  // Venues open and close while the page is open: refresh the Open/Closed badges every minute
+  // (popups are rebuilt each time they open, so they're always current)
+  setInterval(() => { if (stations.length) renderNearest(); }, 60000);
+
   fetch('stations.json', { cache: 'no-cache' }) // revalidate so data updates show up right away
     .then(r => r.json())
     .then(data => {
       stations = data.stations;
+      snapshot = data.snapshot || {};
       [...new Set(stations.map(s => s.operator))].forEach((op, i) => {
         operatorColor[op] = OPERATOR_COLORS[op] || FALLBACK_COLORS[i % FALLBACK_COLORS.length];
         enabled.add(op);
