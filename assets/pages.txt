@@ -32,6 +32,9 @@ italy/naples/index.html
 italy/palermo/index.html
 italy/rome/index.html
 italy/smaller-towns/index.html
+luxembourg/index.html
+luxembourg/luxembourg-city/index.html
+luxembourg/smaller-towns/index.html
 netherlands/alkmaar/index.html
 netherlands/almere/index.html
 netherlands/amersfoort/index.html

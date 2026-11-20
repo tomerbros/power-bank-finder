@@ -1,6 +1,6 @@
 # Powerbank Radar
 
-> A free map of power bank rental stations from every operator: 4,981 stations from 17 operators in 8 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-20). Independent, not affiliated with the operators.
+> A free map of power bank rental stations from every operator: 5,019 stations from 17 operators in 9 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-20). Independent, not affiliated with the operators.
 
 ## Main pages
 
@@ -22,6 +22,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Italy](https://www.powerbankradar.com/italy/): 368 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
 - [Germany](https://www.powerbankradar.com/germany/): 257 stations ([smaller towns](https://www.powerbankradar.com/germany/smaller-towns/))
 - [Israel](https://www.powerbankradar.com/israel/): 156 stations ([smaller towns](https://www.powerbankradar.com/israel/smaller-towns/))
+- [Luxembourg](https://www.powerbankradar.com/luxembourg/): 38 stations ([smaller towns](https://www.powerbankradar.com/luxembourg/smaller-towns/))
 - [France](https://www.powerbankradar.com/france/): 33 stations ([smaller towns](https://www.powerbankradar.com/france/smaller-towns/))
 - [Switzerland](https://www.powerbankradar.com/switzerland/): 3 stations ([smaller towns](https://www.powerbankradar.com/switzerland/smaller-towns/))
 
@@ -105,12 +106,13 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Ramat Gan, Israel](https://www.powerbankradar.com/israel/ramat-gan/): 7 stations
 - [Holon, Israel](https://www.powerbankradar.com/israel/holon/): 6 stations
 - [Eilat, Israel](https://www.powerbankradar.com/israel/eilat/): 6 stations
+- [Luxembourg City, Luxembourg](https://www.powerbankradar.com/luxembourg/luxembourg-city/): 34 stations
 - [Paris, France](https://www.powerbankradar.com/france/paris/): 24 stations
 
 ## Operators
 
 - [FireVolt](https://www.powerbankradar.com/operators/firevolt/): 1,040 stations
-- [Revive](https://www.powerbankradar.com/operators/revive/): 727 stations
+- [Revive](https://www.powerbankradar.com/operators/revive/): 765 stations
 - [Fast Charger](https://www.powerbankradar.com/operators/fast-charger/): 604 stations
 - [Juice](https://www.powerbankradar.com/operators/juice/): 561 stations
 - [Buzz](https://www.powerbankradar.com/operators/buzz/): 557 stations
