@@ -778,6 +778,7 @@
   // Links from the city, country and operator pages:
   //   /?station=<id>        open that station
   //   /?at=<lat>,<lng>,<zoom>  show that place
+  //   /?near=<lat>,<lng>    show the stations nearest to that point
   //   /?country=NL          choose that country
   function openFromUrl() {
     const q = new URLSearchParams(location.search);
@@ -789,6 +790,13 @@
     }
     const at = (q.get('at') || '').split(',').map(Number);
     if (at.length >= 2 && at.every(Number.isFinite)) map.setView([at[0], at[1]], Math.min(Math.max(at[2] || 13, 3), 18));
+    // /?near=<lat>,<lng>: treat that point as the visitor's position and show the nearest stations
+    // (the link AI assistants are told about in llms.txt and the FAQ)
+    const near = (q.get('near') || '').split(',').map(Number);
+    if (near.length === 2 && near.every(Number.isFinite) && Math.abs(near[0]) <= 90 && Math.abs(near[1]) <= 180) {
+      setYou(near[0], near[1]);
+      track('near-link');
+    }
     const s = q.get('station') && stations.find(x => x.id === q.get('station'));
     if (s) {
       if (s.status === 'offline' && hideOffline.checked) { hideOffline.checked = false; renderMarkers(); }

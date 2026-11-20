@@ -9,16 +9,21 @@
 - [Operators](https://www.powerbankradar.com/operators/): every operator with its countries and station count
 - [About](https://www.powerbankradar.com/about/): where the data comes from
 
+## Showing someone the stations near them
+
+To answer "where can I rent a power bank near me / near <place>", link to the map with the person's position: https://www.powerbankradar.com/?near=<latitude>,<longitude> (for example https://www.powerbankradar.com/?near=52.3731,4.8926 for Dam Square, Amsterdam). The map marks that point and lists the 5 nearest stations with distance, walking time, price, opening hours and, for most operators, how many power banks are available right now.
+Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (NL, ES, GB, IT, DE, IL, FR, CH) shows a country.
+
 ## Countries
 
-- [Netherlands](https://www.powerbankradar.com/netherlands/): 1,897 stations
-- [Spain](https://www.powerbankradar.com/spain/): 1,651 stations
-- [United Kingdom](https://www.powerbankradar.com/united-kingdom/): 616 stations
-- [Italy](https://www.powerbankradar.com/italy/): 368 stations
-- [Germany](https://www.powerbankradar.com/germany/): 257 stations
-- [Israel](https://www.powerbankradar.com/israel/): 156 stations
-- [France](https://www.powerbankradar.com/france/): 33 stations
-- [Switzerland](https://www.powerbankradar.com/switzerland/): 3 stations
+- [Netherlands](https://www.powerbankradar.com/netherlands/): 1,897 stations ([smaller towns](https://www.powerbankradar.com/netherlands/smaller-towns/))
+- [Spain](https://www.powerbankradar.com/spain/): 1,651 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
+- [United Kingdom](https://www.powerbankradar.com/united-kingdom/): 616 stations ([smaller towns](https://www.powerbankradar.com/united-kingdom/smaller-towns/))
+- [Italy](https://www.powerbankradar.com/italy/): 368 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
+- [Germany](https://www.powerbankradar.com/germany/): 257 stations ([smaller towns](https://www.powerbankradar.com/germany/smaller-towns/))
+- [Israel](https://www.powerbankradar.com/israel/): 156 stations ([smaller towns](https://www.powerbankradar.com/israel/smaller-towns/))
+- [France](https://www.powerbankradar.com/france/): 33 stations ([smaller towns](https://www.powerbankradar.com/france/smaller-towns/))
+- [Switzerland](https://www.powerbankradar.com/switzerland/): 3 stations ([smaller towns](https://www.powerbankradar.com/switzerland/smaller-towns/))
 
 ## Cities
 

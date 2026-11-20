@@ -3,6 +3,7 @@ contact/index.html
 faq/index.html
 france/index.html
 france/paris/index.html
+france/smaller-towns/index.html
 germany/berlin/index.html
 germany/dortmund/index.html
 germany/essen/index.html
@@ -10,6 +11,7 @@ germany/hamburg/index.html
 germany/index.html
 germany/karlsruhe/index.html
 germany/ravensburg/index.html
+germany/smaller-towns/index.html
 israel/bat-yam/index.html
 israel/eilat/index.html
 israel/haifa/index.html
@@ -19,6 +21,7 @@ israel/jerusalem/index.html
 israel/netanya/index.html
 israel/ramat-gan/index.html
 israel/rishon-lezion/index.html
+israel/smaller-towns/index.html
 israel/tel-aviv/index.html
 italy/catania/index.html
 italy/index.html
@@ -28,6 +31,7 @@ italy/milan/index.html
 italy/naples/index.html
 italy/palermo/index.html
 italy/rome/index.html
+italy/smaller-towns/index.html
 netherlands/alkmaar/index.html
 netherlands/almere/index.html
 netherlands/amersfoort/index.html
@@ -51,6 +55,7 @@ netherlands/leiden/index.html
 netherlands/maastricht/index.html
 netherlands/nijmegen/index.html
 netherlands/rotterdam/index.html
+netherlands/smaller-towns/index.html
 netherlands/the-hague/index.html
 netherlands/tilburg/index.html
 netherlands/utrecht/index.html
@@ -96,14 +101,17 @@ spain/palma-de-mallorca/index.html
 spain/santa-cruz-de-tenerife/index.html
 spain/santander/index.html
 spain/seville/index.html
+spain/smaller-towns/index.html
 spain/torremolinos/index.html
 spain/torrevieja/index.html
 spain/valencia/index.html
 switzerland/index.html
+switzerland/smaller-towns/index.html
 united-kingdom/canterbury/index.html
 united-kingdom/index.html
 united-kingdom/london/index.html
 united-kingdom/oxford/index.html
 united-kingdom/reading/index.html
 united-kingdom/sheffield/index.html
+united-kingdom/smaller-towns/index.html
 united-kingdom/st-albans/index.html
