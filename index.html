@@ -136,7 +136,10 @@
       background: var(--card); color: var(--fg); font-size: 15px; cursor: pointer; white-space: nowrap; }
     aside.open button.filter-toggle .caret { transform: rotate(180deg); }
     .status { margin-top: 10px; }
-    .leaflet-control-attribution { font-size: 10px; }
+    /* OpenStreetMap's licence requires the map credit to stay visible; kept as faint as is still readable */
+    .leaflet-container .leaflet-control-attribution { font-size: 9px; padding: 0 4px; background: transparent;
+      opacity: .55; line-height: 1.4; }
+    .leaflet-container .leaflet-control-attribution a { color: inherit; text-decoration: none; }
     .status:empty { display: none; }
     /* Phones: map fills the screen; the panel is a compact bar that opens into a filter sheet */
     @media (max-width: 760px) {
@@ -158,7 +161,6 @@
       .card { padding: 7px 10px; }
       .card .name, .card .dist { font-size: 13px; }
       .card a { margin-top: 3px; font-size: 12px; }
-      .leaflet-control-attribution { font-size: 9px; opacity: .7; }
       /* Nearest stations float above the bar as a slim strip of cards, so the sheet stays closed */
       .sheet-body .nearest { display: none; }
       .near-strip:not([hidden]) { display: flex; }
