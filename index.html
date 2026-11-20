@@ -137,6 +137,7 @@
     aside.open button.filter-toggle .caret { transform: rotate(180deg); }
     .status { margin-top: 10px; }
     .leaflet-control-attribution { font-size: 10px; }
+    .status:empty { display: none; }
     /* Phones: map fills the screen; the panel is a compact bar that opens into a filter sheet */
     @media (max-width: 760px) {
       .app { grid-template-columns: 1fr; grid-template-rows: 1fr auto; height: 100dvh; }
@@ -650,7 +651,7 @@
     const status = document.getElementById('status');
     list.innerHTML = '';
     const visibleCount = stations.filter(isVisible).length;
-    if (!you) { status.textContent = `${visibleCount} stations shown. Set your location to see the nearest ones.`; return; }
+    if (!you) { status.textContent = ''; return; }   // nothing to say until a location is set; the line hides when empty
     const NEAR_LIMIT_KM = 100; // farther than this isn't "near you" (e.g. browsing Spain from the Netherlands)
     const nearest = stations.filter(isVisible)
       .map(s => ({ s, km: haversineKm(you, s) }))
