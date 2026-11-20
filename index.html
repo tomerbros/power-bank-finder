@@ -3,7 +3,27 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Powerbank Radar</title>
+  <title>Powerbank Radar: find a power bank to rent near you</title>
+  <meta name="description" content="Map of power bank rental stations from every operator in one place: Netherlands, Spain, UK, Italy, Germany, Israel, France and Switzerland. See prices, opening hours and live availability." />
+  <link rel="canonical" href="https://www.powerbankradar.com/" />
+  <meta name="theme-color" content="#1f6feb" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Powerbank Radar" />
+  <meta property="og:title" content="Powerbank Radar: find a power bank to rent near you" />
+  <meta property="og:description" content="Every power bank rental station on one map, with prices, opening hours and live availability." />
+  <meta property="og:url" content="https://www.powerbankradar.com/" />
+  <meta name="twitter:card" content="summary" />
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@graph": [
+    {"@type": "WebSite", "@id": "https://www.powerbankradar.com/#website", "name": "Powerbank Radar", "url": "https://www.powerbankradar.com/",
+     "description": "A map of power bank rental stations from every operator, with prices, opening hours and live availability."},
+    {"@type": "Organization", "@id": "https://www.powerbankradar.com/#org", "name": "Powerbank Radar", "url": "https://www.powerbankradar.com/",
+     "logo": "https://www.powerbankradar.com/favicon.svg"}
+  ]}
+  </script>
+  <!-- analytics: written by scripts/build_pages.py from scripts/site_config.json -->
+  <!-- /analytics -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
   <style>
@@ -45,6 +65,9 @@
     .toggle { display: flex; align-items: center; gap: 6px; font-size: 13px; margin-bottom: 12px; cursor: pointer; }
     .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
     .status { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    .site-links { margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); }
+    .site-links p { margin: 6px 0; line-height: 1.7; }
+    .site-links a { color: var(--accent); text-decoration: none; }
     ol.nearest { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
     .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; cursor: pointer; }
     .card .row { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
@@ -167,6 +190,12 @@
       <div class="dd-panel" id="opPanel" hidden></div>
       <div class="dd-panel" id="typePanel" hidden></div>      <label class="toggle"><input type="checkbox" id="hideOffline" checked> Hide stations reported offline / closed</label>
       <ol class="nearest" id="nearest"></ol>
+      <nav class="site-links" aria-label="More">
+        <!-- countries: written by scripts/build_pages.py -->
+        <p>Power bank rental in: <a href="/netherlands/">🇳🇱 Netherlands</a> · <a href="/spain/">🇪🇸 Spain</a> · <a href="/united-kingdom/">🇬🇧 United Kingdom</a> · <a href="/italy/">🇮🇹 Italy</a> · <a href="/germany/">🇩🇪 Germany</a> · <a href="/israel/">🇮🇱 Israel</a> · <a href="/france/">🇫🇷 France</a> · <a href="/switzerland/">🇨🇭 Switzerland</a></p>
+        <!-- /countries -->
+        <p><a href="/faq/">FAQ</a> · <a href="/operators/">Operators</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/privacy/">Privacy</a></p>
+      </nav>
     </div>
   </aside>
   <div id="map"><div class="near-strip" id="nearStrip" hidden></div></div>
@@ -175,56 +204,18 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <script>
-  const OPERATOR_COLORS = {
-    Buzz: '#f5b400', Juice: '#30a46c', Revive: '#e5484d', ICCXX: '#0090ff',
-    Amlo: '#8e4ec6', AIRVALL: '#12a594', Wessview: '#f76b15', ChargeBuddies: '#d6409f',
-    FireVolt: '#ff6a13', ANYWATT: '#e54666', VolterGy: '#3e63dd', Fully: '#46a758',
-    'Fast Charger': '#0d74ce', Rechargy: '#6e56cf', 'Dead Batt': '#7cb518',
-    Mobbi: '#1a1a1a', 'Recharge.me': '#e5484d'
-  };
+  // Operator colours, logos and prices live in operators.json, shared with the generated pages
+  // (scripts/build_pages.py). Filled in before the stations load.
+  let OPERATOR_COLORS = {}, LOGOS = {}, OPERATOR_INFO = {}, OPERATOR_INFO_BY_COUNTRY = {};
   const FALLBACK_COLORS = ['#5b5bd6', '#978365', '#6e56cf'];
-  // Icons downloaded from each operator's own website (scripts/fetch_logos.py)
-  const LOGOS = {
-    Buzz: 'logos/buzz.ico', Juice: 'logos/juice.png', Revive: 'logos/revive.svg', ICCXX: 'logos/iccxx.png',
-    Amlo: 'logos/amlo.png', AIRVALL: 'logos/airvall.svg', Wessview: 'logos/wessview.png', ChargeBuddies: 'logos/chargebuddies.png',
-    FireVolt: 'logos/firevolt.png', ANYWATT: 'logos/anywatt.ico', VolterGy: 'logos/voltergy.png', Fully: 'logos/fully.svg',
-    'Fast Charger': 'logos/fastcharger.svg', Rechargy: 'logos/rechargy.webp', 'Dead Batt': 'logos/deadbatt.png',
-    Mobbi: 'logos/mobbi.png', 'Recharge.me': 'logos/rechargeme.png'
-  };
-  // Consumer prices as published on each operator's website (checked 19 Nov 2026).
-  // `price` is the headline; `extra` the small print. Operators that don't publish a price say where to see it.
-  const OPERATOR_INFO = {
-    Buzz: { price: '€3 / hour · max €9 / day', extra: '€30 deposit, refunded on return · 33% cheaper in the Buzz app', site: 'https://buzzpowerbanks.nl/' },
-    Juice: { price: 'Price varies per location', extra: 'Shown on the station screen before you rent · deposit held on your card', site: 'https://getjuice.nl/' },
-    Revive: { price: 'Price shown in the Revive app', extra: 'Billed per started half hour', site: 'https://revivesharing.com/nl/en' },
-    Amlo: { price: '€2.50 / hour', extra: 'Rent by scanning the QR code on the station', site: 'https://amlo.nl/' },
-    ICCXX: { price: 'Max €3 per day', extra: 'Unused deposit is refunded', site: 'https://iccxx.nl/' },
-    AIRVALL: { price: '€4 per 24 hours', extra: 'No hourly rate · no deposit in the app, deposit when paying by card', site: 'https://www.airvall.nl/' },
-    Wessview: { price: '€2 / 30 min · max €10 / day', extra: '€20 deposit, refunded minus the rental', site: 'https://wessview.nl/' },
-    ChargeBuddies: { price: '€2 first hour, then per minute', extra: '+ €0.50 unlock fee', site: 'https://chargebuddies.nl/prijzen' },
-    // Spain
-    FireVolt: { price: 'Price varies per station', extra: 'Shown on the station before you rent', site: 'https://www.firevolt.com/en/' },
-    ANYWATT: { price: 'Price shown at the station', extra: 'Deposit pre-authorised on your card · pay only for the time used', site: 'https://anywatt.es/' },
-    VolterGy: { price: '€1.75 / 30 min · max €8.75 / day', extra: 'First 5 min free · €19 deposit, refunded within 48 h', site: 'https://voltergy.es/' },
-    Fully: { price: '€2–3 / hour', extra: 'Price depends on the venue', site: 'https://www.fullygo.com/' },
-    // United Kingdom
-    'Fast Charger': { price: 'Price shown in the Fast Charger app', extra: 'Rent by scanning the station with the app', site: 'https://www.fastcharger.uk/' },
-    // Germany
-    Rechargy: { price: 'Price shown in the app or at the terminal', extra: 'Rent with a QR code · return at any Rechargy station', site: 'https://rechargy.de/standorte/' },
-    // Israel
-    'Dead Batt': { price: '₪15 / hour · max ₪30 / 24 h', extra: 'No app: tap your card or phone on the station · return at any Dead Batt station', site: 'https://dead-batt.com/stations' },
-    // Italy
-    Mobbi: { price: '€1 / 30 min', extra: 'First 3 min free · rent by scanning the QR code', site: 'https://www.mobbi.it/' },
-    'Recharge.me': { price: 'Price shown on the station screen', extra: 'Pay only for the time you use', site: 'https://rechargeme.app/' },
-  };
-  // Where an operator charges differently per country (keyed "operator:country")
-  const OPERATOR_INFO_BY_COUNTRY = {
-    'Buzz:ES': { price: '€1.99 / 30 min · max €10 / day', extra: 'Return at any Buzz station in the city', site: 'https://buzzpowerbanks.es/' },
-    'Revive:ES': { price: 'Price shown in the Revive app', extra: 'Billed per started half hour', site: 'https://revivesharing.com/' },
-    'Revive:GB': { price: 'Price shown in the Revive app', extra: 'Billed per started half hour', site: 'https://revivesharing.com/' },
-    'Juice:FR': { price: 'Price varies per location', extra: 'Shown on the station screen before you rent', site: 'https://getjuice.fr/' },
-    'Juice:DE': { price: 'Price varies per location', extra: 'Shown on the station screen before you rent', site: 'https://getjuice.nl/' },
-  };
+  function loadOperators(data) {
+    Object.entries(data.operators).forEach(([op, o]) => {
+      OPERATOR_COLORS[op] = o.color;
+      if (o.logo) LOGOS[op] = o.logo;
+      OPERATOR_INFO[op] = { price: o.price, extra: o.extra, site: o.site };
+    });
+    OPERATOR_INFO_BY_COUNTRY = data.by_country || {};
+  }
   // A station's own published price (FireVolt, Fully) beats the operator's general one
   function infoFor(s) {
     const base = OPERATOR_INFO_BY_COUNTRY[`${s.operator}:${s.country}`] || OPERATOR_INFO[s.operator];
@@ -498,8 +489,8 @@
         <div class="addr">${esc(s.address)}${precisionNote(s)}</div>
         ${km != null ? `<div class="walk"><b>${fmtDist(km)}</b> · ~${walkMin(km)} min walk</div>` : ''}
       </div>
-      <div class="links"><a href="${placeUrl(s)}" target="_blank" rel="noopener">View in Google Maps →</a>
-      ${info ? `<a href="${info.site}" target="_blank" rel="noopener">${esc(s.operator)} website</a>` : ''}</div></div>`;
+      <div class="links"><a href="${placeUrl(s)}" target="_blank" rel="noopener" data-track="maps" data-op="${esc(s.operator)}">View in Google Maps →</a>
+      ${info ? `<a href="${info.site}" target="_blank" rel="noopener" data-track="operator-site" data-op="${esc(s.operator)}">${esc(s.operator)} website</a>` : ''}</div></div>`;
   }
 
   // Filter dropdowns: only one open at a time
@@ -539,6 +530,7 @@
       label.innerHTML = `<input type="radio" name="country" ${code === country ? 'checked' : ''}>${c.flag} ${esc(c.name)}<span class="count">${n}</span>`;
       label.querySelector('input').addEventListener('change', () => {
         country = code;
+        track('country', { country: code });
         if (c.bounds) map.fitBounds(c.bounds);
         renderFilters(); applyFilters();
       });
@@ -649,7 +641,7 @@
         ${info ? `<div class="meta price-line">💶 ${esc(info.price)} ${availChip(s)}</div>` : ''}
         <div class="venue">${openPill(openState(s))} ${placeIcon(s)} ${esc(s.name)}</div>
         <div class="meta">${esc(s.address)}${s.precision === 'street' ? ' (approximate)' : ''} · ~${walkMin(km)} min walk</div>
-        <a href="${placeUrl(s)}" target="_blank" rel="noopener">View in Google Maps →</a>`;
+        <a href="${placeUrl(s)}" target="_blank" rel="noopener" data-track="maps" data-op="${esc(s.operator)}">View in Google Maps →</a>`;
       li.addEventListener('click', e => {
         if (e.target.tagName === 'A') return;
         if (isPhone()) setSheet(false);
@@ -726,6 +718,7 @@
     const status = document.getElementById('status');
     if (!navigator.geolocation) { status.textContent = 'Your browser does not support location. Click on the map instead.'; return; }
     status.textContent = 'Finding your location…';
+    track('locate');
     navigator.geolocation.getCurrentPosition(
       p => setYou(p.coords.latitude, p.coords.longitude, p.coords.accuracy),
       () => { status.textContent = 'Location unavailable or denied. Click on the map to set your position.'; },
@@ -740,9 +733,39 @@
   // (popups are rebuilt each time they open, so they're always current)
   setInterval(() => { if (stations.length) renderNearest(); }, 60000);
 
-  fetch('stations.json', { cache: 'no-cache' }) // revalidate so data updates show up right away
-    .then(r => r.json())
-    .then(data => {
+  // Visit statistics (Umami, no cookies). Does nothing until the Umami script is configured
+  // in scripts/site_config.json, or when a visitor blocks it.
+  function track(name, data) { try { window.umami?.track(name, data); } catch { /* never break the map */ } }
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[data-track]');
+    if (a) track(a.dataset.track, a.dataset.op ? { operator: a.dataset.op } : undefined);
+  });
+
+  // Links from the city, country and operator pages:
+  //   /?station=<id>        open that station
+  //   /?at=<lat>,<lng>,<zoom>  show that place
+  //   /?country=NL          choose that country
+  function openFromUrl() {
+    const q = new URLSearchParams(location.search);
+    const code = (q.get('country') || '').toUpperCase();
+    if (COUNTRIES[code]) {
+      country = code;
+      map.fitBounds(COUNTRIES[code].bounds);
+      renderFilters(); applyFilters();
+    }
+    const at = (q.get('at') || '').split(',').map(Number);
+    if (at.length >= 2 && at.every(Number.isFinite)) map.setView([at[0], at[1]], Math.min(Math.max(at[2] || 13, 3), 18));
+    const s = q.get('station') && stations.find(x => x.id === q.get('station'));
+    if (s) {
+      if (s.status === 'offline' && hideOffline.checked) { hideOffline.checked = false; renderMarkers(); }
+      openStation(s);
+    }
+  }
+
+  // revalidate so data updates show up right away
+  Promise.all(['operators.json', 'stations.json'].map(f => fetch(f, { cache: 'no-cache' }).then(r => r.json())))
+    .then(([ops, data]) => {
+      loadOperators(ops);
       stations = data.stations;
       snapshot = data.snapshot || {};
       [...new Set(stations.map(s => s.operator))].forEach((op, i) => {
@@ -752,10 +775,12 @@
       allTypes().forEach(t => enabledTypes.add(t));
       stations.forEach(s => {
         const m = L.marker([s.lat, s.lng], { title: `${s.operator}: ${s.name}`, icon: logoIcon(s) }).bindPopup(() => popupHtml(s));
+        m.on('popupopen', () => track('station-open', { operator: s.operator, country: s.country }));
         if (LIVE_SOURCES[s.operator]) m.on('popupopen', () => refreshLive(s, m));
         markers.set(s.id, m);
       });
       renderFilters(); renderMarkers(); renderNearest();
+      openFromUrl();
     })
     .catch(() => { document.getElementById('status').textContent = 'Could not load station data.'; });
 </script>

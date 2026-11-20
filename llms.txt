@@ -1,0 +1,123 @@
+# Powerbank Radar
+
+> A free map of power bank rental stations from every operator: 4,974 stations from 17 operators in 8 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-19). Independent, not affiliated with the operators.
+
+## Main pages
+
+- [Map](https://www.powerbankradar.com/): find the nearest power bank rental station
+- [FAQ](https://www.powerbankradar.com/faq/): how power bank rental works, prices, returns
+- [Operators](https://www.powerbankradar.com/operators/): every operator with its countries and station count
+- [About](https://www.powerbankradar.com/about/): where the data comes from
+
+## Countries
+
+- [Netherlands](https://www.powerbankradar.com/netherlands/): 1,895 stations
+- [Spain](https://www.powerbankradar.com/spain/): 1,646 stations
+- [United Kingdom](https://www.powerbankradar.com/united-kingdom/): 616 stations
+- [Italy](https://www.powerbankradar.com/italy/): 368 stations
+- [Germany](https://www.powerbankradar.com/germany/): 257 stations
+- [Israel](https://www.powerbankradar.com/israel/): 156 stations
+- [France](https://www.powerbankradar.com/france/): 33 stations
+- [Switzerland](https://www.powerbankradar.com/switzerland/): 3 stations
+
+## Cities
+
+- [Amsterdam, Netherlands](https://www.powerbankradar.com/netherlands/amsterdam/): 537 stations
+- [Rotterdam, Netherlands](https://www.powerbankradar.com/netherlands/rotterdam/): 186 stations
+- [The Hague, Netherlands](https://www.powerbankradar.com/netherlands/the-hague/): 143 stations
+- [Utrecht, Netherlands](https://www.powerbankradar.com/netherlands/utrecht/): 95 stations
+- [Eindhoven, Netherlands](https://www.powerbankradar.com/netherlands/eindhoven/): 42 stations
+- [Zandvoort, Netherlands](https://www.powerbankradar.com/netherlands/zandvoort/): 25 stations
+- [Haarlem, Netherlands](https://www.powerbankradar.com/netherlands/haarlem/): 22 stations
+- [Enschede, Netherlands](https://www.powerbankradar.com/netherlands/enschede/): 22 stations
+- [Breda, Netherlands](https://www.powerbankradar.com/netherlands/breda/): 21 stations
+- [Maastricht, Netherlands](https://www.powerbankradar.com/netherlands/maastricht/): 21 stations
+- [Almere, Netherlands](https://www.powerbankradar.com/netherlands/almere/): 21 stations
+- [Amstelveen, Netherlands](https://www.powerbankradar.com/netherlands/amstelveen/): 21 stations
+- [Groningen, Netherlands](https://www.powerbankradar.com/netherlands/groningen/): 21 stations
+- [Den Bosch, Netherlands](https://www.powerbankradar.com/netherlands/den-bosch/): 20 stations
+- [Leiden, Netherlands](https://www.powerbankradar.com/netherlands/leiden/): 20 stations
+- [Zwolle, Netherlands](https://www.powerbankradar.com/netherlands/zwolle/): 18 stations
+- [Zaandam, Netherlands](https://www.powerbankradar.com/netherlands/zaandam/): 17 stations
+- [Amersfoort, Netherlands](https://www.powerbankradar.com/netherlands/amersfoort/): 17 stations
+- [Tilburg, Netherlands](https://www.powerbankradar.com/netherlands/tilburg/): 15 stations
+- [Hoofddorp, Netherlands](https://www.powerbankradar.com/netherlands/hoofddorp/): 15 stations
+- [Leeuwarden, Netherlands](https://www.powerbankradar.com/netherlands/leeuwarden/): 15 stations
+- [Alkmaar, Netherlands](https://www.powerbankradar.com/netherlands/alkmaar/): 15 stations
+- [Delft, Netherlands](https://www.powerbankradar.com/netherlands/delft/): 13 stations
+- [Nijmegen, Netherlands](https://www.powerbankradar.com/netherlands/nijmegen/): 11 stations
+- [Dordrecht, Netherlands](https://www.powerbankradar.com/netherlands/dordrecht/): 9 stations
+- [Hilversum, Netherlands](https://www.powerbankradar.com/netherlands/hilversum/): 8 stations
+- [Den Helder, Netherlands](https://www.powerbankradar.com/netherlands/den-helder/): 8 stations
+- [Arnhem, Netherlands](https://www.powerbankradar.com/netherlands/arnhem/): 6 stations
+- [Valencia, Spain](https://www.powerbankradar.com/spain/valencia/): 249 stations
+- [Barcelona, Spain](https://www.powerbankradar.com/spain/barcelona/): 177 stations
+- [Marbella, Spain](https://www.powerbankradar.com/spain/marbella/): 126 stations
+- [Benidorm, Spain](https://www.powerbankradar.com/spain/benidorm/): 126 stations
+- [Ibiza, Spain](https://www.powerbankradar.com/spain/ibiza/): 124 stations
+- [Madrid, Spain](https://www.powerbankradar.com/spain/madrid/): 97 stations
+- [Alicante, Spain](https://www.powerbankradar.com/spain/alicante/): 73 stations
+- [Palma de Mallorca, Spain](https://www.powerbankradar.com/spain/palma-de-mallorca/): 66 stations
+- [Costa Adeje, Spain](https://www.powerbankradar.com/spain/costa-adeje/): 45 stations
+- [Santa Cruz de Tenerife, Spain](https://www.powerbankradar.com/spain/santa-cruz-de-tenerife/): 38 stations
+- [Santander, Spain](https://www.powerbankradar.com/spain/santander/): 33 stations
+- [Estepona, Spain](https://www.powerbankradar.com/spain/estepona/): 32 stations
+- [Málaga, Spain](https://www.powerbankradar.com/spain/malaga/): 30 stations
+- [Bilbao, Spain](https://www.powerbankradar.com/spain/bilbao/): 20 stations
+- [Fuengirola, Spain](https://www.powerbankradar.com/spain/fuengirola/): 18 stations
+- [Torremolinos, Spain](https://www.powerbankradar.com/spain/torremolinos/): 17 stations
+- [Seville, Spain](https://www.powerbankradar.com/spain/seville/): 16 stations
+- [Lloret de Mar, Spain](https://www.powerbankradar.com/spain/lloret-de-mar/): 15 stations
+- [Calp, Spain](https://www.powerbankradar.com/spain/calp/): 12 stations
+- [Benalmádena, Spain](https://www.powerbankradar.com/spain/benalmadena/): 9 stations
+- [Torrevieja, Spain](https://www.powerbankradar.com/spain/torrevieja/): 5 stations
+- [Dénia, Spain](https://www.powerbankradar.com/spain/denia/): 5 stations
+- [London, United Kingdom](https://www.powerbankradar.com/united-kingdom/london/): 518 stations
+- [Sheffield, United Kingdom](https://www.powerbankradar.com/united-kingdom/sheffield/): 13 stations
+- [Reading, United Kingdom](https://www.powerbankradar.com/united-kingdom/reading/): 12 stations
+- [St Albans, United Kingdom](https://www.powerbankradar.com/united-kingdom/st-albans/): 6 stations
+- [Oxford, United Kingdom](https://www.powerbankradar.com/united-kingdom/oxford/): 6 stations
+- [Canterbury, United Kingdom](https://www.powerbankradar.com/united-kingdom/canterbury/): 5 stations
+- [Milan, Italy](https://www.powerbankradar.com/italy/milan/): 161 stations
+- [Rome, Italy](https://www.powerbankradar.com/italy/rome/): 51 stations
+- [Palermo, Italy](https://www.powerbankradar.com/italy/palermo/): 17 stations
+- [Catania, Italy](https://www.powerbankradar.com/italy/catania/): 10 stations
+- [Naples, Italy](https://www.powerbankradar.com/italy/naples/): 9 stations
+- [Marsala, Italy](https://www.powerbankradar.com/italy/marsala/): 6 stations
+- [Lampedusa, Italy](https://www.powerbankradar.com/italy/lampedusa/): 5 stations
+- [Berlin, Germany](https://www.powerbankradar.com/germany/berlin/): 172 stations
+- [Essen, Germany](https://www.powerbankradar.com/germany/essen/): 18 stations
+- [Hamburg, Germany](https://www.powerbankradar.com/germany/hamburg/): 14 stations
+- [Ravensburg, Germany](https://www.powerbankradar.com/germany/ravensburg/): 13 stations
+- [Karlsruhe, Germany](https://www.powerbankradar.com/germany/karlsruhe/): 7 stations
+- [Dortmund, Germany](https://www.powerbankradar.com/germany/dortmund/): 7 stations
+- [Tel Aviv, Israel](https://www.powerbankradar.com/israel/tel-aviv/): 24 stations
+- [Haifa, Israel](https://www.powerbankradar.com/israel/haifa/): 18 stations
+- [Jerusalem, Israel](https://www.powerbankradar.com/israel/jerusalem/): 15 stations
+- [Bat Yam, Israel](https://www.powerbankradar.com/israel/bat-yam/): 13 stations
+- [Netanya, Israel](https://www.powerbankradar.com/israel/netanya/): 9 stations
+- [Rishon LeZion, Israel](https://www.powerbankradar.com/israel/rishon-lezion/): 9 stations
+- [Ramat Gan, Israel](https://www.powerbankradar.com/israel/ramat-gan/): 7 stations
+- [Holon, Israel](https://www.powerbankradar.com/israel/holon/): 6 stations
+- [Eilat, Israel](https://www.powerbankradar.com/israel/eilat/): 6 stations
+- [Paris, France](https://www.powerbankradar.com/france/paris/): 24 stations
+
+## Operators
+
+- [FireVolt](https://www.powerbankradar.com/operators/firevolt/): 1,037 stations
+- [Revive](https://www.powerbankradar.com/operators/revive/): 725 stations
+- [Fast Charger](https://www.powerbankradar.com/operators/fast-charger/): 604 stations
+- [Juice](https://www.powerbankradar.com/operators/juice/): 561 stations
+- [Buzz](https://www.powerbankradar.com/operators/buzz/): 557 stations
+- [ICCXX](https://www.powerbankradar.com/operators/iccxx/): 470 stations
+- [Mobbi](https://www.powerbankradar.com/operators/mobbi/): 336 stations
+- [Rechargy](https://www.powerbankradar.com/operators/rechargy/): 252 stations
+- [Dead Batt](https://www.powerbankradar.com/operators/dead-batt/): 156 stations
+- [ANYWATT](https://www.powerbankradar.com/operators/anywatt/): 97 stations
+- [VolterGy](https://www.powerbankradar.com/operators/voltergy/): 55 stations
+- [Recharge.me](https://www.powerbankradar.com/operators/recharge-me/): 37 stations
+- [Amlo](https://www.powerbankradar.com/operators/amlo/): 26 stations
+- [Wessview](https://www.powerbankradar.com/operators/wessview/): 23 stations
+- [Fully](https://www.powerbankradar.com/operators/fully/): 23 stations
+- [AIRVALL](https://www.powerbankradar.com/operators/airvall/): 13 stations
+- [ChargeBuddies](https://www.powerbankradar.com/operators/chargebuddies/): 2 stations

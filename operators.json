@@ -1,0 +1,29 @@
+{
+  "_about": "Operator details shared by the map (index.html) and the generated pages (scripts/build_pages.py). Prices as published on each operator's website, checked 19 Nov 2026.",
+  "operators": {
+    "Buzz":          { "color": "#f5b400", "logo": "logos/buzz.ico",          "site": "https://buzzpowerbanks.nl/", "price": "€3 / hour · max €9 / day", "extra": "€30 deposit, refunded on return · 33% cheaper in the Buzz app" },
+    "Juice":         { "color": "#30a46c", "logo": "logos/juice.png",         "site": "https://getjuice.nl/", "price": "Price varies per location", "extra": "Shown on the station screen before you rent · deposit held on your card" },
+    "Revive":        { "color": "#e5484d", "logo": "logos/revive.svg",        "site": "https://revivesharing.com/nl/en", "price": "Price shown in the Revive app", "extra": "Billed per started half hour" },
+    "ICCXX":         { "color": "#0090ff", "logo": "logos/iccxx.png",         "site": "https://iccxx.nl/", "price": "Max €3 per day", "extra": "Unused deposit is refunded" },
+    "Amlo":          { "color": "#8e4ec6", "logo": "logos/amlo.png",          "site": "https://amlo.nl/", "price": "€2.50 / hour", "extra": "Rent by scanning the QR code on the station" },
+    "AIRVALL":       { "color": "#12a594", "logo": "logos/airvall.svg",       "site": "https://www.airvall.nl/", "price": "€4 per 24 hours", "extra": "No hourly rate · no deposit in the app, deposit when paying by card" },
+    "Wessview":      { "color": "#f76b15", "logo": "logos/wessview.png",      "site": "https://wessview.nl/", "price": "€2 / 30 min · max €10 / day", "extra": "€20 deposit, refunded minus the rental" },
+    "ChargeBuddies": { "color": "#d6409f", "logo": "logos/chargebuddies.png", "site": "https://chargebuddies.nl/prijzen", "price": "€2 first hour, then per minute", "extra": "+ €0.50 unlock fee" },
+    "FireVolt":      { "color": "#ff6a13", "logo": "logos/firevolt.png",      "site": "https://www.firevolt.com/en/", "price": "Price varies per station", "extra": "Shown on the station before you rent" },
+    "ANYWATT":       { "color": "#e54666", "logo": "logos/anywatt.ico",       "site": "https://anywatt.es/", "price": "Price shown at the station", "extra": "Deposit pre-authorised on your card · pay only for the time used" },
+    "VolterGy":      { "color": "#3e63dd", "logo": "logos/voltergy.png",      "site": "https://voltergy.es/", "price": "€1.75 / 30 min · max €8.75 / day", "extra": "First 5 min free · €19 deposit, refunded within 48 h" },
+    "Fully":         { "color": "#46a758", "logo": "logos/fully.svg",         "site": "https://www.fullygo.com/", "price": "€2–3 / hour", "extra": "Price depends on the venue" },
+    "Fast Charger":  { "color": "#0d74ce", "logo": "logos/fastcharger.svg",   "site": "https://www.fastcharger.uk/", "price": "Price shown in the Fast Charger app", "extra": "Rent by scanning the station with the app" },
+    "Rechargy":      { "color": "#6e56cf", "logo": "logos/rechargy.webp",     "site": "https://rechargy.de/standorte/", "price": "Price shown in the app or at the terminal", "extra": "Rent with a QR code · return at any Rechargy station" },
+    "Dead Batt":     { "color": "#7cb518", "logo": "logos/deadbatt.png",      "site": "https://dead-batt.com/stations", "price": "₪15 / hour · max ₪30 / 24 h", "extra": "No app: tap your card or phone on the station · return at any Dead Batt station" },
+    "Mobbi":         { "color": "#1a1a1a", "logo": "logos/mobbi.png",         "site": "https://www.mobbi.it/", "price": "€1 / 30 min", "extra": "First 3 min free · rent by scanning the QR code" },
+    "Recharge.me":   { "color": "#e5484d", "logo": "logos/rechargeme.png",    "site": "https://rechargeme.app/", "price": "Price shown on the station screen", "extra": "Pay only for the time you use" }
+  },
+  "by_country": {
+    "Buzz:ES":   { "site": "https://buzzpowerbanks.es/", "price": "€1.99 / 30 min · max €10 / day", "extra": "Return at any Buzz station in the city" },
+    "Revive:ES": { "site": "https://revivesharing.com/", "price": "Price shown in the Revive app", "extra": "Billed per started half hour" },
+    "Revive:GB": { "site": "https://revivesharing.com/", "price": "Price shown in the Revive app", "extra": "Billed per started half hour" },
+    "Juice:FR":  { "site": "https://getjuice.fr/", "price": "Price varies per location", "extra": "Shown on the station screen before you rent" },
+    "Juice:DE":  { "site": "https://getjuice.nl/", "price": "Price varies per location", "extra": "Shown on the station screen before you rent" }
+  }
+}

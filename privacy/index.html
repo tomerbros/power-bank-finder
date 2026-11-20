@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy | Powerbank Radar</title>
+  <meta name="description" content="How Powerbank Radar handles your data: no account, no cookies, location stays on your device.">
+  <link rel="canonical" href="https://www.powerbankradar.com/privacy/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#1f6feb">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Powerbank Radar">
+  <meta property="og:title" content="Privacy | Powerbank Radar">
+  <meta property="og:description" content="How Powerbank Radar handles your data: no account, no cookies, location stays on your device.">
+  <meta property="og:url" content="https://www.powerbankradar.com/privacy/">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Map", "item": "https://www.powerbankradar.com/"}, {"@type": "ListItem", "position": 2, "name": "Privacy"}]}</script>
+  
+  
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="/"><img src="/favicon.svg" alt="">Powerbank Radar</a>
+  <nav><a href="/">Map</a><a href="/operators/" class="wide">Operators</a><a href="/faq/">FAQ</a><a href="/contact/">Contact</a></nav>
+</div></header>
+<main>
+<div class="crumbs"><a href="/">Map</a> › Privacy</div>
+<h1>Privacy</h1>
+<p class="lead">Short version: no account, no cookies, and your location stays on your device.</p>
+<h2>Your location</h2>
+<p>If you tap "Find stations near me", your browser gives your position to the map so it can show the nearest stations.
+This happens on your device; we don't receive or store your location.</p>
+<h2>Visitor statistics</h2>
+<p>We don&#x27;t use visitor statistics at the moment.</p>
+<h2>Live power bank counts</h2>
+<p>When you open a station, the map asks the operator (directly, or through our relay on Cloudflare) how many power banks
+it has. That request contains the station, not you. Cloudflare, like any web host, briefly processes your IP address to deliver it.</p>
+<h2>Contact form</h2>
+<p>If you send a message, we receive your name, email address and message by email, use them only to reply, and delete them
+when they're no longer needed. The form uses Cloudflare Turnstile to block spam.</p>
+<h2>Other services the map loads</h2>
+<p>Map tiles come from OpenStreetMap and the map code from unpkg.com; their servers see your IP address when your
+browser fetches them. Links to Google Maps and operator websites only send you there when you tap them.</p>
+<h2>Questions</h2>
+<p>Ask us anything about your data, or ask us to delete a message you sent, through the <a href="/contact/">contact page</a>.</p>
+<p class="small">Last changed 19 November 2026.</p>
+
+</main>
+<footer><div class="in">
+  <p>Power bank rental in: <a href="/netherlands/">Netherlands</a> · <a href="/spain/">Spain</a> · <a href="/united-kingdom/">United Kingdom</a> · <a href="/italy/">Italy</a> · <a href="/germany/">Germany</a> · <a href="/israel/">Israel</a> · <a href="/france/">France</a> · <a href="/switzerland/">Switzerland</a></p>
+  <p><a href="/">Map</a> · <a href="/faq/">FAQ</a> · <a href="/operators/">Operators</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/privacy/">Privacy</a></p>
+  <p>Powerbank Radar is independent and not affiliated with the operators listed. Station data comes from each operator's public map and is updated daily; last update 19 November 2026.</p>
+</div></footer>
+<script>
+  function track(n, d) { try { window.umami && window.umami.track(n, d); } catch (e) {} }
+  document.addEventListener('click', function (ev) { var a = ev.target.closest('a[data-track]');
+    if (a) track(a.dataset.track, a.dataset.op ? { operator: a.dataset.op } : undefined); });
+</script>
+</body>
+</html>

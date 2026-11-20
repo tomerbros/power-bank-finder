@@ -1,0 +1,5 @@
+# Search engines and AI assistants (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, ...) are welcome.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.powerbankradar.com/sitemap.xml

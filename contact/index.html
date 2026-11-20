@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Powerbank Radar</title>
+  <meta name="description" content="Report a missing or wrong power bank station, add your network, or ask a question.">
+  <link rel="canonical" href="https://www.powerbankradar.com/contact/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#1f6feb">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Powerbank Radar">
+  <meta property="og:title" content="Contact Powerbank Radar">
+  <meta property="og:description" content="Report a missing or wrong power bank station, add your network, or ask a question.">
+  <meta property="og:url" content="https://www.powerbankradar.com/contact/">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Map", "item": "https://www.powerbankradar.com/"}, {"@type": "ListItem", "position": 2, "name": "Contact"}]}</script>
+  
+  
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="/"><img src="/favicon.svg" alt="">Powerbank Radar</a>
+  <nav><a href="/">Map</a><a href="/operators/" class="wide">Operators</a><a href="/faq/">FAQ</a><a href="/contact/">Contact</a></nav>
+</div></header>
+<main>
+<div class="crumbs"><a href="/">Map</a> › Contact</div>
+<h1>Contact</h1>
+<p class="lead">A missing or wrong station, a question, or you run a power bank network? Send us a message.</p>
+<form class="contact" id="contact" novalidate>
+  <label>Your name <input name="name" maxlength="100" autocomplete="name"></label>
+  <label>Your email <input name="email" type="email" maxlength="200" required autocomplete="email"></label>
+  <label>About
+    <select name="topic">
+      <option>A station is missing or wrong</option>
+      <option>I run a power bank network</option>
+      <option>Partnership or press</option>
+      <option>Something else</option>
+    </select>
+  </label>
+  <label>Message <textarea name="message" rows="6" maxlength="5000" required></textarea></label>
+  <label class="hp" aria-hidden="true">Leave empty <input name="website" tabindex="-1" autocomplete="off"></label>
+  
+  <button type="submit">Send message</button>
+  <div class="msg" id="contactMsg" hidden></div>
+</form>
+<p class="small">Or email <a href="mailto:hello@powerbankradar.com">hello@powerbankradar.com</a>.</p>
+<p class="small">For help with a rental (a charge, a stuck power bank), please contact the operator: we can't see or change rentals.
+We use your email only to reply. See <a href="/privacy/">privacy</a>.</p>
+<script>
+(function () {
+  var form = document.getElementById('contact'), msg = document.getElementById('contactMsg');
+  function show(text, ok) { msg.hidden = false; msg.textContent = text; msg.className = 'msg' + (ok ? ' ok' : ''); }
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var f = new FormData(form);
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.get('email') || '')) return show('Please enter a valid email address.');
+    if (!(f.get('message') || '').trim()) return show('Please write a message.');
+    var body = { name: f.get('name'), email: f.get('email'), topic: f.get('topic'), message: f.get('message'),
+      website: f.get('website'), token: f.get('cf-turnstile-response') || '' };
+    var btn = form.querySelector('button'); btn.disabled = true; btn.textContent = 'Sending…';
+    fetch("https://powerbank-radar-relay.powerbankradar.workers.dev/contact", { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || 'failed'); }); })
+      .then(function () { form.reset(); show('Thanks, your message was sent. We usually reply within a few days.', true); track('contact-sent', { topic: body.topic }); })
+      .catch(function () { show('Sorry, the message could not be sent. Please try again or email hello@powerbankradar.com.'); })
+      .finally(function () { btn.disabled = false; btn.textContent = 'Send message'; if (window.turnstile) turnstile.reset(); });
+  });
+})();
+</script>
+
+</main>
+<footer><div class="in">
+  <p>Power bank rental in: <a href="/netherlands/">Netherlands</a> · <a href="/spain/">Spain</a> · <a href="/united-kingdom/">United Kingdom</a> · <a href="/italy/">Italy</a> · <a href="/germany/">Germany</a> · <a href="/israel/">Israel</a> · <a href="/france/">France</a> · <a href="/switzerland/">Switzerland</a></p>
+  <p><a href="/">Map</a> · <a href="/faq/">FAQ</a> · <a href="/operators/">Operators</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/privacy/">Privacy</a></p>
+  <p>Powerbank Radar is independent and not affiliated with the operators listed. Station data comes from each operator's public map and is updated daily; last update 19 November 2026.</p>
+</div></footer>
+<script>
+  function track(n, d) { try { window.umami && window.umami.track(n, d); } catch (e) {} }
+  document.addEventListener('click', function (ev) { var a = ev.target.closest('a[data-track]');
+    if (a) track(a.dataset.track, a.dataset.op ? { operator: a.dataset.op } : undefined); });
+</script>
+</body>
+</html>
