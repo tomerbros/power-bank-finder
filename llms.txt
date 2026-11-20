@@ -1,6 +1,6 @@
 # Powerbank Radar
 
-> A free map of power bank rental stations from every operator: 4,974 stations from 17 operators in 8 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-19). Independent, not affiliated with the operators.
+> A free map of power bank rental stations from every operator: 4,981 stations from 17 operators in 8 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-20). Independent, not affiliated with the operators.
 
 ## Main pages
 
@@ -11,8 +11,8 @@
 
 ## Countries
 
-- [Netherlands](https://www.powerbankradar.com/netherlands/): 1,895 stations
-- [Spain](https://www.powerbankradar.com/spain/): 1,646 stations
+- [Netherlands](https://www.powerbankradar.com/netherlands/): 1,897 stations
+- [Spain](https://www.powerbankradar.com/spain/): 1,651 stations
 - [United Kingdom](https://www.powerbankradar.com/united-kingdom/): 616 stations
 - [Italy](https://www.powerbankradar.com/italy/): 368 stations
 - [Germany](https://www.powerbankradar.com/germany/): 257 stations
@@ -51,7 +51,7 @@
 - [Den Helder, Netherlands](https://www.powerbankradar.com/netherlands/den-helder/): 8 stations
 - [Arnhem, Netherlands](https://www.powerbankradar.com/netherlands/arnhem/): 6 stations
 - [Valencia, Spain](https://www.powerbankradar.com/spain/valencia/): 249 stations
-- [Barcelona, Spain](https://www.powerbankradar.com/spain/barcelona/): 177 stations
+- [Barcelona, Spain](https://www.powerbankradar.com/spain/barcelona/): 179 stations
 - [Marbella, Spain](https://www.powerbankradar.com/spain/marbella/): 126 stations
 - [Benidorm, Spain](https://www.powerbankradar.com/spain/benidorm/): 126 stations
 - [Ibiza, Spain](https://www.powerbankradar.com/spain/ibiza/): 124 stations
@@ -59,7 +59,7 @@
 - [Alicante, Spain](https://www.powerbankradar.com/spain/alicante/): 73 stations
 - [Palma de Mallorca, Spain](https://www.powerbankradar.com/spain/palma-de-mallorca/): 66 stations
 - [Costa Adeje, Spain](https://www.powerbankradar.com/spain/costa-adeje/): 45 stations
-- [Santa Cruz de Tenerife, Spain](https://www.powerbankradar.com/spain/santa-cruz-de-tenerife/): 38 stations
+- [Santa Cruz de Tenerife, Spain](https://www.powerbankradar.com/spain/santa-cruz-de-tenerife/): 39 stations
 - [Santander, Spain](https://www.powerbankradar.com/spain/santander/): 33 stations
 - [Estepona, Spain](https://www.powerbankradar.com/spain/estepona/): 32 stations
 - [Málaga, Spain](https://www.powerbankradar.com/spain/malaga/): 30 stations
@@ -104,8 +104,8 @@
 
 ## Operators
 
-- [FireVolt](https://www.powerbankradar.com/operators/firevolt/): 1,037 stations
-- [Revive](https://www.powerbankradar.com/operators/revive/): 725 stations
+- [FireVolt](https://www.powerbankradar.com/operators/firevolt/): 1,040 stations
+- [Revive](https://www.powerbankradar.com/operators/revive/): 727 stations
 - [Fast Charger](https://www.powerbankradar.com/operators/fast-charger/): 604 stations
 - [Juice](https://www.powerbankradar.com/operators/juice/): 561 stations
 - [Buzz](https://www.powerbankradar.com/operators/buzz/): 557 stations
@@ -117,7 +117,7 @@
 - [VolterGy](https://www.powerbankradar.com/operators/voltergy/): 55 stations
 - [Recharge.me](https://www.powerbankradar.com/operators/recharge-me/): 37 stations
 - [Amlo](https://www.powerbankradar.com/operators/amlo/): 26 stations
+- [Fully](https://www.powerbankradar.com/operators/fully/): 25 stations
 - [Wessview](https://www.powerbankradar.com/operators/wessview/): 23 stations
-- [Fully](https://www.powerbankradar.com/operators/fully/): 23 stations
 - [AIRVALL](https://www.powerbankradar.com/operators/airvall/): 13 stations
 - [ChargeBuddies](https://www.powerbankradar.com/operators/chargebuddies/): 2 stations
