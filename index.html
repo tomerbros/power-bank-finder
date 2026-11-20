@@ -663,7 +663,7 @@
     if (!nearest.length) status.textContent = visibleCount
       ? `${visibleCount} stations shown. None within ${NEAR_LIMIT_KM} km of your position.`
       : 'No stations for the selected filters.';
-    else if (isPhone()) status.textContent = `${nearest.length} nearest of ${visibleCount} stations shown on the map`;
+    else if (isPhone()) status.textContent = '';   // the strip of nearest cards says it all; the line hides when empty
     else status.textContent = `Nearest ${nearest.length} of ${visibleCount} stations:`;
     renderStrip(nearest);
     nearest.forEach(({ s, km }) => {
