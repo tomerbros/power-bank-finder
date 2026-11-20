@@ -116,10 +116,34 @@
     .open-pill.is-closed { background: #fde2e1; color: #8a1c17; }
     .hours.muted { color: #888; }
     .links { display: flex; gap: 8px 14px; flex-wrap: wrap; align-items: center; margin-top: 8px; }
-    .leaflet-container a.dir-btn, a.dir-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px;
-      border-radius: 999px; background: var(--accent); color: #fff; font-weight: 600; text-decoration: none; }
-    a.dir-btn svg { width: 15px; height: 15px; fill: currentColor; }
-    a.dir-btn:hover { filter: brightness(1.08); }
+    .dir-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border: 0; border-radius: 999px;
+      background: var(--accent); color: #fff; font: 600 14px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; cursor: pointer; }
+    .dir-btn svg { width: 15px; height: 15px; fill: currentColor; }
+    .dir-btn:hover { filter: brightness(1.08); }
+    /* Walking directions panel: floats over the bottom of the map (phones) or bottom-left (computers) */
+    .guide { position: absolute; z-index: 1000; left: 16px; bottom: 16px; width: 360px; max-height: 60%; overflow-y: auto;
+      background: var(--bg); color: var(--fg); border: 1px solid var(--border); border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.22); padding: 10px 12px 8px; font-size: 14px; }
+    .guide[hidden] { display: none; }
+    .g-head { display: flex; align-items: center; gap: 8px; }
+    .g-head .logo-sm { width: 22px; height: 22px; border-radius: 6px; }
+    .g-to { flex: 1; min-width: 0; font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .g-to b { color: var(--fg); }
+    .g-end { flex: none; width: 34px; height: 34px; border: 0; border-radius: 10px; background: var(--card); color: var(--fg);
+      font-size: 16px; cursor: pointer; }
+    .g-main { font-size: 18px; font-weight: 700; line-height: 1.3; margin: 8px 0 2px; }
+    .g-sub { font-size: 13px; color: var(--muted); }
+    .g-foot { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; font-size: 13px; }
+    .g-eta { margin-right: auto; }
+    .g-foot a, .g-steps-btn { color: var(--accent); text-decoration: none; background: none; border: 0; padding: 0;
+      font: inherit; cursor: pointer; }
+    .g-list { margin: 8px 0 0; padding-left: 20px; font-size: 13px; }
+    .g-list li { padding: 3px 0; }
+    .g-list li span { color: var(--muted); }
+    .g-list li.now { font-weight: 700; }
+    .g-list li.done { color: var(--muted); }
+    .g-credit { margin-top: 6px; font-size: 10px; color: var(--muted); }
+    .g-credit a { color: inherit; }
     .leaflet-popup-content { margin: 12px 14px; min-width: 220px; }
     .leaflet-popup-content .station { color: #1a1a1a; }
     .leaflet-popup-content .price { background: #f6f6f7; border-color: #e2e2e5; }
@@ -168,6 +192,7 @@
       /* Nearest stations float above the bar as a slim strip of cards, so the sheet stays closed */
       .sheet-body .nearest { display: none; }
       .near-strip:not([hidden]) { display: flex; }
+      .guide { left: 10px; right: 10px; bottom: 22px; width: auto; max-height: 45%; }
     }
     /* Sits at the bottom of the map; 22px clears the sheet's rounded top that overlaps the map */
     .near-strip { display: none; position: absolute; left: 0; right: 0; bottom: 22px; gap: 8px;
@@ -236,7 +261,7 @@
       <ol class="nearest" id="nearest"></ol>
     </div>
   </aside>
-  <div id="map"><div class="near-strip" id="nearStrip" hidden></div></div>
+  <div id="map"><div class="near-strip" id="nearStrip" hidden></div><div class="guide" id="guide" hidden></div></div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -526,7 +551,10 @@
     return `https://www.google.com/maps/dir/?${new URLSearchParams({ api: '1', destination: dest, travelmode: 'walking' })}`;
   }
   const NAV_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>';
-  const directionsLinks = s => `<a class="dir-btn" href="${directionsUrl(s)}" target="_blank" rel="noopener" data-track="directions" data-op="${esc(s.operator)}">${NAV_ICON}Directions</a>`
+  // Main button: walking guidance on our own map (startGuide). Small extra links hand over to the
+  // phone's maps app for people who want voice navigation.
+  const directionsLinks = s => `<button type="button" class="dir-btn" data-guide="${esc(s.id)}">${NAV_ICON}Directions</button>`;
+  const appLinks = s => `<a href="${directionsUrl(s)}" target="_blank" rel="noopener" data-track="directions-google" data-op="${esc(s.operator)}">Google Maps</a>`
     + (IS_APPLE_TOUCH ? `<a href="${directionsUrl(s, 'apple')}" target="_blank" rel="noopener" data-track="directions-apple" data-op="${esc(s.operator)}">Apple Maps</a>` : '');
 
   function popupHtml(s) {
@@ -697,7 +725,7 @@
         <div class="links">${directionsLinks(s)}
         <a href="${placeUrl(s)}" target="_blank" rel="noopener" data-track="maps" data-op="${esc(s.operator)}">View in Google Maps</a></div>`;
       li.addEventListener('click', e => {
-        if (e.target.tagName === 'A') return;
+        if (e.target.closest('a, button')) return;
         if (isPhone()) setSheet(false);
         openStation(s);
       });
@@ -712,7 +740,7 @@
   let stripDismissed = false;
   function renderStrip(nearest) {
     strip.innerHTML = '';
-    strip.hidden = stripDismissed || !nearest.length;
+    strip.hidden = stripDismissed || !nearest.length || !!guide;   // the directions panel takes its place
     nearest.forEach(({ s, km }) => {
       const info = infoFor(s);
       const card = document.createElement('div');
@@ -749,6 +777,18 @@
     stripDismissed = false;
     you = { lat, lng };
     const followed = followCountry();
+    placeYou(lat, lng, accuracy);
+
+    const near = stations.filter(isVisible)
+      .sort((a, b) => haversineKm(you, a) - haversineKm(you, b)).slice(0, 3);
+    map.fitBounds(L.latLngBounds([[lat, lng], ...near.map(s => [s.lat, s.lng])]).pad(0.3), { maxZoom: 17 });
+    if (followed) renderMarkers();
+    // Popups are built when opened (bindPopup with a function), so distances update by themselves
+    renderNearest();
+  }
+
+  // The blue "you are here" dot and its accuracy ring
+  function placeYou(lat, lng, accuracy) {
     if (!youMarker) {
       youMarker = L.marker([lat, lng], {
         icon: L.divIcon({ className: '', html: '<div class="you-dot"></div>', iconSize: [16, 16], iconAnchor: [8, 8] }),
@@ -759,14 +799,161 @@
     }
     if (youCircle) youCircle.remove();
     youCircle = accuracy ? L.circle([lat, lng], { radius: accuracy, weight: 1, fillOpacity: 0.08 }).addTo(map) : null;
-
-    const near = stations.filter(isVisible)
-      .sort((a, b) => haversineKm(you, a) - haversineKm(you, b)).slice(0, 3);
-    map.fitBounds(L.latLngBounds([[lat, lng], ...near.map(s => [s.lat, s.lng])]).pad(0.3), { maxZoom: 17 });
-    if (followed) renderMarkers();
-    // Popups are built when opened (bindPopup with a function), so distances update by themselves
-    renderNearest();
   }
+
+  // ---- Walking directions inside the map ----
+  // "Directions" draws the walking route from you to the station (from OpenRouteService, through our
+  // relay), follows your position as you walk, and shows the next turn, distance and minutes left.
+  // If no route can be fetched it falls back to a straight line with a compass direction.
+  const guideBox = document.getElementById('guide');
+  L.DomEvent.disableClickPropagation(guideBox);
+  L.DomEvent.disableScrollPropagation(guideBox);
+  let guide = null;   // { s, mode: 'route' | 'line', coords, steps, layers, watchId, lastFetch, loading, arrived, showSteps }
+  const ARRIVED_M = 25, OFF_ROUTE_M = 50, REROUTE_EVERY_MS = 20000, WALK_M_PER_MIN = WALK_KMH * 1000 / 60;
+  const COMPASS = ['north', 'north-east', 'east', 'south-east', 'south', 'south-west', 'west', 'north-west'];
+  const stationById = id => stations.find(x => x.id === id);
+
+  function bearing(a, b) {
+    const r = d => d * Math.PI / 180;
+    const y = Math.sin(r(b.lng - a.lng)) * Math.cos(r(b.lat));
+    const x = Math.cos(r(a.lat)) * Math.sin(r(b.lat)) - Math.sin(r(a.lat)) * Math.cos(r(b.lat)) * Math.cos(r(b.lng - a.lng));
+    return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+  }
+  const fmtM = m => m < 1000 ? `${Math.max(10, Math.round(m / 10) * 10)} m` : `${(m / 1000).toFixed(1)} km`;
+
+  function startGuide(s) {
+    stopGuide();
+    map.closePopup();
+    if (isPhone()) setSheet(false);
+    guide = { s, coords: null, steps: [], layers: L.layerGroup().addTo(map), lastFetch: 0 };
+    strip.hidden = true;
+    track('guide-start', { operator: s.operator });
+    renderGuide({ main: 'Finding your location…' });
+    if (!navigator.geolocation) {
+      if (you) onGuidePosition(you.lat, you.lng);
+      else renderGuide({ main: 'Tap the map where you are to start.' });
+      return;
+    }
+    guide.watchId = navigator.geolocation.watchPosition(
+      p => onGuidePosition(p.coords.latitude, p.coords.longitude, p.coords.accuracy),
+      () => {
+        if (!guide || guide.coords) return;
+        if (you) onGuidePosition(you.lat, you.lng);
+        else renderGuide({ main: 'Location unavailable. Tap the map where you are to start.' });
+      },
+      { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 });
+  }
+
+  function stopGuide() {
+    if (!guide) return;
+    if (guide.watchId != null) navigator.geolocation.clearWatch(guide.watchId);
+    guide.layers.remove();
+    guide = null;
+    guideBox.hidden = true;
+    renderNearest();      // brings the nearest-stations strip back
+  }
+
+  function onGuidePosition(lat, lng, accuracy) {
+    if (!guide) return;
+    you = { lat, lng };
+    placeYou(lat, lng, accuracy);
+    if (!guide.coords && !guide.loading) fetchRoute(true);
+    else if (!guide.loading) updateGuide();
+  }
+
+  async function fetchRoute(first) {
+    const g = guide;
+    g.loading = true;
+    if (first) renderGuide({ main: 'Finding a walking route…' });
+    try {
+      const r = await fetch(`${RELAY_URL}/route?from=${you.lat.toFixed(6)},${you.lng.toFixed(6)}&to=${g.s.lat},${g.s.lng}`);
+      if (!r.ok) throw new Error(r.status);
+      const d = await r.json();
+      Object.assign(g, { mode: 'route', coords: d.coords, steps: d.steps });
+    } catch {
+      Object.assign(g, { mode: 'line', coords: [[you.lat, you.lng], [g.s.lat, g.s.lng]], steps: [] });
+    }
+    g.loading = false;
+    g.lastFetch = Date.now();
+    if (guide !== g) return;            // ended while the route was loading
+    drawGuide();
+    if (first) map.fitBounds(L.latLngBounds(g.coords).extend([you.lat, you.lng]).pad(0.25),
+      { maxZoom: 18, paddingBottomRight: [0, isPhone() ? 170 : 0] });
+    updateGuide();
+  }
+
+  function drawGuide() {
+    const g = guide;
+    g.layers.clearLayers();
+    const dash = g.mode === 'line' ? '2 10' : null;
+    L.polyline(g.coords, { color: '#fff', weight: 9, opacity: .9, interactive: false }).addTo(g.layers);
+    g.line = L.polyline(g.coords, { color: '#1f6feb', weight: 5, dashArray: dash, lineCap: 'round', interactive: false }).addTo(g.layers);
+    L.circleMarker([g.s.lat, g.s.lng], { radius: 22, color: '#1f6feb', weight: 3, fill: false, interactive: false }).addTo(g.layers);
+  }
+
+  function updateGuide() {
+    const g = guide;
+    const here = L.latLng(you.lat, you.lng), dest = L.latLng(g.s.lat, g.s.lng);
+    const toDest = here.distanceTo(dest);
+    if (toDest <= ARRIVED_M) {
+      if (!g.arrived) { g.arrived = true; track('guide-arrived', { operator: g.s.operator }); }
+      return renderGuide({ main: 'You have arrived 🎉', sub: `${g.s.name} is right here.` });
+    }
+    if (g.mode === 'line') {
+      g.coords = [[you.lat, you.lng], [g.s.lat, g.s.lng]];
+      g.line.setLatLngs(g.coords);
+      g.layers.getLayers()[0].setLatLngs(g.coords);
+      return renderGuide({ main: `Head ${COMPASS[Math.round(bearing(you, g.s) / 45) % 8]}`,
+        sub: 'Straight-line direction; follow the streets that lead that way.', remaining: toDest * 1.25, approx: true });
+    }
+    // Closest point of the route to you; if you've wandered off it, fetch a new route
+    let best = 0, bestM = Infinity;
+    g.coords.forEach((c, i) => { const d = here.distanceTo(c); if (d < bestM) { bestM = d; best = i; } });
+    if (bestM > OFF_ROUTE_M && Date.now() - g.lastFetch > REROUTE_EVERY_MS) return fetchRoute(false);
+    let remaining = bestM;
+    for (let i = best; i < g.coords.length - 1; i++) remaining += L.latLng(g.coords[i]).distanceTo(g.coords[i + 1]);
+    const k = Math.max(0, g.steps.findIndex(st => best >= st.from && best < st.to));
+    const next = g.steps[k + 1];
+    let toNext = bestM;
+    if (next) for (let i = best; i < next.from && i < g.coords.length - 1; i++) toNext += L.latLng(g.coords[i]).distanceTo(g.coords[i + 1]);
+    renderGuide({
+      main: next ? `In ${fmtM(toNext)}: ${next.text}` : 'Your station is ahead',
+      sub: g.steps[k]?.text || '', remaining, stepIndex: k,
+    });
+  }
+
+  function renderGuide({ main, sub = '', remaining = null, approx = false, stepIndex = -1 }) {
+    const g = guide;
+    if (!g) return;
+    const s = g.s;
+    const eta = remaining == null ? '' :
+      `<span class="g-eta"><b>${approx ? '~' : ''}${fmtM(remaining)}</b> · ${Math.max(1, Math.round(remaining / WALK_M_PER_MIN))} min walk</span>`;
+    const steps = g.steps.length ? `<button type="button" class="g-steps-btn">${g.showSteps ? 'Hide steps' : 'All steps'}</button>` : '';
+    const list = g.showSteps && g.steps.length ? `<ol class="g-list">${g.steps.map((st, i) =>
+      `<li class="${i === stepIndex ? 'now' : i < stepIndex ? 'done' : ''}">${esc(st.text)}${st.distance ? ` <span>${fmtM(st.distance)}</span>` : ''}</li>`).join('')}</ol>` : '';
+    guideBox.innerHTML = `
+      <div class="g-head">${brandMark(s.operator)}<span class="g-to">To <b>${esc(s.name)}</b></span>
+        <button type="button" class="g-end" aria-label="End directions">✕</button></div>
+      <div class="g-main">${esc(main)}</div>
+      ${sub ? `<div class="g-sub">${esc(sub)}</div>` : ''}
+      <div class="g-foot">${eta}${steps}${appLinks(s)}</div>
+      ${list}
+      ${g.mode === 'route' ? '<div class="g-credit">Route © <a href="https://openrouteservice.org/" target="_blank" rel="noopener">openrouteservice.org</a> · OpenStreetMap</div>' : ''}`;
+    guideBox.hidden = false;
+    guideBox.querySelector('.g-end').onclick = stopGuide;
+    const sb = guideBox.querySelector('.g-steps-btn');
+    if (sb) sb.onclick = () => { g.showSteps = !g.showSteps; updateGuide(); };
+  }
+
+  // "Directions" buttons in popups and lists (capture phase: Leaflet popups swallow some clicks)
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-guide]');
+    if (!b) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const s = stationById(b.dataset.guide);
+    if (s) startGuide(s);
+  }, true);
 
   document.getElementById('locate').addEventListener('click', () => {
     const status = document.getElementById('status');
@@ -780,7 +967,11 @@
     );
   });
 
-  map.on('click', e => setYou(e.latlng.lat, e.latlng.lng));
+  // A tap on the map sets your position; while guiding, it's the start point when GPS isn't available
+  map.on('click', e => {
+    if (guide) { if (!guide.coords || guide.mode === 'line') onGuidePosition(e.latlng.lat, e.latlng.lng); return; }
+    setYou(e.latlng.lat, e.latlng.lng);
+  });
   hideOffline.addEventListener('change', () => { renderMarkers(); renderNearest(); });
 
   // Venues open and close while the page is open: refresh the Open/Closed badges every minute
@@ -796,7 +987,7 @@
   });
 
   // Links from the city, country and operator pages:
-  //   /?station=<id>        open that station
+  //   /?station=<id>        open that station (&directions=1: start walking directions to it)
   //   /?at=<lat>,<lng>,<zoom>  show that place
   //   /?near=<lat>,<lng>    show the stations nearest to that point
   //   /?country=NL          choose that country
@@ -820,7 +1011,8 @@
     const s = q.get('station') && stations.find(x => x.id === q.get('station'));
     if (s) {
       if (s.status === 'offline' && hideOffline.checked) { hideOffline.checked = false; renderMarkers(); }
-      openStation(s);
+      if (q.get('directions') === '1') startGuide(s);   // "Directions" on the city pages
+      else openStation(s);
     }
   }
 
