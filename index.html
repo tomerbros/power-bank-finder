@@ -115,7 +115,11 @@
     .open-pill.is-open { background: #d3f5df; color: #145c2e; }
     .open-pill.is-closed { background: #fde2e1; color: #8a1c17; }
     .hours.muted { color: #888; }
-    .links { display: flex; gap: 14px; flex-wrap: wrap; }
+    .links { display: flex; gap: 8px 14px; flex-wrap: wrap; align-items: center; margin-top: 8px; }
+    .leaflet-container a.dir-btn, a.dir-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px;
+      border-radius: 999px; background: var(--accent); color: #fff; font-weight: 600; text-decoration: none; }
+    a.dir-btn svg { width: 15px; height: 15px; fill: currentColor; }
+    a.dir-btn:hover { filter: brightness(1.08); }
     .leaflet-popup-content { margin: 12px 14px; min-width: 220px; }
     .leaflet-popup-content .station { color: #1a1a1a; }
     .leaflet-popup-content .price { background: #f6f6f7; border-color: #e2e2e5; }
@@ -511,6 +515,20 @@
     return rows.length ? `<div class="pdetails">${rows.join('')}</div>` : '';
   }
 
+  // Turn-by-turn walking directions in the visitor's maps app. Google Maps' link works everywhere
+  // (it opens the app when installed and starts from the phone's own location); iPhones and iPads
+  // also get Apple Maps, their built-in app.
+  const IS_APPLE_TOUCH = /iPhone|iPad|iPod/.test(navigator.userAgent)
+    || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);   // iPadOS reports itself as a Mac
+  function directionsUrl(s, app) {
+    const dest = `${s.lat},${s.lng}`;
+    if (app === 'apple') return `https://maps.apple.com/?daddr=${dest}&dirflg=w`;
+    return `https://www.google.com/maps/dir/?${new URLSearchParams({ api: '1', destination: dest, travelmode: 'walking' })}`;
+  }
+  const NAV_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>';
+  const directionsLinks = s => `<a class="dir-btn" href="${directionsUrl(s)}" target="_blank" rel="noopener" data-track="directions" data-op="${esc(s.operator)}">${NAV_ICON}Directions</a>`
+    + (IS_APPLE_TOUCH ? `<a href="${directionsUrl(s, 'apple')}" target="_blank" rel="noopener" data-track="directions-apple" data-op="${esc(s.operator)}">Apple Maps</a>` : '');
+
   function popupHtml(s) {
     const km = you ? haversineKm(you, s) : null;
     const info = infoFor(s);
@@ -523,7 +541,8 @@
         <div class="addr">${esc(s.address)}${precisionNote(s)}</div>
         ${km != null ? `<div class="walk"><b>${fmtDist(km)}</b> · ~${walkMin(km)} min walk</div>` : ''}
       </div>
-      <div class="links"><a href="${placeUrl(s)}" target="_blank" rel="noopener" data-track="maps" data-op="${esc(s.operator)}">View in Google Maps →</a>
+      <div class="links">${directionsLinks(s)}
+      <a href="${placeUrl(s)}" target="_blank" rel="noopener" data-track="maps" data-op="${esc(s.operator)}">View in Google Maps</a>
       ${info ? `<a href="${info.site}" target="_blank" rel="noopener" data-track="operator-site" data-op="${esc(s.operator)}">${esc(s.operator)} website</a>` : ''}</div></div>`;
   }
 
@@ -675,7 +694,8 @@
         ${info ? `<div class="meta price-line">💶 ${esc(info.price)} ${availChip(s)}</div>` : ''}
         <div class="venue">${openPill(openState(s))} ${placeIcon(s)} ${esc(s.name)}</div>
         <div class="meta">${esc(s.address)}${s.precision === 'street' ? ' (approximate)' : ''} · ~${walkMin(km)} min walk</div>
-        <a href="${placeUrl(s)}" target="_blank" rel="noopener" data-track="maps" data-op="${esc(s.operator)}">View in Google Maps →</a>`;
+        <div class="links">${directionsLinks(s)}
+        <a href="${placeUrl(s)}" target="_blank" rel="noopener" data-track="maps" data-op="${esc(s.operator)}">View in Google Maps</a></div>`;
       li.addEventListener('click', e => {
         if (e.target.tagName === 'A') return;
         if (isPhone()) setSheet(false);
