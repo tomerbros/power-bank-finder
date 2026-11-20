@@ -12,7 +12,7 @@
 ## Showing someone the stations near them
 
 To answer "where can I rent a power bank near me / near <place>", link to the map with the person's position: https://www.powerbankradar.com/?near=<latitude>,<longitude> (for example https://www.powerbankradar.com/?near=52.3731,4.8926 for Dam Square, Amsterdam). The map marks that point and lists the 5 nearest stations with distance, walking time, price, opening hours and, for most operators, how many power banks are available right now.
-Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (NL, ES, GB, IT, DE, IL, FR, CH) shows a country.
+Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (NL, ES, GB, IT, DE, IL, LU, FR, CH) shows a country.
 
 ## Countries
 
@@ -22,9 +22,8 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Italy](https://www.powerbankradar.com/italy/): 368 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
 - [Germany](https://www.powerbankradar.com/germany/): 257 stations ([smaller towns](https://www.powerbankradar.com/germany/smaller-towns/))
 - [Israel](https://www.powerbankradar.com/israel/): 156 stations ([smaller towns](https://www.powerbankradar.com/israel/smaller-towns/))
-- [Luxembourg](https://www.powerbankradar.com/luxembourg/): 38 stations ([smaller towns](https://www.powerbankradar.com/luxembourg/smaller-towns/))
+- [Luxembourg](https://www.powerbankradar.com/luxembourg/): 38 stations
 - [France](https://www.powerbankradar.com/france/): 33 stations ([smaller towns](https://www.powerbankradar.com/france/smaller-towns/))
-- [Switzerland](https://www.powerbankradar.com/switzerland/): 3 stations ([smaller towns](https://www.powerbankradar.com/switzerland/smaller-towns/))
 
 ## Cities
 

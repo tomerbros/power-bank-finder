@@ -25,6 +25,11 @@
   <!-- analytics: written by scripts/build_pages.py from scripts/site_config.json -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "15ead5e99c314306b0a47dce048f5c1f"}'></script>
   <!-- /analytics -->
+  <!-- Open the connections to the map code and map image servers before they're needed (faster first map) -->
+  <link rel="preconnect" href="https://unpkg.com" />
+  <link rel="preconnect" href="https://a.tile.openstreetmap.org" />
+  <link rel="preconnect" href="https://b.tile.openstreetmap.org" />
+  <link rel="preconnect" href="https://c.tile.openstreetmap.org" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="/assets/menu.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
@@ -241,7 +246,9 @@
         <button class="menu-btn" type="button" data-menu-open aria-controls="drawer" aria-expanded="false" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
         <h1>Powerbank Radar</h1>
       </div>
-      <p class="sub">Power bank rental stations from every brand, on one map.</p>
+      <!-- intro: the key facts, written by scripts/build_pages.py (read by search engines and AI assistants) -->
+      <p class="sub">Power bank rental stations from every brand, on one map: 5,019 stations from 17 operators in 9 countries (the Netherlands, Spain, the UK, Italy, Germany, Israel, Luxembourg, France and Switzerland), with prices, opening hours and live availability. Updated daily.</p>
+      <!-- /intro -->
     </div>
     <div class="sheet-head">
       <button class="primary" id="locate">📍 Find stations near me</button>
