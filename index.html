@@ -128,17 +128,17 @@
     /* Walking directions panel: floats over the bottom of the map (phones) or bottom-left (computers) */
     .guide { position: absolute; z-index: 1000; left: 16px; bottom: 16px; width: 360px; max-height: 60%; overflow-y: auto;
       background: var(--bg); color: var(--fg); border: 1px solid var(--border); border-radius: 14px;
-      box-shadow: 0 4px 18px rgba(0,0,0,.22); padding: 10px 12px 8px; font-size: 14px; }
+      box-shadow: 0 4px 18px rgba(0,0,0,.22); padding: 8px 10px 7px; font-size: 13px; }
     .guide[hidden] { display: none; }
-    .g-head { display: flex; align-items: center; gap: 8px; }
-    .g-head .logo-sm { width: 22px; height: 22px; border-radius: 6px; }
-    .g-to { flex: 1; min-width: 0; font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .g-head { display: flex; align-items: center; gap: 6px; }
+    .g-head .logo-sm { width: 18px; height: 18px; border-radius: 5px; }
+    .g-to { flex: 1; min-width: 0; font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .g-to b { color: var(--fg); }
-    .g-end { flex: none; width: 34px; height: 34px; border: 0; border-radius: 10px; background: var(--card); color: var(--fg);
-      font-size: 16px; cursor: pointer; }
-    .g-main { font-size: 18px; font-weight: 700; line-height: 1.3; margin: 8px 0 2px; }
-    .g-sub { font-size: 13px; color: var(--muted); }
-    .g-foot { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; font-size: 13px; }
+    .g-end { flex: none; width: 28px; height: 28px; border: 0; border-radius: 8px; background: var(--card); color: var(--fg);
+      font-size: 14px; cursor: pointer; }
+    .g-main { font-size: 15px; font-weight: 700; line-height: 1.25; margin: 4px 0 1px; }
+    .g-sub { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .g-foot { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; font-size: 12px; }
     .g-eta { margin-right: auto; }
     .g-foot a, .g-steps-btn { color: var(--accent); text-decoration: none; background: none; border: 0; padding: 0;
       font: inherit; cursor: pointer; }
@@ -147,8 +147,6 @@
     .g-list li span { color: var(--muted); }
     .g-list li.now { font-weight: 700; }
     .g-list li.done { color: var(--muted); }
-    .g-credit { margin-top: 6px; font-size: 10px; color: var(--muted); }
-    .g-credit a { color: inherit; }
     .leaflet-popup-content { margin: 12px 14px; min-width: 220px; }
     .leaflet-popup-content .station { color: #1a1a1a; }
     .leaflet-popup-content .price { background: #f6f6f7; border-color: #e2e2e5; }
@@ -548,22 +546,16 @@
     return rows.length ? `<div class="pdetails">${rows.join('')}</div>` : '';
   }
 
-  // Turn-by-turn walking directions in the visitor's maps app. Google Maps' link works everywhere
-  // (it opens the app when installed and starts from the phone's own location); iPhones and iPads
-  // also get Apple Maps, their built-in app.
-  const IS_APPLE_TOUCH = /iPhone|iPad|iPod/.test(navigator.userAgent)
-    || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);   // iPadOS reports itself as a Mac
-  function directionsUrl(s, app) {
-    const dest = `${s.lat},${s.lng}`;
-    if (app === 'apple') return `https://maps.apple.com/?daddr=${dest}&dirflg=w`;
-    return `https://www.google.com/maps/dir/?${new URLSearchParams({ api: '1', destination: dest, travelmode: 'walking' })}`;
+  // Turn-by-turn walking directions in Google Maps, for people who want voice navigation. The link
+  // works everywhere: it opens the app when installed and starts from the phone's own location.
+  function directionsUrl(s) {
+    return `https://www.google.com/maps/dir/?${new URLSearchParams({ api: '1', destination: `${s.lat},${s.lng}`, travelmode: 'walking' })}`;
   }
   const NAV_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>';
   // Main button: walking guidance on our own map (startGuide). Small extra links hand over to the
   // phone's maps app for people who want voice navigation.
   const directionsLinks = s => `<button type="button" class="dir-btn" data-guide="${esc(s.id)}">${NAV_ICON}Directions</button>`;
-  const appLinks = s => `<a href="${directionsUrl(s)}" target="_blank" rel="noopener" data-track="directions-google" data-op="${esc(s.operator)}">Google Maps</a>`
-    + (IS_APPLE_TOUCH ? `<a href="${directionsUrl(s, 'apple')}" target="_blank" rel="noopener" data-track="directions-apple" data-op="${esc(s.operator)}">Apple Maps</a>` : '');
+  const appLinks = s => `<a href="${directionsUrl(s)}" target="_blank" rel="noopener" data-track="directions-google" data-op="${esc(s.operator)}">Google Maps</a>`;
 
   function popupHtml(s) {
     const km = you ? haversineKm(you, s) : null;
@@ -855,6 +847,7 @@
   function stopGuide() {
     if (!guide) return;
     if (guide.watchId != null) navigator.geolocation.clearWatch(guide.watchId);
+    if (guide.credited) map.attributionControl.removeAttribution(ROUTE_CREDIT);
     guide.layers.remove();
     guide = null;
     guideBox.hidden = true;
@@ -890,9 +883,13 @@
     updateGuide();
   }
 
+  // OpenRouteService's terms ask for credit wherever its route is shown: it joins the map's corner credit
+  // (next to "© OSM") while a street route is on screen
+  const ROUTE_CREDIT = 'Route &copy; <a href="https://openrouteservice.org/" target="_blank" rel="noopener">openrouteservice</a>';
   function drawGuide() {
     const g = guide;
     g.layers.clearLayers();
+    if (g.mode === 'route' && !g.credited) { map.attributionControl.addAttribution(ROUTE_CREDIT); g.credited = true; }
     const dash = g.mode === 'line' ? '2 10' : null;
     L.polyline(g.coords, { color: '#fff', weight: 9, opacity: .9, interactive: false }).addTo(g.layers);
     g.line = L.polyline(g.coords, { color: '#1f6feb', weight: 5, dashArray: dash, lineCap: 'round', interactive: false }).addTo(g.layers);
@@ -946,7 +943,7 @@
       ${sub ? `<div class="g-sub">${esc(sub)}</div>` : ''}
       <div class="g-foot">${eta}${steps}${appLinks(s)}</div>
       ${list}
-      ${g.mode === 'route' ? '<div class="g-credit">Route © <a href="https://openrouteservice.org/" target="_blank" rel="noopener">openrouteservice.org</a> · OpenStreetMap</div>' : ''}`;
+`;
     guideBox.hidden = false;
     guideBox.querySelector('.g-end').onclick = stopGuide;
     const sb = guideBox.querySelector('.g-steps-btn');
