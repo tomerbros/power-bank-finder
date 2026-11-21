@@ -147,7 +147,16 @@
     .g-list li span { color: var(--muted); }
     .g-list li.now { font-weight: 700; }
     .g-list li.done { color: var(--muted); }
-    .leaflet-popup-content { margin: 12px 14px; min-width: 220px; }
+    .leaflet-popup-content { margin: 10px 12px; min-width: 220px; }
+    .leaflet-popup-content .op-logo { width: 26px; height: 26px; border-radius: 7px; }
+    .leaflet-popup-content .price { margin-top: 6px; padding: 5px 8px; }
+    .leaflet-popup-content .place { margin-top: 6px; }
+    .leaflet-popup-content .pdetails { margin-bottom: 3px; }
+    .leaflet-popup-content .links { margin-top: 6px; }
+    .leaflet-popup-content .links a { margin-top: 0; }
+    .leaflet-popup-content .dir-btn { padding: 6px 12px; font-size: 13px; }
+    .leaflet-popup-content .addr b { color: #1a1a1a; }
+    .nowrap { white-space: nowrap; }
     .leaflet-popup-content .station { color: #1a1a1a; }
     .leaflet-popup-content .price { background: #f6f6f7; border-color: #e2e2e5; }
     .leaflet-popup-content .addr, .leaflet-popup-content .walk, .leaflet-popup-content .price-extra { color: #666; }
@@ -390,7 +399,7 @@
 
   const isVisible = s => inCountry(s) && enabled.has(s.operator) && enabledTypes.has(typeKey(s))
     && !(hideOffline.checked && s.status === 'offline');
-  const badge = s => `<span class="badge b-${s.status}">${STATUS_LABEL[s.status]}</span>`;
+  const badge = s => s.status === 'unknown' ? '' : `<span class="badge b-${s.status}">${STATUS_LABEL[s.status]}</span>`;
 
   // Power banks ready to rent and empty slots to return one, as counted when the data was downloaded
   // (Juice, Amlo, FireVolt, ANYWATT, Fully publish this; it is not live)
@@ -539,9 +548,7 @@
     const rows = [];
     if (s.place_type) rows.push(`<span class="ptype">${placeIcon(s)} ${esc(s.place_type)}</span>`);
     const st = openState(s);
-    rows.push(st
-      ? `<span class="hours">${openPill(st)} 🕒 ${esc(st.today)}${st.change ? ` · ${esc(st.change)}` : ''}</span>`
-      : `<span class="hours muted">🕒 Opening hours not published</span>`);
+    if (st) rows.push(`<span class="hours">${openPill(st)} 🕒 ${esc(st.today)}${st.change ? ` · ${esc(st.change)}` : ''}</span>`);
     if (s.placement_note) rows.push(`<span class="pnote">📌 ${esc(s.placement_note)}</span>`);
     return rows.length ? `<div class="pdetails">${rows.join('')}</div>` : '';
   }
@@ -565,13 +572,12 @@
       ${availLine(s)}
       <div class="place">
         ${placeDetails(s)}
-        <div class="venue">${esc(s.name)}</div>
-        <div class="addr">${esc(s.address)}${precisionNote(s)}</div>
-        ${km != null ? `<div class="walk"><b>${fmtDist(km)}</b> · ~${walkMin(km)} min walk</div>` : ''}
+        ${s.name && !(s.address || '').startsWith(s.name) ? `<div class="venue">${esc(s.name)}</div>` : ''}
+        <div class="addr">${esc(s.address)}${km != null ? ` · <span class="nowrap"><b>${fmtDist(km)}</b>${km <= 5 ? ` · ~${walkMin(km)} min` : ''}</span>` : ''}${precisionNote(s)}</div>
       </div>
       <div class="links">${directionsLinks(s)}
-      <a href="${placeUrl(s)}" target="_blank" rel="noopener" data-track="maps" data-op="${esc(s.operator)}">View in Google Maps</a>
-      ${info ? `<a href="${info.site}" target="_blank" rel="noopener" data-track="operator-site" data-op="${esc(s.operator)}">${esc(s.operator)} website</a>` : ''}</div></div>`;
+      <a href="${placeUrl(s)}" target="_blank" rel="noopener" data-track="maps" data-op="${esc(s.operator)}">Google Maps</a>
+      ${info ? `<a href="${info.site}" target="_blank" rel="noopener" data-track="operator-site" data-op="${esc(s.operator)}">Website</a>` : ''}</div></div>`;
   }
 
   // Filter dropdowns: only one open at a time
@@ -723,7 +729,7 @@
         <div class="venue">${openPill(openState(s))} ${placeIcon(s)} ${esc(s.name)}</div>
         <div class="meta">${esc(s.address)}${s.precision === 'street' ? ' (approximate)' : ''} · ~${walkMin(km)} min walk</div>
         <div class="links">${directionsLinks(s)}
-        <a href="${placeUrl(s)}" target="_blank" rel="noopener" data-track="maps" data-op="${esc(s.operator)}">View in Google Maps</a></div>`;
+        <a href="${placeUrl(s)}" target="_blank" rel="noopener" data-track="maps" data-op="${esc(s.operator)}">Google Maps</a></div>`;
       li.addEventListener('click', e => {
         if (e.target.closest('a, button')) return;
         if (isPhone()) setSheet(false);
