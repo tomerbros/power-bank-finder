@@ -1,6 +1,6 @@
 # Powerbank Radar
 
-> A free map of power bank rental stations from every operator: 5,025 stations from 17 operators in 9 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-21). Independent, not affiliated with the operators.
+> A free map of power bank rental stations from every operator: 5,027 stations from 17 operators in 9 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-22). Independent, not affiliated with the operators.
 
 ## Main pages
 
@@ -16,7 +16,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 
 ## Countries
 
-- [Netherlands](https://www.powerbankradar.com/netherlands/): 1,895 stations ([smaller towns](https://www.powerbankradar.com/netherlands/smaller-towns/))
+- [Netherlands](https://www.powerbankradar.com/netherlands/): 1,897 stations ([smaller towns](https://www.powerbankradar.com/netherlands/smaller-towns/))
 - [Spain](https://www.powerbankradar.com/spain/): 1,659 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
 - [United Kingdom](https://www.powerbankradar.com/united-kingdom/): 616 stations ([smaller towns](https://www.powerbankradar.com/united-kingdom/smaller-towns/))
 - [Italy](https://www.powerbankradar.com/italy/): 368 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
@@ -27,7 +27,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 
 ## Cities
 
-- [Amsterdam, Netherlands](https://www.powerbankradar.com/netherlands/amsterdam/): 536 stations
+- [Amsterdam, Netherlands](https://www.powerbankradar.com/netherlands/amsterdam/): 538 stations
 - [Rotterdam, Netherlands](https://www.powerbankradar.com/netherlands/rotterdam/): 185 stations
 - [The Hague, Netherlands](https://www.powerbankradar.com/netherlands/the-hague/): 144 stations
 - [Utrecht, Netherlands](https://www.powerbankradar.com/netherlands/utrecht/): 95 stations
@@ -111,7 +111,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 ## Operators
 
 - [FireVolt](https://www.powerbankradar.com/operators/firevolt/): 1,048 stations
-- [Revive](https://www.powerbankradar.com/operators/revive/): 762 stations
+- [Revive](https://www.powerbankradar.com/operators/revive/): 764 stations
 - [Fast Charger](https://www.powerbankradar.com/operators/fast-charger/): 604 stations
 - [Juice](https://www.powerbankradar.com/operators/juice/): 562 stations
 - [Buzz](https://www.powerbankradar.com/operators/buzz/): 557 stations
