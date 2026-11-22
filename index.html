@@ -55,6 +55,30 @@
     .sub { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
     button.primary { width: 100%; padding: 10px; border: 0; border-radius: 8px; background: var(--accent);
       color: #fff; font-size: 15px; cursor: pointer; }
+    /* "Find stations near me": a glowing gradient pill with a radar ping */
+    #locate { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 12px 18px; border-radius: 999px; font-weight: 800; letter-spacing: .1px;
+      background: linear-gradient(100deg, #2f6bff, #7b4dff 45%, #ff3d9a 90%) 0 0 / 200% 100%;
+      box-shadow: 0 6px 20px -6px rgba(123,77,255,.65), inset 0 1px 0 rgba(255,255,255,.25);
+      transition: transform .15s ease, box-shadow .2s ease, background-position .6s ease; }
+    #locate:hover { background-position: 100% 0; box-shadow: 0 8px 26px -6px rgba(255,61,154,.6), inset 0 1px 0 rgba(255,255,255,.25); }
+    #locate:active { transform: scale(.97); }
+    #locate:focus-visible { outline: 3px solid #ff9bd0; outline-offset: 2px; }
+    /* a soft shine that sweeps across every few seconds */
+    #locate::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.35) 50%, transparent 65%);
+      transform: translateX(-120%); animation: locate-shine 4.5s ease-in-out infinite; }
+    #locate .ping { position: relative; width: 10px; height: 10px; flex: none; border-radius: 50%; background: #fff; }
+    #locate .ping::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #fff;
+      animation: locate-ping 1.8s cubic-bezier(0,0,.2,1) infinite; }
+    #locate .bolt { font-size: 15px; filter: drop-shadow(0 0 4px rgba(255,220,80,.8)); }
+    #locate.locating .ping::before { animation-duration: .8s; }
+    #locate.locating { background-position: 100% 0; }
+    @keyframes locate-ping { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(3); opacity: 0; } }
+    @keyframes locate-shine { 0%, 60% { transform: translateX(-120%); } 85%, 100% { transform: translateX(120%); } }
+    @media (prefers-reduced-motion: reduce) {
+      #locate::after, #locate .ping::before { animation: none; }
+    }
     .hint { color: var(--muted); font-size: 12px; margin: 6px 0 12px; }
     /* Filter dropdowns: a button per filter that opens a checklist below it */
     .filter-bar { display: flex; gap: 6px; margin-bottom: 8px; }
@@ -74,6 +98,12 @@
     .opt .count { margin-left: auto; color: var(--muted); font-size: 12px; }
     .opt.soon { color: var(--muted); cursor: default; font-size: 12px; }
     .toggle { display: flex; align-items: center; gap: 6px; font-size: 13px; margin-bottom: 12px; cursor: pointer; }
+    /* Map view switch: numbered bubbles, or every station as its own dot */
+    .view-switch { display: flex; padding: 3px; margin-bottom: 10px; border: 1px solid var(--border); border-radius: 999px;
+      background: var(--card); }
+    .view-switch button { flex: 1; padding: 6px 10px; border: 0; border-radius: 999px; background: none; color: var(--muted);
+      font-size: 13px; font-weight: 600; cursor: pointer; transition: background .2s, color .2s; }
+    .view-switch button[aria-checked="true"] { background: var(--accent); color: #fff; }
     .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
     .status { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
     .brand-row { display: flex; align-items: center; gap: 4px; margin-left: -10px; }
@@ -179,6 +209,10 @@
     button.filter-toggle { display: none; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px;
       background: var(--card); color: var(--fg); font-size: 15px; cursor: pointer; white-space: nowrap; }
     aside.open button.filter-toggle .caret { transform: rotate(180deg); }
+    button.filter-toggle { border-radius: 999px; }   /* matches the pill-shaped locate button */
+    button.filter-toggle .filter-icon { width: 20px; height: 20px; vertical-align: -5px; fill: none; stroke: currentColor;
+      stroke-width: 2; stroke-linecap: round; }
+    button.filter-toggle #filterCount { color: var(--accent, #1f6feb); font-weight: 700; }
     .status { margin-top: 10px; }
     /* OpenStreetMap's licence requires the map credit to stay visible; kept as faint as is still readable */
     .leaflet-container .leaflet-control-attribution { font-size: 9px; padding: 0 4px; background: transparent;
@@ -262,8 +296,8 @@
       <!-- /intro -->
     </div>
     <div class="sheet-head">
-      <button class="primary" id="locate">📍 Find stations near me</button>
-      <button class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="sheetBody">Filters<span id="filterCount"></span> <span class="caret">▴</span></button>
+      <button class="primary" id="locate"><span class="ping" aria-hidden="true"></span><span class="locate-text">Find stations near me</span><span class="bolt" aria-hidden="true">⚡</span></button>
+      <button class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="sheetBody" aria-label="Filters" title="Filters"><svg class="filter-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg><span id="filterCount"></span> <span class="caret">▴</span></button>
     </div>
     <div class="status" id="status">Loading stations…</div>
     <div class="sheet-body" id="sheetBody">
@@ -275,7 +309,12 @@
       </div>
       <div class="dd-panel" id="countryPanel" hidden></div>
       <div class="dd-panel" id="opPanel" hidden></div>
-      <div class="dd-panel" id="typePanel" hidden></div>      <label class="toggle"><input type="checkbox" id="hideOffline" checked> Hide stations reported offline / closed</label>
+      <div class="dd-panel" id="typePanel" hidden></div>
+      <div class="view-switch" role="radiogroup" aria-label="How stations show on the map">
+        <button type="button" role="radio" data-grouped="1" aria-checked="true">Bubbles</button>
+        <button type="button" role="radio" data-grouped="0" aria-checked="false">All stations</button>
+      </div>
+      <label class="toggle"><input type="checkbox" id="hideOffline" checked> Hide stations reported offline / closed</label>
       <ol class="nearest" id="nearest"></ol>
     </div>
   </aside>
@@ -691,14 +730,147 @@
     },
   }).addTo(map);
 
+  // "All stations" view: every station is a small dot in its operator's colour (drawn on canvas, so
+  // thousands stay fast). From PIN_ZOOM in, the dots turn into the usual logo pins, but only those
+  // near the screen, since thousands of logo pins at once would be slow. Tapping a dot zooms to it.
+  const VIEW_KEY = 'pbr-view';
+  let grouped = true;
+  try { grouped = localStorage.getItem(VIEW_KEY) !== 'all'; } catch {}
+  const allLayer = L.layerGroup();
+  const dots = new Map();
+  const PIN_ZOOM = 14;
+  function dotFor(s) {
+    let d = dots.get(s.id);
+    if (!d) {
+      d = L.circleMarker([s.lat, s.lng], { radius: 5, weight: 1.5, color: '#fff', fillColor: operatorColor[s.operator],
+        fillOpacity: s.status === 'offline' ? .4 : .95 });
+      d.on('click', e => { L.DomEvent.stopPropagation(e); openStation(s); });
+      dots.set(s.id, d);
+    }
+    return d;
+  }
+  // Adds and removes only what changed, so an open popup stays open while you pan
+  function renderAll() {
+    const visible = stations.filter(isVisible);
+    let want;
+    if (map.getZoom() >= PIN_ZOOM) {
+      const b = map.getBounds().pad(0.5);
+      want = new Set(visible.filter(s => b.contains([s.lat, s.lng])).map(s => markers.get(s.id)));
+    } else {
+      want = new Set(visible.map(dotFor));
+    }
+    allLayer.eachLayer(l => { if (!want.has(l)) allLayer.removeLayer(l); });
+    want.forEach(l => { if (!allLayer.hasLayer(l)) allLayer.addLayer(l); });
+  }
+  map.on('moveend', () => { if (!grouped) renderAll(); });
+
   function renderMarkers() {
-    cluster.clearLayers();
-    cluster.addLayers(stations.filter(isVisible).map(s => markers.get(s.id)));
+    if (grouped) {
+      map.removeLayer(allLayer); allLayer.clearLayers();
+      cluster.addTo(map);
+      cluster.clearLayers();
+      cluster.addLayers(stations.filter(isVisible).map(s => markers.get(s.id)));
+    } else {
+      map.removeLayer(cluster); cluster.clearLayers();
+      allLayer.addTo(map);
+      renderAll();
+    }
+  }
+
+  const viewButtons = document.querySelectorAll('.view-switch button');
+  function setMapView(isGrouped) {
+    grouped = isGrouped;
+    viewButtons.forEach(b => b.setAttribute('aria-checked', String((b.dataset.grouped === '1') === grouped)));
+    try { localStorage.setItem(VIEW_KEY, grouped ? 'bubbles' : 'all'); } catch {}
+  }
+  viewButtons.forEach(b => b.addEventListener('click', () => {
+    const g = b.dataset.grouped === '1';
+    if (g === grouped || switching) return;
+    setMapView(g); track('map-view', { view: g ? 'bubbles' : 'all' });
+    if (stations.length) switchViewAnimated(g);
+  }));
+  setMapView(grouped);
+
+  // Switching views animates: stations on screen slide into their bubble (Bubbles), or burst out of
+  // it to their own spot (All stations). The dots fly on a temporary canvas over the map while the
+  // new layer, already in place underneath, stays hidden and fades in at the end.
+  let switching = false;
+  const SWITCH_MS = 650;
+  const easeInOut = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  function switchViewAnimated(toGrouped) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const inView = map.getBounds().pad(0.15);
+    const vis = stations.filter(s => isVisible(s) && inView.contains([s.lat, s.lng]));
+    if (reduced || !vis.length || vis.length > 15000) { renderMarkers(); return; }
+
+    const pt = ll => map.latLngToContainerPoint(ll);
+    const parentPt = s => { const p = cluster.getVisibleParent(markers.get(s.id)); return p ? pt(p.getLatLng()) : null; };
+    const own = vis.map(s => pt([s.lat, s.lng]));
+    let from, to;
+    if (toGrouped) {
+      from = own;
+      const chunked = cluster.options.chunkedLoading;
+      cluster.options.chunkedLoading = false;      // build the bubbles now, so we know where each station goes
+      renderMarkers();
+      cluster.options.chunkedLoading = chunked;
+      to = vis.map((s, i) => parentPt(s) || own[i]);
+    } else {
+      from = vis.map((s, i) => parentPt(s) || own[i]);
+      to = own;
+      renderMarkers();
+    }
+
+    // Bubbles being burst draw as shrinking circles at the start of the "All stations" animation
+    const bubbles = new Map();
+    if (!toGrouped) from.forEach((p, i) => { if (p.distanceTo(own[i]) > 1) bubbles.set(`${p.x},${p.y}`, p); });
+
+    const panes = ['markerPane', 'overlayPane'].map(n => map.getPane(n));
+    panes.forEach(p => { p.style.transition = 'none'; p.style.opacity = '0'; });
+    const size = map.getSize(), dpr = window.devicePixelRatio || 1;
+    const cv = document.createElement('canvas');
+    cv.width = size.x * dpr; cv.height = size.y * dpr;
+    cv.style.cssText = `position:absolute;inset:0;width:${size.x}px;height:${size.y}px;z-index:650;pointer-events:none`;
+    map.getContainer().appendChild(cv);
+    const ctx = cv.getContext('2d'); ctx.scale(dpr, dpr);
+    const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#1f6feb';
+    const delay = vis.map(() => Math.random() * 0.18);   // a little stagger looks more natural
+    switching = true;
+    const start = performance.now();
+
+    function frame(now) {
+      const t = Math.min(1, (now - start) / SWITCH_MS);
+      ctx.clearRect(0, 0, size.x, size.y);
+      if (!toGrouped && t < .45) {
+        const k = 1 - t / .45;
+        ctx.globalAlpha = k; ctx.fillStyle = accent;
+        bubbles.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, 8 + 14 * k, 0, 7); ctx.fill(); });
+      }
+      vis.forEach((s, i) => {
+        const local = Math.max(0, Math.min(1, (t - delay[i]) / (1 - .18)));
+        const e = easeInOut(local);
+        const x = from[i].x + (to[i].x - from[i].x) * e, y = from[i].y + (to[i].y - from[i].y) * e;
+        const fade = toGrouped ? (local > .75 ? (1 - local) / .25 : 1) : Math.min(1, local / .2);
+        ctx.globalAlpha = fade * (s.status === 'offline' ? .45 : .95);
+        ctx.beginPath(); ctx.arc(x, y, toGrouped ? 5 - 2 * e : 3 + 2 * e, 0, 7);
+        ctx.fillStyle = operatorColor[s.operator]; ctx.fill();
+        ctx.lineWidth = 1.5; ctx.strokeStyle = '#fff'; ctx.stroke();
+      });
+      if (t < 1) { requestAnimationFrame(frame); return; }
+      panes.forEach(p => { p.style.transition = 'opacity .25s'; p.style.opacity = '1'; });
+      cv.style.transition = 'opacity .25s'; cv.style.opacity = '0';
+      setTimeout(() => { cv.remove(); panes.forEach(p => { p.style.transition = ''; p.style.opacity = ''; }); switching = false; }, 260);
+    }
+    requestAnimationFrame(frame);
   }
 
   // Zoom in to a station (opening its cluster if needed), then show its details
   function openStation(s, zoom = 17) {
     const m = markers.get(s.id);
+    if (!grouped) {
+      map.setView([s.lat, s.lng], Math.max(zoom, PIN_ZOOM), { animate: false });
+      renderAll(); m.openPopup();
+      return;
+    }
     map.setView([s.lat, s.lng], zoom);
     // Right after a filter change the cluster layer is still adding markers in chunks; wait for it
     if (!m.__parent) { setTimeout(() => cluster.hasLayer(m) && openStation(s, zoom), 300); return; }
@@ -970,14 +1142,16 @@
     if (s) startGuide(s);
   }, true);
 
-  document.getElementById('locate').addEventListener('click', () => {
+  document.getElementById('locate').addEventListener('click', e => {
     const status = document.getElementById('status');
+    const btn = e.currentTarget;
     if (!navigator.geolocation) { status.textContent = 'Your browser does not support location. Click on the map instead.'; return; }
     status.textContent = 'Finding your location…';
     track('locate');
+    btn.classList.add('locating');   // faster ping while we wait for GPS
     navigator.geolocation.getCurrentPosition(
-      p => setYou(p.coords.latitude, p.coords.longitude, p.coords.accuracy),
-      () => { status.textContent = 'Location unavailable or denied. Click on the map to set your position.'; },
+      p => { btn.classList.remove('locating'); setYou(p.coords.latitude, p.coords.longitude, p.coords.accuracy); },
+      () => { btn.classList.remove('locating'); status.textContent = 'Location unavailable or denied. Click on the map to set your position.'; },
       { enableHighAccuracy: true, timeout: 10000 }
     );
   });
