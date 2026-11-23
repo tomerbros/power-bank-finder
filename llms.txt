@@ -1,6 +1,10 @@
 # Powerbank Radar
 
+<<<<<<< Updated upstream
 > A free map of power bank rental stations from every operator: 5,027 stations from 17 operators in 9 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-22). Independent, not affiliated with the operators.
+=======
+> A free map of power bank rental stations from every operator: 5,029 stations from 18 operators in 9 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-22). Independent, not affiliated with the operators.
+>>>>>>> Stashed changes
 
 ## Main pages
 
@@ -17,7 +21,11 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 ## Countries
 
 - [Netherlands](https://www.powerbankradar.com/netherlands/): 1,897 stations ([smaller towns](https://www.powerbankradar.com/netherlands/smaller-towns/))
+<<<<<<< Updated upstream
 - [Spain](https://www.powerbankradar.com/spain/): 1,659 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
+=======
+- [Spain](https://www.powerbankradar.com/spain/): 1,661 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
+>>>>>>> Stashed changes
 - [United Kingdom](https://www.powerbankradar.com/united-kingdom/): 616 stations ([smaller towns](https://www.powerbankradar.com/united-kingdom/smaller-towns/))
 - [Italy](https://www.powerbankradar.com/italy/): 368 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
 - [Germany](https://www.powerbankradar.com/germany/): 257 stations ([smaller towns](https://www.powerbankradar.com/germany/smaller-towns/))
@@ -127,3 +135,4 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Wessview](https://www.powerbankradar.com/operators/wessview/): 23 stations
 - [AIRVALL](https://www.powerbankradar.com/operators/airvall/): 13 stations
 - [ChargeBuddies](https://www.powerbankradar.com/operators/chargebuddies/): 2 stations
+- [FLAPY](https://www.powerbankradar.com/operators/flapy/): 2 stations

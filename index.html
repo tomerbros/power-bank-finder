@@ -142,6 +142,9 @@
     .avail.none { color: #8a1c17; }
     .avail .asof { color: #888; }
     .avail.checking { color: #888; }
+    .offline-note { font-size: 12px; line-height: 1.4; margin-top: 8px; padding: 6px 8px; border-radius: 8px;
+      background: #fde2e1; color: #8a1c17; }
+    .offline-note .asof { display: block; color: #a8524d; font-size: 11px; }
     .avail-chip { font-size: 11px; font-weight: 700; background: #d3f5df; color: #145c2e; border-radius: 4px; padding: 1px 5px; }
     .avail-chip.none { background: #fde2e1; color: #8a1c17; }
     .place { margin-top: 8px; padding: 0 2px; }
@@ -269,7 +272,11 @@
   </div>
   <nav aria-label="Site">
     <a href="/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/><path d="M8 2v16M16 6v16"/></svg>Map</a>
+<<<<<<< Updated upstream
     <details><summary><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>Countries<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><a href="/netherlands/">🇳🇱 Netherlands<span class="count">1,897</span></a><a href="/spain/">🇪🇸 Spain<span class="count">1,659</span></a><a href="/united-kingdom/">🇬🇧 United Kingdom<span class="count">616</span></a><a href="/italy/">🇮🇹 Italy<span class="count">368</span></a><a href="/germany/">🇩🇪 Germany<span class="count">257</span></a><a href="/israel/">🇮🇱 Israel<span class="count">156</span></a><a href="/luxembourg/">🇱🇺 Luxembourg<span class="count">38</span></a><a href="/france/">🇫🇷 France<span class="count">33</span></a><a href="/switzerland/">🇨🇭 Switzerland<span class="count">3</span></a></details>
+=======
+    <details><summary><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>Countries<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><a href="/netherlands/">🇳🇱 Netherlands<span class="count">1,897</span></a><a href="/spain/">🇪🇸 Spain<span class="count">1,661</span></a><a href="/united-kingdom/">🇬🇧 United Kingdom<span class="count">616</span></a><a href="/italy/">🇮🇹 Italy<span class="count">368</span></a><a href="/germany/">🇩🇪 Germany<span class="count">257</span></a><a href="/israel/">🇮🇱 Israel<span class="count">156</span></a><a href="/luxembourg/">🇱🇺 Luxembourg<span class="count">38</span></a><a href="/france/">🇫🇷 France<span class="count">33</span></a><a href="/switzerland/">🇨🇭 Switzerland<span class="count">3</span></a></details>
+>>>>>>> Stashed changes
     <a href="/operators/"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2M6 10v4M10 10v4"/></svg>Operators</a>
     <a href="/faq/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg>FAQ</a>
     <div class="sep"></div>
@@ -292,7 +299,11 @@
         <h1>Powerbank Radar</h1>
       </div>
       <!-- intro: the key facts, written by scripts/build_pages.py (read by search engines and AI assistants) -->
+<<<<<<< Updated upstream
       <p class="sub">Power bank rental stations from every brand, on one map: 5,027 stations from 17 operators in 9 countries (the Netherlands, Spain, the UK, Italy, Germany, Israel, Luxembourg, France and Switzerland), with prices, opening hours and live availability. Updated daily.</p>
+=======
+      <p class="sub">Power bank rental stations from every brand, on one map: 5,029 stations from 18 operators in 9 countries (the Netherlands, Spain, the UK, Italy, Germany, Israel, Luxembourg, France and Switzerland), with prices, opening hours and live availability. Updated daily.</p>
+>>>>>>> Stashed changes
       <!-- /intro -->
     </div>
     <div class="sheet-head">
@@ -453,13 +464,25 @@
     if (live?.loading && s.available == null) return `<div class="avail checking">🔋 Checking live availability…</div>`;
     const n = live && !live.loading ? live.available : s.available;
     const r = live && !live.loading ? live.returnable : s.returnable;
-    if (n == null) return live?.offline ? `<div class="avail none">🔋 Station is offline right now</div>` : '';
+    if (s.status === 'offline') return '';        // offlineNote() says it, more prominently
+    if (n == null) return '';
     const banks = `<b>${n}</b> power bank${n === 1 ? '' : 's'} available`;
     const slots = r != null ? ` · ${r} free slot${r === 1 ? '' : 's'} to return` : '';
     const when = live?.loading ? ' · checking live…'
       : live ? ` · live, ${live.at.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}`
       : ` · as of ${fmtDay(snapshot[s.country])}`;
     return `<div class="avail${n === 0 ? ' none' : ''}">🔋 ${banks}${slots}<span class="asof">${when}</span></div>`;
+  }
+
+  // A clear warning on any station known to be offline: checked live just now, or reported offline
+  // in the operator's own data when it was downloaded
+  function offlineNote(s) {
+    if (s.status !== 'offline') return '';
+    const live = s.live && !s.live.loading ? s.live : null;
+    const when = live ? `checked live at ${live.at.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}`
+      : s.live?.loading ? 'checking live…' : `reported by ${esc(s.operator)} on ${fmtDay(snapshot[s.country])}`;
+    return `<div class="offline-note">⚠️ <b>Offline right now.</b> This station may not rent or take back power banks.
+      <span class="asof">${when}</span></div>`;
   }
 
   // ---- Live availability, fetched when someone opens a station ----
@@ -478,7 +501,7 @@
       return { offline: !online, available: online ? +x.freeNum : null, returnable: online ? +x.canReturnNum : null };
     },
     // Mobbi's web-app feed lists the whole network at once (~500 KB), so one download serves
-    // every Mobbi station opened within a minute
+    // every Mobbi station opened within 10 seconds
     Mobbi: async s => {
       const list = await mobbiFeed();
       const x = list.find(x => `mobbi-${x.id}` === s.id);
@@ -488,7 +511,7 @@
   };
   let mobbiCache = null;   // { at, promise }
   function mobbiFeed() {
-    if (!mobbiCache || Date.now() - mobbiCache.at > 60 * 1000) {
+    if (!mobbiCache || Date.now() - mobbiCache.at > 10 * 1000) {
       mobbiCache = { at: Date.now(), promise: fetch('https://console.mobbi.it/api/v1/merchants/listMerchantsForApp.json', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ memberId: '1', lat: '45.4642', lng: '9.19' }),
@@ -501,27 +524,36 @@
   // their feed server-side. Empty = no relay, so those stations keep the downloaded counts.
   // (To test relay changes locally: run `npx wrangler dev` in relay/ and use http://127.0.0.1:8787.)
   const RELAY_URL = 'https://powerbank-radar-relay.powerbankradar.workers.dev';
-  if (RELAY_URL) ['Juice', 'ANYWATT', 'Fully', 'Amlo', 'Recharge.me'].forEach(op => {
+  if (RELAY_URL) ['Juice', 'ANYWATT', 'Fully', 'Amlo', 'Recharge.me', 'FLAPY'].forEach(op => {
     LIVE_SOURCES[op] = async s => {
       const res = await fetch(`${RELAY_URL}/live?op=${encodeURIComponent(op)}&id=${encodeURIComponent(s.id)}`);
       if (!res.ok) throw new Error(`relay answered ${res.status}`);
       return res.json();
     };
   });
-  const LIVE_MAX_AGE_MS = 60 * 1000;   // re-ask at most once a minute per station
+  // Every time someone opens a station, ask its operator again, so status and counts are current.
+  // The only exception: the same station opened twice within a few seconds reuses the answer.
+  const LIVE_MAX_AGE_MS = 5 * 1000;
 
   async function refreshLive(s, marker) {
     const source = LIVE_SOURCES[s.operator];
-    if (!source || (s.live && !s.live.loading && Date.now() - s.live.at < LIVE_MAX_AGE_MS)) return;
+    if (!source || s.live?.loading || (s.live && Date.now() - s.live.at < LIVE_MAX_AGE_MS)) return;
     const redraw = () => marker.isPopupOpen() && marker.getPopup().setContent(popupHtml(s));
+    const before = s.status;
     s.live = { ...(s.live || {}), loading: true };
     redraw();
     try {
       s.live = { ...(await source(s)), at: new Date() };
       if (s.live.offline) s.status = 'offline';
-      else if (s.status === 'offline') s.status = 'online';
+      else if (s.status === 'offline' || s.status === 'unknown') s.status = 'online';
+      if (s.live.available != null) { s.available = s.live.available; s.returnable = s.live.returnable; }
+      else if (s.live.offline) { s.available = null; s.returnable = null; }
     } catch {
       s.live = null;   // keep showing the downloaded counts
+    }
+    if (s.status !== before) {          // grey the pin and its dot out (or back in) to match
+      marker.setIcon(logoIcon(s));
+      dots.get(s.id)?.setStyle({ fillOpacity: s.status === 'offline' ? .4 : .95 });
     }
     redraw();
   }
@@ -611,6 +643,7 @@
     const km = you ? haversineKm(you, s) : null;
     const info = infoFor(s);
     return `<div class="station">${opHeader(s)}
+      ${offlineNote(s)}
       ${priceBox(s)}
       ${availLine(s)}
       <div class="place">
@@ -929,7 +962,7 @@
       card.className = 'mini';
       card.innerHTML = `<div class="top">${brandMark(s.operator)}<span class="op" style="color:${operatorColor[s.operator]}">${esc(s.operator)}</span>
           <span class="km">${fmtDist(km)}</span></div>
-        <div class="v">${openPill(openState(s))} ${availChip(s)} ${placeIcon(s)} ${esc(s.name)}</div>
+        <div class="v">${s.status === 'offline' ? '<span class="open-pill is-closed">Offline</span>' : openPill(openState(s))} ${availChip(s)} ${placeIcon(s)} ${esc(s.name)}</div>
         ${info ? `<div class="p">💶 ${esc(info.price)}</div>` : ''}`;
       card.addEventListener('click', () => openStation(s));
       strip.appendChild(card);
