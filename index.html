@@ -545,7 +545,7 @@
     }
     if (s.status !== before) {          // grey the pin and its dot out (or back in) to match
       marker.setIcon(logoIcon(s));
-      dots.get(s.id)?.setStyle({ fillOpacity: s.status === 'offline' ? .4 : .95 });
+      dotLayer.redraw();
     }
     redraw();
   }
@@ -755,49 +755,148 @@
     },
   }).addTo(map);
 
-  // "All stations" view: every station is a small dot in its operator's colour (drawn on canvas, so
-  // thousands stay fast). From PIN_ZOOM in, the dots turn into the usual logo pins, but only those
-  // near the screen, since thousands of logo pins at once would be slow. Tapping a dot zooms to it.
+  // "All stations" view: every station is a small dot in its operator's colour. From PIN_ZOOM in, the
+  // dots turn into the usual logo pins, but only those near the screen, since thousands of logo pins
+  // at once would be slow. Tapping a dot zooms to it.
+  //
+  // The dots are one canvas drawn in a single pass, one path per colour, and only for what's on
+  // screen. (5,000 separate Leaflet circle markers made every zoom stutter, worst on phones.)
+  // During the zoom animation the finished picture is just scaled; it's redrawn once at the end.
+  const DotLayer = L.Layer.extend({
+    options: { pane: 'overlayPane' },
+    initialize() { this._items = []; this._pts = []; },
+    // draw = false when the map is about to redraw anyway (after a move or zoom)
+    setItems(items, draw = true) {
+      if (items.length !== this._items.length || items.some((s, i) => s !== this._items[i])) { this._items = items; this._proj = null; }
+      if (draw && this._map) this._draw();
+    },
+    redraw() { if (this._map) this._draw(); },
+    onAdd() {
+      this._canvas = L.DomUtil.create('canvas', 'leaflet-zoom-animated');
+      this._canvas.style.pointerEvents = 'none';
+      this.getPane().appendChild(this._canvas);
+      this._ctx = this._canvas.getContext('2d');
+      this._reset();
+    },
+    onRemove() { L.DomUtil.remove(this._canvas); this._canvas = null; this._pts = []; },
+    getEvents() { return { moveend: this._reset, resize: this._reset, zoomanim: this._animateZoom }; },
+    _reset() {
+      const map = this._map, size = map.getSize(), dpr = window.devicePixelRatio || 1;
+      this._bounds = L.latLngBounds(map.containerPointToLatLng([0, 0]), map.containerPointToLatLng(size));
+      L.DomUtil.setPosition(this._canvas, map.containerPointToLayerPoint([0, 0]));
+      this._canvas.width = Math.round(size.x * dpr); this._canvas.height = Math.round(size.y * dpr);
+      this._canvas.style.width = size.x + 'px'; this._canvas.style.height = size.y + 'px';
+      this._dpr = dpr;
+      this._draw();
+    },
+    _animateZoom(e) {
+      const offset = this._map._latLngBoundsToNewLayerBounds(this._bounds, e.zoom, e.center).min;
+      L.DomUtil.setTransform(this._canvas, offset, this._map.getZoomScale(e.zoom));
+    },
+    _draw() {
+      const map = this._map, ctx = this._ctx, size = map.getSize(), R = 5;
+      ctx.setTransform(this._dpr, 0, 0, this._dpr, 0, 0);
+      ctx.clearRect(0, 0, size.x, size.y);
+      // Map positions are worked out once per zoom level; a pan only shifts them
+      const zoom = map.getZoom();
+      if (!this._proj || this._projZoom !== zoom) {
+        this._proj = new Float64Array(this._items.length * 2);
+        this._items.forEach((s, i) => { const p = map.project([s.lat, s.lng], zoom); this._proj[2 * i] = p.x; this._proj[2 * i + 1] = p.y; });
+        this._projZoom = zoom;
+      }
+      let dx = 0, dy = 0;
+      if (this._items.length) {
+        const s0 = this._items[0], c = map.latLngToContainerPoint([s0.lat, s0.lng]);
+        dx = c.x - this._proj[0]; dy = c.y - this._proj[1];
+      }
+      const groups = new Map();
+      this._pts = [];
+      this._items.forEach((s, i) => {
+        const x = this._proj[2 * i] + dx, y = this._proj[2 * i + 1] + dy;
+        if (x < -R || y < -R || x > size.x + R || y > size.y + R) return;
+        this._pts.push([x, y, s]);
+        const key = operatorColor[s.operator] + (s.status === 'offline' ? '|off' : '');
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push({ x, y });
+      });
+      ctx.lineWidth = 1.5; ctx.strokeStyle = '#fff';
+      groups.forEach((pts, key) => {
+        const [color, off] = key.split('|');
+        ctx.beginPath();
+        for (const p of pts) { ctx.moveTo(p.x + R, p.y); ctx.arc(p.x, p.y, R, 0, 2 * Math.PI); }
+        ctx.globalAlpha = off ? .4 : .95; ctx.fillStyle = color; ctx.fill();
+        ctx.globalAlpha = off ? .6 : 1; ctx.stroke();
+      });
+      ctx.globalAlpha = 1;
+    },
+    // The station whose dot is nearest to a point on the map, within reach of a finger
+    hit(x, y, reach = 12) {
+      let best = null, bestD = reach * reach;
+      for (const [px, py, s] of this._pts) {
+        const d = (px - x) ** 2 + (py - y) ** 2;
+        if (d < bestD) { bestD = d; best = s; }
+      }
+      return best;
+    },
+  });
+
   const VIEW_KEY = 'pbr-view';
   let grouped = true;
   try { grouped = localStorage.getItem(VIEW_KEY) !== 'all'; } catch {}
-  const allLayer = L.layerGroup();
-  const dots = new Map();
+  const allLayer = L.layerGroup();       // logo pins, close up
+  const dotLayer = new DotLayer();       // dots, further out
   const PIN_ZOOM = 14;
-  function dotFor(s) {
-    let d = dots.get(s.id);
-    if (!d) {
-      d = L.circleMarker([s.lat, s.lng], { radius: 5, weight: 1.5, color: '#fff', fillColor: operatorColor[s.operator],
-        fillOpacity: s.status === 'offline' ? .4 : .95 });
-      d.on('click', e => { L.DomEvent.stopPropagation(e); openStation(s); });
-      dots.set(s.id, d);
-    }
-    return d;
-  }
-  // Adds and removes only what changed, so an open popup stays open while you pan
-  function renderAll() {
+
+  // Tapping a dot: caught before the map's own click (which would set "your position" there).
+  // A press that turned into a drag isn't a tap.
+  const mapEl = map.getContainer();
+  let pressAt = null;
+  mapEl.addEventListener('pointerdown', e => { pressAt = [e.clientX, e.clientY]; }, true);
+  const dotAt = e => {
+    if (!map.hasLayer(dotLayer) || e.target.closest?.('.leaflet-control, .leaflet-popup, .leaflet-marker-icon')) return null;
+    const r = mapEl.getBoundingClientRect();
+    return dotLayer.hit(e.clientX - r.left, e.clientY - r.top);
+  };
+  mapEl.addEventListener('click', e => {
+    if (pressAt && Math.hypot(e.clientX - pressAt[0], e.clientY - pressAt[1]) > 6) return;
+    const s = dotAt(e);
+    if (s) { e.stopPropagation(); openStation(s); }
+  }, true);
+  let hoverQueued = false;
+  mapEl.addEventListener('mousemove', e => {          // pointer cursor over a dot (computers)
+    if (hoverQueued) return;
+    hoverQueued = true;
+    requestAnimationFrame(() => { hoverQueued = false; mapEl.style.cursor = dotAt(e) ? 'pointer' : ''; });
+  });
+
+  // Adds and removes only what changed, so an open popup stays open while you pan.
+  // After a move the dot layer redraws itself, so renderAll only hands it the list then.
+  function renderAll(afterMove = false) {
     const visible = stations.filter(isVisible);
-    let want;
+    let want = new Set();
     if (map.getZoom() >= PIN_ZOOM) {
       const b = map.getBounds().pad(0.5);
       want = new Set(visible.filter(s => b.contains([s.lat, s.lng])).map(s => markers.get(s.id)));
+      dotLayer.setItems([], !afterMove);
     } else {
-      want = new Set(visible.map(dotFor));
+      dotLayer.setItems(visible, !afterMove);
     }
     allLayer.eachLayer(l => { if (!want.has(l)) allLayer.removeLayer(l); });
     want.forEach(l => { if (!allLayer.hasLayer(l)) allLayer.addLayer(l); });
   }
-  map.on('moveend', () => { if (!grouped) renderAll(); });
+  map.on('moveend', () => { if (!grouped) renderAll(true); });
 
   function renderMarkers() {
     if (grouped) {
       map.removeLayer(allLayer); allLayer.clearLayers();
+      map.removeLayer(dotLayer); dotLayer.setItems([]);
       cluster.addTo(map);
       cluster.clearLayers();
       cluster.addLayers(stations.filter(isVisible).map(s => markers.get(s.id)));
     } else {
       map.removeLayer(cluster); cluster.clearLayers();
       allLayer.addTo(map);
+      dotLayer.addTo(map);
       renderAll();
     }
   }
