@@ -1,6 +1,6 @@
 # Powerbank Radar
 
-> A free map of power bank rental stations from every operator: 5,029 stations from 18 operators in 9 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-22). Independent, not affiliated with the operators.
+> A free map of power bank rental stations from every operator: 5,031 stations from 18 operators in 9 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-23). Independent, not affiliated with the operators.
 
 ## Main pages
 
@@ -17,19 +17,19 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 
 ## Countries
 
-- [Netherlands](https://www.powerbankradar.com/netherlands/): 1,897 stations ([smaller towns](https://www.powerbankradar.com/netherlands/smaller-towns/))
+- [Netherlands](https://www.powerbankradar.com/netherlands/): 1,898 stations ([smaller towns](https://www.powerbankradar.com/netherlands/smaller-towns/))
 - [Spain](https://www.powerbankradar.com/spain/): 1,661 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
 - [United Kingdom](https://www.powerbankradar.com/united-kingdom/): 616 stations ([smaller towns](https://www.powerbankradar.com/united-kingdom/smaller-towns/))
 - [Italy](https://www.powerbankradar.com/italy/): 368 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
 - [Germany](https://www.powerbankradar.com/germany/): 257 stations ([smaller towns](https://www.powerbankradar.com/germany/smaller-towns/))
 - [Israel](https://www.powerbankradar.com/israel/): 156 stations ([smaller towns](https://www.powerbankradar.com/israel/smaller-towns/))
-- [Luxembourg](https://www.powerbankradar.com/luxembourg/): 38 stations
+- [Luxembourg](https://www.powerbankradar.com/luxembourg/): 39 stations
 - [France](https://www.powerbankradar.com/france/): 33 stations ([smaller towns](https://www.powerbankradar.com/france/smaller-towns/))
 
 ## Cities
 
 - [Amsterdam, Netherlands](https://www.powerbankradar.com/netherlands/amsterdam/): 538 stations
-- [Rotterdam, Netherlands](https://www.powerbankradar.com/netherlands/rotterdam/): 185 stations
+- [Rotterdam, Netherlands](https://www.powerbankradar.com/netherlands/rotterdam/): 186 stations
 - [The Hague, Netherlands](https://www.powerbankradar.com/netherlands/the-hague/): 144 stations
 - [Utrecht, Netherlands](https://www.powerbankradar.com/netherlands/utrecht/): 95 stations
 - [Eindhoven, Netherlands](https://www.powerbankradar.com/netherlands/eindhoven/): 42 stations
@@ -106,13 +106,13 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Ramat Gan, Israel](https://www.powerbankradar.com/israel/ramat-gan/): 7 stations
 - [Holon, Israel](https://www.powerbankradar.com/israel/holon/): 6 stations
 - [Eilat, Israel](https://www.powerbankradar.com/israel/eilat/): 6 stations
-- [Luxembourg City, Luxembourg](https://www.powerbankradar.com/luxembourg/luxembourg-city/): 34 stations
+- [Luxembourg City, Luxembourg](https://www.powerbankradar.com/luxembourg/luxembourg-city/): 35 stations
 - [Paris, France](https://www.powerbankradar.com/france/paris/): 24 stations
 
 ## Operators
 
 - [FireVolt](https://www.powerbankradar.com/operators/firevolt/): 1,048 stations
-- [Revive](https://www.powerbankradar.com/operators/revive/): 764 stations
+- [Revive](https://www.powerbankradar.com/operators/revive/): 766 stations
 - [Fast Charger](https://www.powerbankradar.com/operators/fast-charger/): 604 stations
 - [Juice](https://www.powerbankradar.com/operators/juice/): 562 stations
 - [Buzz](https://www.powerbankradar.com/operators/buzz/): 557 stations
@@ -139,7 +139,7 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | Juice | Netherlands | 524 | Price varies per location | - | - | - | - |
 | Buzz | Netherlands | 506 | €3 / hour · max €9 / day | €3 | €9 | €9 | €30 |
 | ICCXX | Netherlands | 470 | Max €3 per day | - | - | €3 | - |
-| Revive | Netherlands | 333 | Price shown in the Revive app | - | - | - | - |
+| Revive | Netherlands | 334 | Price shown in the Revive app | - | - | - | - |
 | Amlo | Netherlands | 26 | €2.50 / hour | €2.50 | €7.50 | - | - |
 | Wessview | Netherlands | 23 | €2 / 30 min · max €10 / day | €4 | €10 | €10 | €20 |
 | AIRVALL | Netherlands | 13 | €4 per 24 hours | €4 | €4 | €4 | - |
@@ -160,6 +160,6 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | Rechargy | Germany | 252 | Price shown in the app or at the terminal | - | - | - | - |
 | Juice | Germany | 5 | Price varies per location | - | - | - | - |
 | Dead Batt | Israel | 156 | ₪15 / hour · max ₪30 / 24 h | ₪15 | ₪30 | ₪30 | - |
-| Revive | Luxembourg | 38 | Price shown in the Revive app | - | - | - | - |
+| Revive | Luxembourg | 39 | Price shown in the Revive app | - | - | - | - |
 | Juice | France | 33 | Price varies per location | - | - | - | - |
 | ANYWATT | Switzerland | 3 | Price shown at the station | - | - | - | - |
