@@ -7,6 +7,7 @@
 - [Map](https://www.powerbankradar.com/): find the nearest power bank rental station
 - [FAQ](https://www.powerbankradar.com/faq/): how power bank rental works, prices, returns
 - [Operators](https://www.powerbankradar.com/operators/): every operator with its countries and station count
+- [Prices](https://www.powerbankradar.com/prices/): every operator's prices compared, per country and the cheapest per city
 - [About](https://www.powerbankradar.com/about/): where the data comes from
 
 ## Showing someone the stations near them
@@ -128,3 +129,37 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [AIRVALL](https://www.powerbankradar.com/operators/airvall/): 13 stations
 - [ChargeBuddies](https://www.powerbankradar.com/operators/chargebuddies/): 2 stations
 - [FLAPY](https://www.powerbankradar.com/operators/flapy/): 2 stations
+
+## Prices
+
+From each operator's published prices; 1 hour and 3 hours are billed per started period up to the daily maximum (upper estimates). "-" = shown only in the app or on the station.
+
+| Operator | Country | Stations | Published price | 1 hour | 3 hours | Max per day | Deposit |
+|---|---|---|---|---|---|---|---|
+| Juice | Netherlands | 524 | Price varies per location | - | - | - | - |
+| Buzz | Netherlands | 506 | €3 / hour · max €9 / day | €3 | €9 | €9 | €30 |
+| ICCXX | Netherlands | 470 | Max €3 per day | - | - | €3 | - |
+| Revive | Netherlands | 333 | Price shown in the Revive app | - | - | - | - |
+| Amlo | Netherlands | 26 | €2.50 / hour | €2.50 | €7.50 | - | - |
+| Wessview | Netherlands | 23 | €2 / 30 min · max €10 / day | €4 | €10 | €10 | €20 |
+| AIRVALL | Netherlands | 13 | €4 per 24 hours | €4 | €4 | €4 | - |
+| ChargeBuddies | Netherlands | 2 | €2 first hour, then per minute | €2.50 | - | - | - |
+| FireVolt | Spain | 1,048 | €6 / hour · max €30 / day (most stations; varies) | €1.90–€6 | €5–€18 | €5–€30 | €3–€20 |
+| Revive | Spain | 381 | Price shown in the Revive app | - | - | - | - |
+| ANYWATT | Spain | 92 | Price shown at the station | - | - | - | - |
+| VolterGy | Spain | 55 | €1.75 / 30 min · max €8.75 / day | €3.50 | €8.75 | €8.75 | €19 |
+| Buzz | Spain | 51 | €1.99 / 30 min · max €10 / day | €3.98 | €10 | €10 | - |
+| Fully | Spain | 25 | €3 / hour · max €12 / day | €3 | €9 | €12 | €35 |
+| Mobbi | Spain | 7 | €1 / 30 min (most stations; varies) | €2–€4 | €6–€12 | - | - |
+| FLAPY | Spain | 2 | €2 / 30 min · max €10 / day | €4 | €10 | €10 | €25 |
+| Fast Charger | United Kingdom | 604 | Price shown in the Fast Charger app | - | - | - | - |
+| Revive | United Kingdom | 12 | Price shown in the Revive app | - | - | - | - |
+| Mobbi | Italy | 329 | €1 / 30 min | €2 | €6 | - | - |
+| Recharge.me | Italy | 37 | Price shown on the station screen | - | - | - | - |
+| ANYWATT | Italy | 2 | Price shown at the station | - | - | - | - |
+| Rechargy | Germany | 252 | Price shown in the app or at the terminal | - | - | - | - |
+| Juice | Germany | 5 | Price varies per location | - | - | - | - |
+| Dead Batt | Israel | 156 | ₪15 / hour · max ₪30 / 24 h | ₪15 | ₪30 | ₪30 | - |
+| Revive | Luxembourg | 38 | Price shown in the Revive app | - | - | - | - |
+| Juice | France | 33 | Price varies per location | - | - | - | - |
+| ANYWATT | Switzerland | 3 | Price shown at the station | - | - | - | - |

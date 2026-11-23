@@ -32,7 +32,13 @@ h3 { font-size:17px; margin:20px 0 4px; }
 table { width:100%; border-collapse:collapse; font-size:15px; }
 th, td { text-align:left; padding:8px 6px; border-bottom:1px solid var(--border); vertical-align:top; }
 th { font-size:13px; color:var(--muted); font-weight:600; }
-td.n { text-align:right; white-space:nowrap; }
+td.n, th.n { text-align:right; white-space:nowrap; }
+.tbl { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 -4px; }
+.tbl table { min-width:560px; }
+table.facts { margin:14px 0 6px; }
+table.facts th { width:42%; font-size:14px; color:var(--muted); font-weight:600; }
+table.facts td { font-weight:600; }
+tr.me td { background:var(--card); }
 .op { display:flex; align-items:center; gap:8px; font-weight:600; }
 .op img { width:22px; height:22px; border-radius:5px; object-fit:contain; background:#fff; }
 h1 .op { display:inline-flex; vertical-align:-3px; }

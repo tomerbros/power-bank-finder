@@ -84,6 +84,7 @@ operators/rechargy/index.html
 operators/revive/index.html
 operators/voltergy/index.html
 operators/wessview/index.html
+prices/index.html
 privacy/index.html
 spain/alicante/index.html
 spain/barcelona/index.html
