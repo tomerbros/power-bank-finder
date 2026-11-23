@@ -1,6 +1,6 @@
 # Powerbank Radar
 
-> A free map of power bank rental stations from every operator: 5,031 stations from 18 operators in 9 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-23). Independent, not affiliated with the operators.
+> A free map of power bank rental stations from every operator: 5,454 stations from 18 operators in 9 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-23). Independent, not affiliated with the operators.
 
 ## Main pages
 
@@ -17,8 +17,8 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 
 ## Countries
 
-- [Netherlands](https://www.powerbankradar.com/netherlands/): 1,898 stations ([smaller towns](https://www.powerbankradar.com/netherlands/smaller-towns/))
-- [Spain](https://www.powerbankradar.com/spain/): 1,661 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
+- [Netherlands](https://www.powerbankradar.com/netherlands/): 2,258 stations ([smaller towns](https://www.powerbankradar.com/netherlands/smaller-towns/))
+- [Spain](https://www.powerbankradar.com/spain/): 1,724 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
 - [United Kingdom](https://www.powerbankradar.com/united-kingdom/): 616 stations ([smaller towns](https://www.powerbankradar.com/united-kingdom/smaller-towns/))
 - [Italy](https://www.powerbankradar.com/italy/): 368 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
 - [Germany](https://www.powerbankradar.com/germany/): 257 stations ([smaller towns](https://www.powerbankradar.com/germany/smaller-towns/))
@@ -28,36 +28,36 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 
 ## Cities
 
-- [Amsterdam, Netherlands](https://www.powerbankradar.com/netherlands/amsterdam/): 538 stations
-- [Rotterdam, Netherlands](https://www.powerbankradar.com/netherlands/rotterdam/): 186 stations
-- [The Hague, Netherlands](https://www.powerbankradar.com/netherlands/the-hague/): 144 stations
-- [Utrecht, Netherlands](https://www.powerbankradar.com/netherlands/utrecht/): 95 stations
-- [Eindhoven, Netherlands](https://www.powerbankradar.com/netherlands/eindhoven/): 42 stations
+- [Amsterdam, Netherlands](https://www.powerbankradar.com/netherlands/amsterdam/): 660 stations
+- [Rotterdam, Netherlands](https://www.powerbankradar.com/netherlands/rotterdam/): 274 stations
+- [The Hague, Netherlands](https://www.powerbankradar.com/netherlands/the-hague/): 206 stations
+- [Utrecht, Netherlands](https://www.powerbankradar.com/netherlands/utrecht/): 96 stations
+- [Eindhoven, Netherlands](https://www.powerbankradar.com/netherlands/eindhoven/): 56 stations
+- [Tilburg, Netherlands](https://www.powerbankradar.com/netherlands/tilburg/): 32 stations
+- [Almere, Netherlands](https://www.powerbankradar.com/netherlands/almere/): 28 stations
+- [Haarlem, Netherlands](https://www.powerbankradar.com/netherlands/haarlem/): 27 stations
 - [Zandvoort, Netherlands](https://www.powerbankradar.com/netherlands/zandvoort/): 25 stations
-- [Haarlem, Netherlands](https://www.powerbankradar.com/netherlands/haarlem/): 22 stations
-- [Enschede, Netherlands](https://www.powerbankradar.com/netherlands/enschede/): 22 stations
-- [Breda, Netherlands](https://www.powerbankradar.com/netherlands/breda/): 21 stations
-- [Almere, Netherlands](https://www.powerbankradar.com/netherlands/almere/): 21 stations
-- [Amstelveen, Netherlands](https://www.powerbankradar.com/netherlands/amstelveen/): 21 stations
-- [Groningen, Netherlands](https://www.powerbankradar.com/netherlands/groningen/): 21 stations
-- [Den Bosch, Netherlands](https://www.powerbankradar.com/netherlands/den-bosch/): 20 stations
+- [Den Bosch, Netherlands](https://www.powerbankradar.com/netherlands/den-bosch/): 23 stations
+- [Enschede, Netherlands](https://www.powerbankradar.com/netherlands/enschede/): 23 stations
+- [Amstelveen, Netherlands](https://www.powerbankradar.com/netherlands/amstelveen/): 23 stations
+- [Breda, Netherlands](https://www.powerbankradar.com/netherlands/breda/): 22 stations
+- [Groningen, Netherlands](https://www.powerbankradar.com/netherlands/groningen/): 22 stations
+- [Alkmaar, Netherlands](https://www.powerbankradar.com/netherlands/alkmaar/): 21 stations
 - [Maastricht, Netherlands](https://www.powerbankradar.com/netherlands/maastricht/): 20 stations
-- [Leiden, Netherlands](https://www.powerbankradar.com/netherlands/leiden/): 20 stations
-- [Zwolle, Netherlands](https://www.powerbankradar.com/netherlands/zwolle/): 18 stations
-- [Zaandam, Netherlands](https://www.powerbankradar.com/netherlands/zaandam/): 17 stations
+- [Hoofddorp, Netherlands](https://www.powerbankradar.com/netherlands/hoofddorp/): 19 stations
+- [Leiden, Netherlands](https://www.powerbankradar.com/netherlands/leiden/): 19 stations
+- [Zwolle, Netherlands](https://www.powerbankradar.com/netherlands/zwolle/): 19 stations
+- [Zaandam, Netherlands](https://www.powerbankradar.com/netherlands/zaandam/): 18 stations
 - [Amersfoort, Netherlands](https://www.powerbankradar.com/netherlands/amersfoort/): 17 stations
-- [Tilburg, Netherlands](https://www.powerbankradar.com/netherlands/tilburg/): 15 stations
-- [Hoofddorp, Netherlands](https://www.powerbankradar.com/netherlands/hoofddorp/): 15 stations
+- [Nijmegen, Netherlands](https://www.powerbankradar.com/netherlands/nijmegen/): 15 stations
 - [Leeuwarden, Netherlands](https://www.powerbankradar.com/netherlands/leeuwarden/): 15 stations
-- [Alkmaar, Netherlands](https://www.powerbankradar.com/netherlands/alkmaar/): 15 stations
 - [Delft, Netherlands](https://www.powerbankradar.com/netherlands/delft/): 13 stations
-- [Nijmegen, Netherlands](https://www.powerbankradar.com/netherlands/nijmegen/): 11 stations
-- [Dordrecht, Netherlands](https://www.powerbankradar.com/netherlands/dordrecht/): 9 stations
+- [Den Helder, Netherlands](https://www.powerbankradar.com/netherlands/den-helder/): 11 stations
+- [Dordrecht, Netherlands](https://www.powerbankradar.com/netherlands/dordrecht/): 10 stations
 - [Hilversum, Netherlands](https://www.powerbankradar.com/netherlands/hilversum/): 8 stations
-- [Den Helder, Netherlands](https://www.powerbankradar.com/netherlands/den-helder/): 8 stations
 - [Arnhem, Netherlands](https://www.powerbankradar.com/netherlands/arnhem/): 6 stations
 - [Valencia, Spain](https://www.powerbankradar.com/spain/valencia/): 249 stations
-- [Barcelona, Spain](https://www.powerbankradar.com/spain/barcelona/): 179 stations
+- [Barcelona, Spain](https://www.powerbankradar.com/spain/barcelona/): 242 stations
 - [Benidorm, Spain](https://www.powerbankradar.com/spain/benidorm/): 126 stations
 - [Marbella, Spain](https://www.powerbankradar.com/spain/marbella/): 125 stations
 - [Ibiza, Spain](https://www.powerbankradar.com/spain/ibiza/): 124 stations
@@ -112,10 +112,10 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 ## Operators
 
 - [FireVolt](https://www.powerbankradar.com/operators/firevolt/): 1,048 stations
+- [Buzz](https://www.powerbankradar.com/operators/buzz/): 980 stations
 - [Revive](https://www.powerbankradar.com/operators/revive/): 766 stations
 - [Fast Charger](https://www.powerbankradar.com/operators/fast-charger/): 604 stations
 - [Juice](https://www.powerbankradar.com/operators/juice/): 562 stations
-- [Buzz](https://www.powerbankradar.com/operators/buzz/): 557 stations
 - [ICCXX](https://www.powerbankradar.com/operators/iccxx/): 470 stations
 - [Mobbi](https://www.powerbankradar.com/operators/mobbi/): 336 stations
 - [Rechargy](https://www.powerbankradar.com/operators/rechargy/): 252 stations
@@ -136,8 +136,8 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 
 | Operator | Country | Stations | Published price | 1 hour | 3 hours | Max per day | Deposit |
 |---|---|---|---|---|---|---|---|
+| Buzz | Netherlands | 866 | €3 / hour · max €9 / day | €3 | €9 | €9 | €30 |
 | Juice | Netherlands | 524 | Price varies per location | - | - | - | - |
-| Buzz | Netherlands | 506 | €3 / hour · max €9 / day | €3 | €9 | €9 | €30 |
 | ICCXX | Netherlands | 470 | Max €3 per day | - | - | €3 | - |
 | Revive | Netherlands | 334 | Price shown in the Revive app | - | - | - | - |
 | Amlo | Netherlands | 26 | €2.50 / hour | €2.50 | €7.50 | - | - |
@@ -146,9 +146,9 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | ChargeBuddies | Netherlands | 2 | €2 first hour, then per minute | €2.50 | - | - | - |
 | FireVolt | Spain | 1,048 | €6 / hour · max €30 / day (most stations; varies) | €1.90–€6 | €5–€18 | €5–€30 | €3–€20 |
 | Revive | Spain | 381 | Price shown in the Revive app | - | - | - | - |
+| Buzz | Spain | 114 | €1.99 / 30 min · max €10 / day | €3.98 | €10 | €10 | - |
 | ANYWATT | Spain | 92 | Price shown at the station | - | - | - | - |
 | VolterGy | Spain | 55 | €1.75 / 30 min · max €8.75 / day | €3.50 | €8.75 | €8.75 | €19 |
-| Buzz | Spain | 51 | €1.99 / 30 min · max €10 / day | €3.98 | €10 | €10 | - |
 | Fully | Spain | 25 | €3 / hour · max €12 / day | €3 | €9 | €12 | €35 |
 | Mobbi | Spain | 7 | €1 / 30 min (most stations; varies) | €2–€4 | €6–€12 | - | - |
 | FLAPY | Spain | 2 | €2 / 30 min · max €10 / day | €4 | €10 | €10 | €25 |
