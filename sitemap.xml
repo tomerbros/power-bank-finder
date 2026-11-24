@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://www.powerbankradar.com/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/london/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/manchester/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/sheffield/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/liverpool/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/glasgow/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/birmingham/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/brighton/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/leeds/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/bristol/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/edinburgh/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/reading/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/milton-keynes/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/oxford/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/cambridge/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/st-albans/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/colchester/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/canterbury/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/guildford/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/united-kingdom/smaller-towns/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://www.powerbankradar.com/switzerland/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://www.powerbankradar.com/switzerland/zurich/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://www.powerbankradar.com/switzerland/bern/</loc><lastmod>2026-11-24</lastmod></url>
@@ -92,14 +112,6 @@
   <url><loc>https://www.powerbankradar.com/germany/leipzig/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://www.powerbankradar.com/germany/cologne/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://www.powerbankradar.com/germany/smaller-towns/</loc><lastmod>2026-11-24</lastmod></url>
-  <url><loc>https://www.powerbankradar.com/united-kingdom/</loc><lastmod>2026-11-24</lastmod></url>
-  <url><loc>https://www.powerbankradar.com/united-kingdom/london/</loc><lastmod>2026-11-24</lastmod></url>
-  <url><loc>https://www.powerbankradar.com/united-kingdom/sheffield/</loc><lastmod>2026-11-24</lastmod></url>
-  <url><loc>https://www.powerbankradar.com/united-kingdom/reading/</loc><lastmod>2026-11-24</lastmod></url>
-  <url><loc>https://www.powerbankradar.com/united-kingdom/st-albans/</loc><lastmod>2026-11-24</lastmod></url>
-  <url><loc>https://www.powerbankradar.com/united-kingdom/oxford/</loc><lastmod>2026-11-24</lastmod></url>
-  <url><loc>https://www.powerbankradar.com/united-kingdom/canterbury/</loc><lastmod>2026-11-24</lastmod></url>
-  <url><loc>https://www.powerbankradar.com/united-kingdom/smaller-towns/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://www.powerbankradar.com/italy/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://www.powerbankradar.com/italy/milan/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://www.powerbankradar.com/italy/rome/</loc><lastmod>2026-11-24</lastmod></url>
@@ -147,6 +159,7 @@
   <url><loc>https://www.powerbankradar.com/operators/dead-batt/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://www.powerbankradar.com/operators/mobbi/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://www.powerbankradar.com/operators/recharge-me/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://www.powerbankradar.com/operators/chargedup/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://www.powerbankradar.com/operators/chimpy/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://www.powerbankradar.com/operators/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://www.powerbankradar.com/prices/</loc><lastmod>2026-11-24</lastmod></url>

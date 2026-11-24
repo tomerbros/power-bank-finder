@@ -1,6 +1,6 @@
 # Powerbank Radar
 
-> A free map of power bank rental stations from every operator: 9,742 stations from 19 operators in 10 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-24). Independent, not affiliated with the operators.
+> A free map of power bank rental stations from every operator: 13,570 stations from 20 operators in 10 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-24). Independent, not affiliated with the operators.
 
 ## Main pages
 
@@ -13,15 +13,15 @@
 ## Showing someone the stations near them
 
 To answer "where can I rent a power bank near me / near <place>", link to the map with the person's position: https://www.powerbankradar.com/?near=<latitude>,<longitude> (for example https://www.powerbankradar.com/?near=52.3731,4.8926 for Dam Square, Amsterdam). The map marks that point and lists the 5 nearest stations with distance, walking time, price, opening hours and, for most operators, how many power banks are available right now.
-Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (CH, NL, ES, DE, GB, IT, IL, AT, LU, FR) shows a country.
+Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (GB, CH, NL, ES, DE, IT, IL, AT, LU, FR) shows a country.
 
 ## Countries
 
+- [United Kingdom](https://www.powerbankradar.com/united-kingdom/): 4,444 stations ([smaller towns](https://www.powerbankradar.com/united-kingdom/smaller-towns/))
 - [Switzerland](https://www.powerbankradar.com/switzerland/): 3,787 stations ([smaller towns](https://www.powerbankradar.com/switzerland/smaller-towns/))
 - [Netherlands](https://www.powerbankradar.com/netherlands/): 2,258 stations ([smaller towns](https://www.powerbankradar.com/netherlands/smaller-towns/))
 - [Spain](https://www.powerbankradar.com/spain/): 1,724 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
 - [Germany](https://www.powerbankradar.com/germany/): 627 stations ([smaller towns](https://www.powerbankradar.com/germany/smaller-towns/))
-- [United Kingdom](https://www.powerbankradar.com/united-kingdom/): 616 stations ([smaller towns](https://www.powerbankradar.com/united-kingdom/smaller-towns/))
 - [Italy](https://www.powerbankradar.com/italy/): 387 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
 - [Israel](https://www.powerbankradar.com/israel/): 156 stations ([smaller towns](https://www.powerbankradar.com/israel/smaller-towns/))
 - [Austria](https://www.powerbankradar.com/austria/): 95 stations ([smaller towns](https://www.powerbankradar.com/austria/smaller-towns/))
@@ -30,6 +30,24 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 
 ## Cities
 
+- [London, United Kingdom](https://www.powerbankradar.com/united-kingdom/london/): 1029 stations
+- [Manchester, United Kingdom](https://www.powerbankradar.com/united-kingdom/manchester/): 117 stations
+- [Sheffield, United Kingdom](https://www.powerbankradar.com/united-kingdom/sheffield/): 75 stations
+- [Liverpool, United Kingdom](https://www.powerbankradar.com/united-kingdom/liverpool/): 73 stations
+- [Glasgow, United Kingdom](https://www.powerbankradar.com/united-kingdom/glasgow/): 67 stations
+- [Birmingham, United Kingdom](https://www.powerbankradar.com/united-kingdom/birmingham/): 59 stations
+- [Brighton, United Kingdom](https://www.powerbankradar.com/united-kingdom/brighton/): 56 stations
+- [Leeds, United Kingdom](https://www.powerbankradar.com/united-kingdom/leeds/): 48 stations
+- [Bristol, United Kingdom](https://www.powerbankradar.com/united-kingdom/bristol/): 38 stations
+- [Edinburgh, United Kingdom](https://www.powerbankradar.com/united-kingdom/edinburgh/): 30 stations
+- [Reading, United Kingdom](https://www.powerbankradar.com/united-kingdom/reading/): 27 stations
+- [Milton Keynes, United Kingdom](https://www.powerbankradar.com/united-kingdom/milton-keynes/): 23 stations
+- [Oxford, United Kingdom](https://www.powerbankradar.com/united-kingdom/oxford/): 21 stations
+- [Cambridge, United Kingdom](https://www.powerbankradar.com/united-kingdom/cambridge/): 15 stations
+- [St Albans, United Kingdom](https://www.powerbankradar.com/united-kingdom/st-albans/): 14 stations
+- [Colchester, United Kingdom](https://www.powerbankradar.com/united-kingdom/colchester/): 14 stations
+- [Canterbury, United Kingdom](https://www.powerbankradar.com/united-kingdom/canterbury/): 9 stations
+- [Guildford, United Kingdom](https://www.powerbankradar.com/united-kingdom/guildford/): 8 stations
 - [Zurich, Switzerland](https://www.powerbankradar.com/switzerland/zurich/): 466 stations
 - [Bern, Switzerland](https://www.powerbankradar.com/switzerland/bern/): 159 stations
 - [Basel, Switzerland](https://www.powerbankradar.com/switzerland/basel/): 119 stations
@@ -113,12 +131,6 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Karlsruhe, Germany](https://www.powerbankradar.com/germany/karlsruhe/): 8 stations
 - [Leipzig, Germany](https://www.powerbankradar.com/germany/leipzig/): 6 stations
 - [Cologne, Germany](https://www.powerbankradar.com/germany/cologne/): 5 stations
-- [London, United Kingdom](https://www.powerbankradar.com/united-kingdom/london/): 518 stations
-- [Sheffield, United Kingdom](https://www.powerbankradar.com/united-kingdom/sheffield/): 13 stations
-- [Reading, United Kingdom](https://www.powerbankradar.com/united-kingdom/reading/): 12 stations
-- [St Albans, United Kingdom](https://www.powerbankradar.com/united-kingdom/st-albans/): 6 stations
-- [Oxford, United Kingdom](https://www.powerbankradar.com/united-kingdom/oxford/): 6 stations
-- [Canterbury, United Kingdom](https://www.powerbankradar.com/united-kingdom/canterbury/): 5 stations
 - [Milan, Italy](https://www.powerbankradar.com/italy/milan/): 161 stations
 - [Rome, Italy](https://www.powerbankradar.com/italy/rome/): 51 stations
 - [Palermo, Italy](https://www.powerbankradar.com/italy/palermo/): 17 stations
@@ -142,6 +154,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 ## Operators
 
 - [Chimpy](https://www.powerbankradar.com/operators/chimpy/): 4,288 stations
+- [ChargedUp](https://www.powerbankradar.com/operators/chargedup/): 3,828 stations
 - [FireVolt](https://www.powerbankradar.com/operators/firevolt/): 1,048 stations
 - [Buzz](https://www.powerbankradar.com/operators/buzz/): 980 stations
 - [Revive](https://www.powerbankradar.com/operators/revive/): 766 stations
@@ -167,6 +180,9 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 
 | Operator | Country | Stations | Published price | 1 hour | 3 hours | Max per day | Deposit |
 |---|---|---|---|---|---|---|---|
+| ChargedUp | United Kingdom | 3,828 | £2 / 30 min · max £12 / day | £4 | £12 | £12 | - |
+| Fast Charger | United Kingdom | 604 | Price shown in the Fast Charger app | - | - | - | - |
+| Revive | United Kingdom | 12 | Price shown in the Revive app | - | - | - | - |
 | Chimpy | Switzerland | 3,784 | CHF 5 per rental, keep it up to 7 days | CHF 5 | CHF 5 | CHF 5 | CHF 15 |
 | ANYWATT | Switzerland | 3 | Price shown at the station | - | - | - | - |
 | Buzz | Netherlands | 866 | €3 / hour · max €9 / day | €3 | €9 | €9 | €30 |
@@ -188,8 +204,6 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | Chimpy | Germany | 370 | €4 per rental, keep it up to 7 days | €4 | €4 | €4 | €15 |
 | Rechargy | Germany | 252 | Price shown in the app or at the terminal | - | - | - | - |
 | Juice | Germany | 5 | Price varies per location | - | - | - | - |
-| Fast Charger | United Kingdom | 604 | Price shown in the Fast Charger app | - | - | - | - |
-| Revive | United Kingdom | 12 | Price shown in the Revive app | - | - | - | - |
 | Mobbi | Italy | 329 | €1 / 30 min | €2 | €6 | - | - |
 | Recharge.me | Italy | 37 | Price shown on the station screen | - | - | - | - |
 | Chimpy | Italy | 19 | Price shown at the kiosk | - | - | - | - |

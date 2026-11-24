@@ -19,6 +19,7 @@
     "Dead Batt":     { "color": "#7cb518", "logo": "logos/deadbatt-96.png",      "site": "https://dead-batt.com/stations", "price": "₪15 / hour · max ₪30 / 24 h", "extra": "No app: tap your card or phone on the station · return at any Dead Batt station" },
     "Mobbi":         { "color": "#1a1a1a", "logo": "logos/mobbi.png",         "site": "https://www.mobbi.it/", "price": "€1 / 30 min", "extra": "First 3 min free · rent by scanning the QR code" },
     "Recharge.me":   { "color": "#e5484d", "logo": "logos/rechargeme-96.png",    "site": "https://rechargeme.app/", "price": "Price shown on the station screen", "extra": "Pay only for the time you use" },
+    "ChargedUp":     { "color": "#1d3fbb", "logo": "logos/chargedup.ico", "site": "https://chargedup.green/", "price": "£2 / 30 min · max £12 / day", "extra": "First 5 min free · rent with the ChargedUp app, return at any ChargedUp station" },
     "Chimpy":        { "color": "#5bb318", "logo": "logos/chimpy.png", "site": "https://heychimpy.com/how-to-rent", "price": "€4 per rental, keep it up to 7 days", "extra": "€15 deposit, refunded when you return it · no app: buy it at the kiosk checkout, return at any Chimpy point" }
   },
   "by_country": {
