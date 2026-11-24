@@ -20,6 +20,8 @@
     "Mobbi":         { "color": "#1a1a1a", "logo": "logos/mobbi.png",         "site": "https://www.mobbi.it/", "price": "€1 / 30 min", "extra": "First 3 min free · rent by scanning the QR code" },
     "Recharge.me":   { "color": "#e5484d", "logo": "logos/rechargeme-96.png",    "site": "https://rechargeme.app/", "price": "Price shown on the station screen", "extra": "Pay only for the time you use" },
     "ChargedUp":     { "color": "#1d3fbb", "logo": "logos/chargedup.ico", "site": "https://chargedup.green/", "price": "£2 / 30 min · max £12 / day", "extra": "First 5 min free · rent with the ChargedUp app, return at any ChargedUp station" },
+    "voozaa":        { "color": "#8fb300", "logo": "logos/voozaa-96.png", "site": "https://voozaa.app/", "price": "€2 / hour · max €10 / day", "extra": "Deposit held on your card, refunded on return · rent with the voozaa app" },
+    "OneFlash":      { "color": "#ee3d6c", "logo": "logos/oneflash.png", "site": "https://www.oneflash.fr/", "price": "Usually €2–3 per session or hour", "extra": "Price shown on the station before you pay · free at some venues (e.g. IKEA)" },
     "Chimpy":        { "color": "#5bb318", "logo": "logos/chimpy.png", "site": "https://heychimpy.com/how-to-rent", "price": "€4 per rental, keep it up to 7 days", "extra": "€15 deposit, refunded when you return it · no app: buy it at the kiosk checkout, return at any Chimpy point" }
   },
   "by_country": {
@@ -28,6 +30,7 @@
     "Revive:GB": { "site": "https://revivesharing.com/", "price": "Price shown in the Revive app", "extra": "Billed per started half hour" },
     "Juice:FR":  { "site": "https://getjuice.fr/", "price": "Price varies per location", "extra": "Shown on the station screen before you rent" },
     "Juice:DE":  { "site": "https://getjuice.nl/", "price": "Price varies per location", "extra": "Shown on the station screen before you rent" },
+    "voozaa:GB": { "site": "https://voozaa.app/", "price": "£2 / 30 min · max £10 / day", "extra": "Deposit held on your card, refunded on return · rent with the voozaa app" },
     "Chimpy:CH": { "site": "https://heychimpy.com/how-to-rent", "price": "CHF 5 per rental, keep it up to 7 days", "extra": "CHF 15 deposit, refunded when you return it · no app: buy it at the kiosk checkout, return at any Chimpy point" },
     "Chimpy:AT": { "site": "https://heychimpy.com/how-to-rent", "price": "€3 per rental, keep it up to 7 days", "extra": "€15 deposit, refunded when you return it · no app: buy it at the kiosk checkout, return at any Chimpy point" },
     "Chimpy:IT": { "site": "https://heychimpy.com/how-to-rent", "price": "Price shown at the kiosk", "extra": "Deposit refunded when you return it · no app: buy it at the kiosk checkout, return at any Chimpy point" },
