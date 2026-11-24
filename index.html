@@ -786,6 +786,7 @@
     Object.keys(operatorColor)
       .map(o => [o, stations.filter(s => s.operator === o && inCountry(s)).length])
       .filter(([, n]) => n > 0)
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))   // most stations first (in the ticked countries)
       .forEach(([o, n]) => {
         const label = document.createElement('label');
         label.className = 'opt';
@@ -842,74 +843,54 @@
   // dots turn into the usual logo pins, but only those near the screen, since thousands of logo pins
   // at once would be slow. Tapping a dot zooms to it.
   //
-  // The dots are one canvas drawn in a single pass, one path per colour, and only for what's on
-  // screen. (5,000 separate Leaflet circle markers made every zoom stutter, worst on phones.)
-  // During the zoom animation the finished picture is just scaled; it's redrawn once at the end.
-  const DotLayer = L.Layer.extend({
-    options: { pane: 'overlayPane' },
-    initialize() { this._items = []; this._pts = []; },
+  // The dots are one canvas drawn in a single pass, one path per colour, and only for what's in view.
+  // (5,000 separate Leaflet circle markers made every zoom stutter, worst on phones.)
+  // The layer is Leaflet's own canvas renderer (L.Canvas): Leaflet sizes and places the canvas, draws
+  // a margin beyond the screen (padding), and moves and scales it with the map during pinches, zoom
+  // animations and resizes, exactly like its other vector layers. Only the drawing is ours, done each
+  // time the renderer updates (after every move or zoom). Positions are in layer pixels, the canvas's
+  // own coordinates, so the dots stay glued to the map.
+  const DotLayer = L.Canvas.extend({
+    initialize(options) {
+      L.Canvas.prototype.initialize.call(this, options);
+      this._items = []; this._pts = [];
+    },
     // draw = false when the map is about to redraw anyway (after a move or zoom)
     setItems(items, draw = true) {
       if (items.length !== this._items.length || items.some((s, i) => s !== this._items[i])) { this._items = items; this._proj = null; }
-      if (draw && this._map) this._draw();
+      if (draw && this._map) this._update();
     },
-    redraw() { if (this._map) this._draw(); },
-    onAdd() {
-      this._canvas = L.DomUtil.create('canvas', 'leaflet-zoom-animated');
-      this._canvas.style.pointerEvents = 'none';
-      this.getPane().appendChild(this._canvas);
-      this._ctx = this._canvas.getContext('2d');
-      this._reset();
+    // _update (Leaflet's) re-places the canvas for the current view, clears it and draws, so a redraw in
+    // the middle of a pan or pinch still lands in the right place (during a zoom animation it waits for moveend)
+    redraw() { if (this._map) this._update(); },
+    onAdd(map) {
+      L.Canvas.prototype.onAdd.call(this, map);
+      this._container.style.pointerEvents = 'none';   // taps are handled on the map (see dotAt)
     },
-    onRemove() { L.DomUtil.remove(this._canvas); this._canvas = null; this._pts = []; },
-    // zoom: fired continuously while pinching (and once after other zooms); without it the dots
-    // stayed put under the fingers while the map scaled, and only jumped into place on release
-    getEvents() { return { moveend: this._reset, resize: this._reset, zoomanim: this._animateZoom, zoom: this._onZoom }; },
-    _reset() {
-      const map = this._map, size = map.getSize(), dpr = window.devicePixelRatio || 1;
-      this._center = map.getCenter(); this._zoom = map.getZoom();   // the view the picture was drawn for
-      this._bounds = L.latLngBounds(map.containerPointToLatLng([0, 0]), map.containerPointToLatLng(size));
-      L.DomUtil.setPosition(this._canvas, map.containerPointToLayerPoint([0, 0]));
-      this._canvas.width = Math.round(size.x * dpr); this._canvas.height = Math.round(size.y * dpr);
-      this._canvas.style.width = size.x + 'px'; this._canvas.style.height = size.y + 'px';
-      this._dpr = dpr;
-      this._draw();
-    },
-    _animateZoom(e) {
-      const offset = this._map._latLngBoundsToNewLayerBounds(this._bounds, e.zoom, e.center).min;
-      L.DomUtil.setTransform(this._canvas, offset, this._map.getZoomScale(e.zoom));
-    },
-    // Scale and shift the drawn picture to the map's current (in-between) view, the way Leaflet's own
-    // vector layers follow a pinch; it's redrawn sharp on moveend
-    _onZoom() {
-      const map = this._map;
-      if (!this._canvas || !this._center) return;
-      const zoom = map.getZoom(), scale = map.getZoomScale(zoom, this._zoom);
-      const topLeft = map.getSize().multiplyBy(0.5).multiplyBy(-scale)
-        .add(map.project(this._center, zoom)).subtract(map._getNewPixelOrigin(map.getCenter(), zoom));
-      L.DomUtil.setTransform(this._canvas, topLeft, scale);
-    },
+    onRemove(map) { L.Canvas.prototype.onRemove.call(this, map); this._pts = []; },
+    // Dots are painted inside the renderer's own drawing step, which runs after every clear: on each
+    // update (move, zoom end, resize) and after a view reset (a jump without animation). Drawing them
+    // anywhere else would get wiped by the renderer's next clear.
     _draw() {
-      const map = this._map, ctx = this._ctx, size = map.getSize(), R = 5;
-      ctx.setTransform(this._dpr, 0, 0, this._dpr, 0, 0);
-      ctx.clearRect(0, 0, size.x, size.y);
-      // Map positions are worked out once per zoom level; a pan only shifts them
+      L.Canvas.prototype._draw.call(this);
+      this._drawDots();
+    },
+    _drawDots() {
+      const map = this._map, ctx = this._ctx, b = this._bounds, R = 5;
+      if (!ctx || !b) return;
+      // Map positions are worked out once per zoom level; a pan only shifts them by the pixel origin
       const zoom = map.getZoom();
       if (!this._proj || this._projZoom !== zoom) {
         this._proj = new Float64Array(this._items.length * 2);
         this._items.forEach((s, i) => { const p = map.project([s.lat, s.lng], zoom); this._proj[2 * i] = p.x; this._proj[2 * i + 1] = p.y; });
         this._projZoom = zoom;
       }
-      let dx = 0, dy = 0;
-      if (this._items.length) {
-        const s0 = this._items[0], c = map.latLngToContainerPoint([s0.lat, s0.lng]);
-        dx = c.x - this._proj[0]; dy = c.y - this._proj[1];
-      }
+      const o = map.getPixelOrigin();   // layer point = projected point - pixel origin
       const groups = new Map();
       this._pts = [];
       this._items.forEach((s, i) => {
-        const x = this._proj[2 * i] + dx, y = this._proj[2 * i + 1] + dy;
-        if (x < -R || y < -R || x > size.x + R || y > size.y + R) return;
+        const x = this._proj[2 * i] - o.x, y = this._proj[2 * i + 1] - o.y;
+        if (x < b.min.x - R || y < b.min.y - R || x > b.max.x + R || y > b.max.y + R) return;
         this._pts.push([x, y, s]);
         const key = operatorColor[s.operator] + (s.status === 'offline' ? '|off' : '');
         if (!groups.has(key)) groups.set(key, []);
@@ -925,8 +906,10 @@
       });
       ctx.globalAlpha = 1;
     },
-    // The station whose dot is nearest to a point on the map, within reach of a finger
-    hit(x, y, reach = 12) {
+    // The station whose dot is nearest to a point on the map (container pixels), within reach of a finger
+    hit(cx, cy, reach = 12) {
+      if (!this._map) return null;
+      const { x, y } = this._map.containerPointToLayerPoint([cx, cy]);
       let best = null, bestD = reach * reach;
       for (const [px, py, s] of this._pts) {
         const d = (px - x) ** 2 + (py - y) ** 2;
@@ -940,7 +923,7 @@
   let grouped = true;
   try { grouped = localStorage.getItem(VIEW_KEY) !== 'all'; } catch {}
   const allLayer = L.layerGroup();       // logo pins, close up
-  const dotLayer = new DotLayer();       // dots, further out
+  const dotLayer = new DotLayer({ padding: 0.1 });   // dots, further out (drawn 10% beyond the screen edges)
   const PIN_ZOOM = 14;
 
   // Tapping a dot: caught before the map's own click (which would set "your position" there).
