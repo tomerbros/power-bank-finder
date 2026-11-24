@@ -79,7 +79,6 @@
     @media (prefers-reduced-motion: reduce) {
       #locate::after, #locate .ping::before { animation: none; }
     }
-    .hint { color: var(--muted); font-size: 12px; margin: 6px 0 12px; }
     /* Filter dropdowns: a button per filter that opens a checklist below it */
     .filter-bar { display: flex; gap: 6px; margin-bottom: 8px; }
     .dd { flex: 1; display: flex; justify-content: space-between; align-items: center; gap: 6px; padding: 7px 10px;
@@ -228,7 +227,7 @@
       aside { order: 2; border-right: 0; border-top: 1px solid var(--border); border-radius: 14px 14px 0 0;
         box-shadow: 0 -4px 16px rgba(0,0,0,.12); padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
         max-height: 30dvh; overflow-y: auto; position: relative; z-index: 500; margin-top: -14px; background: var(--bg); }
-      .brand, .hint { display: none; }
+      .brand { display: none; }
       .map-menu { display: inline-flex; }
       .leaflet-control-zoom { display: none; }   /* phones pinch to zoom; the menu button takes that corner */
       .sheet-head button.primary, button.filter-toggle { padding: 8px 12px; font-size: 14px; }
@@ -305,7 +304,6 @@
     </div>
     <div class="status" id="status">Loading stations…</div>
     <div class="sheet-body" id="sheetBody">
-      <p class="hint">No location access? Click anywhere on the map to set your position.</p>
       <div class="view-switch" role="radiogroup" aria-label="How stations show on the map">
         <button type="button" role="radio" data-grouped="1" aria-checked="true">Bubbles</button>
         <button type="button" role="radio" data-grouped="0" aria-checked="false">All stations</button>
@@ -731,7 +729,7 @@
   function renderFilters() {
     // Countries: checklist like the others; ticking or unticking zooms the map to the ticked countries
     const cp = document.getElementById('countryPanel');
-    cp.innerHTML = `<div class="dd-actions"><button type="button" data-all="1">Select all</button><button type="button" data-all="0">Clear all</button></div>`;
+    cp.innerHTML = `<div class="dd-actions"><button type="button" data-all="1">All</button><button type="button" data-all="0">None</button></div>`;
     cp.querySelectorAll('[data-all]').forEach(b => b.addEventListener('click', () => {
       countries = new Set(b.dataset.all === '1' ? allCountryCodes : []);
       if (countries.size) fitCountries();
@@ -755,7 +753,7 @@
 
     // Operators: checklist, counts for the chosen country
     const op = document.getElementById('opPanel');
-    op.innerHTML = `<div class="dd-actions"><button type="button" data-all="1">Select all</button><button type="button" data-all="0">Clear all</button></div>`;
+    op.innerHTML = `<div class="dd-actions"><button type="button" data-all="1">All</button><button type="button" data-all="0">None</button></div>`;
     op.querySelectorAll('[data-all]').forEach(b => b.addEventListener('click', () => {
       Object.keys(operatorColor).forEach(o => b.dataset.all === '1' ? enabled.add(o) : enabled.delete(o));
       renderFilters(); applyFilters();
@@ -776,7 +774,7 @@
 
     // Types: checklist of venue types, plus one row for stations whose type isn't known
     const tp = document.getElementById('typePanel');
-    tp.innerHTML = `<div class="dd-actions"><button type="button" data-all="1">Select all</button><button type="button" data-all="0">Clear all</button></div>`;
+    tp.innerHTML = `<div class="dd-actions"><button type="button" data-all="1">All</button><button type="button" data-all="0">None</button></div>`;
     tp.querySelectorAll('[data-all]').forEach(b => b.addEventListener('click', () => {
       allTypes().forEach(t => b.dataset.all === '1' ? enabledTypes.add(t) : enabledTypes.delete(t));
       renderFilters(); applyFilters();
@@ -1335,15 +1333,15 @@
     btn.classList.add('locating');   // faster ping while we wait for GPS
     navigator.geolocation.getCurrentPosition(
       p => { btn.classList.remove('locating'); setYou(p.coords.latitude, p.coords.longitude, p.coords.accuracy); },
-      () => { btn.classList.remove('locating'); status.textContent = 'Location unavailable or denied. Click on the map to set your position.'; },
+      () => { btn.classList.remove('locating'); status.textContent = 'Location unavailable or denied. Allow location access for this site to see the nearest stations.'; },
       { enableHighAccuracy: true, timeout: 10000 }
     );
   });
 
-  // A tap on the map sets your position; while guiding, it's the start point when GPS isn't available
+  // A tap on the map only closes an open station (Leaflet does that by itself). The one exception:
+  // walking directions without GPS ask you to tap where you are, as the start point.
   map.on('click', e => {
-    if (guide) { if (!guide.coords || guide.mode === 'line') onGuidePosition(e.latlng.lat, e.latlng.lng); return; }
-    setYou(e.latlng.lat, e.latlng.lng);
+    if (guide && (!guide.coords || guide.mode === 'line')) onGuidePosition(e.latlng.lat, e.latlng.lng);
   });
   hideOffline.addEventListener('change', () => { renderMarkers(); renderNearest(); });
 
