@@ -1,6 +1,6 @@
 # Powerbank Radar
 
-> A free map of power bank rental stations from every operator: 15,419 stations from 23 operators in 11 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-24). Independent, not affiliated with the operators.
+> A free map of power bank rental stations from every operator: 15,429 stations from 23 operators in 11 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-24). Independent, not affiliated with the operators.
 
 ## Main pages
 
@@ -19,8 +19,8 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 
 - [United Kingdom](https://www.powerbankradar.com/united-kingdom/): 4,469 stations ([smaller towns](https://www.powerbankradar.com/united-kingdom/smaller-towns/))
 - [Switzerland](https://www.powerbankradar.com/switzerland/): 3,790 stations ([smaller towns](https://www.powerbankradar.com/switzerland/smaller-towns/))
-- [Netherlands](https://www.powerbankradar.com/netherlands/): 2,273 stations ([smaller towns](https://www.powerbankradar.com/netherlands/smaller-towns/))
-- [Spain](https://www.powerbankradar.com/spain/): 1,960 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
+- [Netherlands](https://www.powerbankradar.com/netherlands/): 2,280 stations ([smaller towns](https://www.powerbankradar.com/netherlands/smaller-towns/))
+- [Spain](https://www.powerbankradar.com/spain/): 1,963 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
 - [Germany](https://www.powerbankradar.com/germany/): 1,441 stations ([smaller towns](https://www.powerbankradar.com/germany/smaller-towns/))
 - [Italy](https://www.powerbankradar.com/italy/): 539 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
 - [France](https://www.powerbankradar.com/france/): 324 stations ([smaller towns](https://www.powerbankradar.com/france/smaller-towns/))
@@ -72,19 +72,19 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Bellinzona, Switzerland](https://www.powerbankradar.com/switzerland/bellinzona/): 25 stations
 - [Sion, Switzerland](https://www.powerbankradar.com/switzerland/sion/): 25 stations
 - [Uster, Switzerland](https://www.powerbankradar.com/switzerland/uster/): 15 stations
-- [Amsterdam, Netherlands](https://www.powerbankradar.com/netherlands/amsterdam/): 661 stations
+- [Amsterdam, Netherlands](https://www.powerbankradar.com/netherlands/amsterdam/): 665 stations
 - [Rotterdam, Netherlands](https://www.powerbankradar.com/netherlands/rotterdam/): 276 stations
-- [The Hague, Netherlands](https://www.powerbankradar.com/netherlands/the-hague/): 206 stations
-- [Utrecht, Netherlands](https://www.powerbankradar.com/netherlands/utrecht/): 97 stations
+- [The Hague, Netherlands](https://www.powerbankradar.com/netherlands/the-hague/): 207 stations
+- [Utrecht, Netherlands](https://www.powerbankradar.com/netherlands/utrecht/): 98 stations
 - [Eindhoven, Netherlands](https://www.powerbankradar.com/netherlands/eindhoven/): 56 stations
 - [Tilburg, Netherlands](https://www.powerbankradar.com/netherlands/tilburg/): 32 stations
 - [Almere, Netherlands](https://www.powerbankradar.com/netherlands/almere/): 28 stations
 - [Haarlem, Netherlands](https://www.powerbankradar.com/netherlands/haarlem/): 27 stations
 - [Zandvoort, Netherlands](https://www.powerbankradar.com/netherlands/zandvoort/): 25 stations
-- [Den Bosch, Netherlands](https://www.powerbankradar.com/netherlands/den-bosch/): 23 stations
 - [Enschede, Netherlands](https://www.powerbankradar.com/netherlands/enschede/): 23 stations
 - [Amstelveen, Netherlands](https://www.powerbankradar.com/netherlands/amstelveen/): 23 stations
 - [Breda, Netherlands](https://www.powerbankradar.com/netherlands/breda/): 22 stations
+- [Den Bosch, Netherlands](https://www.powerbankradar.com/netherlands/den-bosch/): 22 stations
 - [Maastricht, Netherlands](https://www.powerbankradar.com/netherlands/maastricht/): 22 stations
 - [Groningen, Netherlands](https://www.powerbankradar.com/netherlands/groningen/): 22 stations
 - [Alkmaar, Netherlands](https://www.powerbankradar.com/netherlands/alkmaar/): 21 stations
@@ -93,19 +93,19 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Leiden, Netherlands](https://www.powerbankradar.com/netherlands/leiden/): 19 stations
 - [Zaandam, Netherlands](https://www.powerbankradar.com/netherlands/zaandam/): 18 stations
 - [Amersfoort, Netherlands](https://www.powerbankradar.com/netherlands/amersfoort/): 18 stations
-- [Nijmegen, Netherlands](https://www.powerbankradar.com/netherlands/nijmegen/): 15 stations
+- [Nijmegen, Netherlands](https://www.powerbankradar.com/netherlands/nijmegen/): 16 stations
 - [Leeuwarden, Netherlands](https://www.powerbankradar.com/netherlands/leeuwarden/): 15 stations
 - [Delft, Netherlands](https://www.powerbankradar.com/netherlands/delft/): 13 stations
 - [Den Helder, Netherlands](https://www.powerbankradar.com/netherlands/den-helder/): 11 stations
 - [Dordrecht, Netherlands](https://www.powerbankradar.com/netherlands/dordrecht/): 10 stations
 - [Hilversum, Netherlands](https://www.powerbankradar.com/netherlands/hilversum/): 8 stations
 - [Arnhem, Netherlands](https://www.powerbankradar.com/netherlands/arnhem/): 6 stations
-- [Barcelona, Spain](https://www.powerbankradar.com/spain/barcelona/): 269 stations
-- [Valencia, Spain](https://www.powerbankradar.com/spain/valencia/): 249 stations
+- [Barcelona, Spain](https://www.powerbankradar.com/spain/barcelona/): 267 stations
+- [Valencia, Spain](https://www.powerbankradar.com/spain/valencia/): 248 stations
 - [Benidorm, Spain](https://www.powerbankradar.com/spain/benidorm/): 136 stations
 - [Marbella, Spain](https://www.powerbankradar.com/spain/marbella/): 125 stations
 - [Ibiza, Spain](https://www.powerbankradar.com/spain/ibiza/): 125 stations
-- [Madrid, Spain](https://www.powerbankradar.com/spain/madrid/): 113 stations
+- [Madrid, Spain](https://www.powerbankradar.com/spain/madrid/): 114 stations
 - [Palma de Mallorca, Spain](https://www.powerbankradar.com/spain/palma-de-mallorca/): 88 stations
 - [Alicante, Spain](https://www.powerbankradar.com/spain/alicante/): 84 stations
 - [Costa Adeje, Spain](https://www.powerbankradar.com/spain/costa-adeje/): 45 stations
@@ -182,8 +182,8 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Chimpy](https://www.powerbankradar.com/operators/chimpy/): 4,288 stations
 - [ChargedUp](https://www.powerbankradar.com/operators/chargedup/): 3,828 stations
 - [voozaa](https://www.powerbankradar.com/operators/voozaa/): 1,289 stations
-- [FireVolt](https://www.powerbankradar.com/operators/firevolt/): 1,048 stations
-- [Buzz](https://www.powerbankradar.com/operators/buzz/): 980 stations
+- [FireVolt](https://www.powerbankradar.com/operators/firevolt/): 1,053 stations
+- [Buzz](https://www.powerbankradar.com/operators/buzz/): 987 stations
 - [Revive](https://www.powerbankradar.com/operators/revive/): 766 stations
 - [Fast Charger](https://www.powerbankradar.com/operators/fast-charger/): 604 stations
 - [Juice](https://www.powerbankradar.com/operators/juice/): 562 stations
@@ -197,8 +197,8 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [VolterGy](https://www.powerbankradar.com/operators/voltergy/): 55 stations
 - [Recharge.me](https://www.powerbankradar.com/operators/recharge-me/): 37 stations
 - [Amlo](https://www.powerbankradar.com/operators/amlo/): 26 stations
-- [Fully](https://www.powerbankradar.com/operators/fully/): 25 stations
 - [Wessview](https://www.powerbankradar.com/operators/wessview/): 23 stations
+- [Fully](https://www.powerbankradar.com/operators/fully/): 23 stations
 - [AIRVALL](https://www.powerbankradar.com/operators/airvall/): 13 stations
 - [ChargeBuddies](https://www.powerbankradar.com/operators/chargebuddies/): 2 stations
 - [FLAPY](https://www.powerbankradar.com/operators/flapy/): 2 stations
@@ -217,7 +217,7 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | Chimpy | Switzerland | 3,784 | CHF 5 per rental, keep it up to 7 days | CHF 5 | CHF 5 | CHF 5 | CHF 15 |
 | ANYWATT | Switzerland | 3 | Price shown at the station | - | - | - | - |
 | OneFlash | Switzerland | 3 | Usually €2–3 per session or hour | - | - | - | - |
-| Buzz | Netherlands | 866 | €3 / hour · max €9 / day | €3 | €9 | €9 | €30 |
+| Buzz | Netherlands | 873 | €3 / hour · max €9 / day | €3 | €9 | €9 | €30 |
 | Juice | Netherlands | 524 | Price varies per location | - | - | - | - |
 | ICCXX | Netherlands | 470 | Max €3 per day | - | - | €3 | - |
 | Revive | Netherlands | 334 | Price shown in the Revive app | - | - | - | - |
@@ -226,14 +226,14 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | OneFlash | Netherlands | 15 | Usually €2–3 per session or hour | - | - | - | - |
 | AIRVALL | Netherlands | 13 | €4 per 24 hours | €4 | €4 | €4 | - |
 | ChargeBuddies | Netherlands | 2 | €2 first hour, then per minute | €2.50 | - | - | - |
-| FireVolt | Spain | 1,048 | €6 / hour · max €30 / day (most stations; varies) | €1.90–€6 | €5–€18 | €5–€30 | €3–€20 |
+| FireVolt | Spain | 1,053 | €6 / hour · max €30 / day (most stations; varies) | €1.90–€6 | €5–€18 | €5–€30 | €3–€20 |
 | Revive | Spain | 381 | Price shown in the Revive app | - | - | - | - |
 | voozaa | Spain | 202 | €2 / hour · max €10 / day (most stations; varies) | €2–€4 | €6–€10 | €10 | €15–€45 |
 | Buzz | Spain | 114 | €1.99 / 30 min · max €10 / day | €3.98 | €10 | €10 | - |
 | ANYWATT | Spain | 92 | Price shown at the station | - | - | - | - |
 | VolterGy | Spain | 55 | €1.75 / 30 min · max €8.75 / day | €3.50 | €8.75 | €8.75 | €19 |
 | Last Call | Spain | 28 | Price shown on the station screen | - | - | - | - |
-| Fully | Spain | 25 | €3 / hour · max €12 / day | €3 | €9 | €12 | €35 |
+| Fully | Spain | 23 | €3 / hour · max €12 / day | €3 | €9 | €12 | €35 |
 | Mobbi | Spain | 7 | €1 / 30 min (most stations; varies) | €2–€4 | €6–€12 | - | - |
 | OneFlash | Spain | 6 | Usually €2–3 per session or hour | - | - | - | - |
 | FLAPY | Spain | 2 | €2 / 30 min · max €10 / day | €4 | €10 | €10 | €25 |
