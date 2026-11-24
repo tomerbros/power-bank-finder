@@ -862,9 +862,12 @@
       this._reset();
     },
     onRemove() { L.DomUtil.remove(this._canvas); this._canvas = null; this._pts = []; },
-    getEvents() { return { moveend: this._reset, resize: this._reset, zoomanim: this._animateZoom }; },
+    // zoom: fired continuously while pinching (and once after other zooms); without it the dots
+    // stayed put under the fingers while the map scaled, and only jumped into place on release
+    getEvents() { return { moveend: this._reset, resize: this._reset, zoomanim: this._animateZoom, zoom: this._onZoom }; },
     _reset() {
       const map = this._map, size = map.getSize(), dpr = window.devicePixelRatio || 1;
+      this._center = map.getCenter(); this._zoom = map.getZoom();   // the view the picture was drawn for
       this._bounds = L.latLngBounds(map.containerPointToLatLng([0, 0]), map.containerPointToLatLng(size));
       L.DomUtil.setPosition(this._canvas, map.containerPointToLayerPoint([0, 0]));
       this._canvas.width = Math.round(size.x * dpr); this._canvas.height = Math.round(size.y * dpr);
@@ -875,6 +878,16 @@
     _animateZoom(e) {
       const offset = this._map._latLngBoundsToNewLayerBounds(this._bounds, e.zoom, e.center).min;
       L.DomUtil.setTransform(this._canvas, offset, this._map.getZoomScale(e.zoom));
+    },
+    // Scale and shift the drawn picture to the map's current (in-between) view, the way Leaflet's own
+    // vector layers follow a pinch; it's redrawn sharp on moveend
+    _onZoom() {
+      const map = this._map;
+      if (!this._canvas || !this._center) return;
+      const zoom = map.getZoom(), scale = map.getZoomScale(zoom, this._zoom);
+      const topLeft = map.getSize().multiplyBy(0.5).multiplyBy(-scale)
+        .add(map.project(this._center, zoom)).subtract(map._getNewPixelOrigin(map.getCenter(), zoom));
+      L.DomUtil.setTransform(this._canvas, topLeft, scale);
     },
     _draw() {
       const map = this._map, ctx = this._ctx, size = map.getSize(), R = 5;
