@@ -1,6 +1,6 @@
 # Powerbank Radar
 
-> A free map of power bank rental stations from every operator: 17,127 stations from 24 operators in 15 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-24). Independent, not affiliated with the operators.
+> A free map of power bank rental stations from every operator: 17,159 stations from 25 operators in 16 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-24). Independent, not affiliated with the operators.
 
 ## Main pages
 
@@ -13,7 +13,7 @@
 ## Showing someone the stations near them
 
 To answer "where can I rent a power bank near me / near <place>", link to the map with the person's position: https://www.powerbankradar.com/?near=<latitude>,<longitude> (for example https://www.powerbankradar.com/?near=52.3731,4.8926 for Dam Square, Amsterdam). The map marks that point and lists the 5 nearest stations with distance, walking time, price, opening hours and, for most operators, how many power banks are available right now.
-Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (GB, CH, NL, ES, DE, SE, FI, IT, FR, PT, AT, DK, NO, IL, LU) shows a country.
+Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (GB, CH, NL, ES, DE, SE, FI, IT, FR, PT, AT, DK, NO, IL, LU, IS) shows a country.
 
 ## Countries
 
@@ -32,6 +32,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Norway](https://www.powerbankradar.com/norway/): 163 stations ([smaller towns](https://www.powerbankradar.com/norway/smaller-towns/))
 - [Israel](https://www.powerbankradar.com/israel/): 156 stations ([smaller towns](https://www.powerbankradar.com/israel/smaller-towns/))
 - [Luxembourg](https://www.powerbankradar.com/luxembourg/): 60 stations ([smaller towns](https://www.powerbankradar.com/luxembourg/smaller-towns/))
+- [Iceland](https://www.powerbankradar.com/iceland/): 32 stations
 
 ## Cities
 
@@ -231,6 +232,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Holon, Israel](https://www.powerbankradar.com/israel/holon/): 6 stations
 - [Eilat, Israel](https://www.powerbankradar.com/israel/eilat/): 6 stations
 - [Luxembourg City, Luxembourg](https://www.powerbankradar.com/luxembourg/luxembourg-city/): 55 stations
+- [Reykjavík, Iceland](https://www.powerbankradar.com/iceland/reykjavik/): 31 stations
 
 ## Operators
 
@@ -252,6 +254,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [ANYWATT](https://www.powerbankradar.com/operators/anywatt/): 97 stations
 - [VolterGy](https://www.powerbankradar.com/operators/voltergy/): 55 stations
 - [Recharge.me](https://www.powerbankradar.com/operators/recharge-me/): 37 stations
+- [Buzz Iceland](https://www.powerbankradar.com/operators/buzz-iceland/): 32 stations
 - [Amlo](https://www.powerbankradar.com/operators/amlo/): 26 stations
 - [Wessview](https://www.powerbankradar.com/operators/wessview/): 23 stations
 - [Fully](https://www.powerbankradar.com/operators/fully/): 23 stations
@@ -322,3 +325,4 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | Revive | Luxembourg | 39 | Price shown in the Revive app | - | - | - | - |
 | Chimpy | Luxembourg | 20 | €3 per rental, keep it up to 7 days | €3 | €3 | €3 | €15 |
 | OneFlash | Luxembourg | 1 | Usually €2–3 per session or hour | - | - | - | - |
+| Buzz Iceland | Iceland | 32 | Start fee + per-minute rate, shown in the app before you rent | - | - | - | - |

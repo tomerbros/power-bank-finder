@@ -59,6 +59,9 @@ germany/munich/index.html
 germany/ravensburg/index.html
 germany/smaller-towns/index.html
 germany/stuttgart/index.html
+iceland/index.html
+iceland/reykjavik/index.html
+iceland/smaller-towns/index.html
 israel/bat-yam/index.html
 israel/eilat/index.html
 israel/haifa/index.html
@@ -125,6 +128,7 @@ norway/trysil/index.html
 operators/airvall/index.html
 operators/amlo/index.html
 operators/anywatt/index.html
+operators/buzz-iceland/index.html
 operators/buzz/index.html
 operators/chargebuddies/index.html
 operators/chargedup/index.html

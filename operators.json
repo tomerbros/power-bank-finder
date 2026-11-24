@@ -24,6 +24,7 @@
     "OneFlash":      { "color": "#ee3d6c", "logo": "logos/oneflash.png", "site": "https://www.oneflash.fr/", "price": "Usually €2–3 per session or hour", "extra": "Price shown on the station before you pay · free at some venues (e.g. IKEA)" },
     "Last Call":     { "color": "#b45309", "logo": "logos/lastcall-96.png", "site": "https://lastcall.pt/", "price": "Price shown on the station screen", "extra": "€15 deposit held on your card · no app: tap your card or phone to pay, return at any Last Call station" },
     "LecToGo":       { "color": "#2a3fd8", "logo": "logos/lectogo.png", "site": "https://www.lectogo.com/", "price": "SEK 29 / 2 h in the app · max SEK 99 / day", "extra": "SEK 39 / 2 h without the app (scan the QR code, pay in the browser) · cables included · return at any LecToGo station" },
+    "Buzz Iceland":  { "color": "#1fb05a", "logo": "logos/buzziceland.png", "site": "https://www.buzzapp.is/", "price": "Start fee + per-minute rate, shown in the app before you rent", "extra": "Max ISK 1,500 for the first 24 hours · not returned within 24 h: ISK 3,000 (ISK 10,000 after 72 h, then the power bank is yours) · rent with the Buzz app" },
     "Chimpy":        { "color": "#5bb318", "logo": "logos/chimpy.png", "site": "https://heychimpy.com/how-to-rent", "price": "€4 per rental, keep it up to 7 days", "extra": "€15 deposit, refunded when you return it · no app: buy it at the kiosk checkout, return at any Chimpy point" }
   },
   "by_country": {
