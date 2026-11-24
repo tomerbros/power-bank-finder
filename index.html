@@ -404,10 +404,18 @@
     AT: { name: 'Austria', flag: '🇦🇹', bounds: [[46.37, 9.53], [49.02, 17.16]] },
     PT: { name: 'Portugal', flag: '🇵🇹', bounds: [[36.95, -9.55], [42.15, -6.2]] },  // mainland
   };
-  const ALL = 'ALL';  // "All countries", the default
   const ALL_COUNTRIES = { name: 'All countries', short: 'All', flag: '🌍', bounds: [[29.4, -9.3], [58.6, 35.9]] };
-  let country = ALL;
-  const inCountry = s => country === ALL || s.country === country;
+  // Countries ticked in the Country filter (several allowed); filled with every country once stations load
+  let countries = new Set();
+  let allCountryCodes = [];
+  const inCountry = s => countries.has(s.country);
+  const allCountriesOn = () => allCountryCodes.every(c => countries.has(c));
+  // Zoom the map to the ticked countries (all of them = the whole area)
+  function fitCountries() {
+    const boxes = allCountriesOn() ? [ALL_COUNTRIES.bounds]
+      : [...countries].map(c => COUNTRIES[c]?.bounds).filter(Boolean);
+    if (boxes.length) map.fitBounds(L.latLngBounds(boxes.flat()));
+  }
   let markers = new Map();
   let you = null;
   let youMarker = null, youCircle = null;
@@ -703,9 +711,15 @@
   function applyFilters() { renderMarkers(); renderNearest(); renderFilterLabels(); }
 
   function renderFilterLabels() {
-    const c = country === ALL ? ALL_COUNTRIES : (COUNTRIES[country] || { name: country, flag: '' });
-    // Three filter buttons share a phone-width row, so phones show the short country code
-    document.getElementById('countryLabel').textContent = `${c.flag} ${isPhone() ? (c.short || country) : c.name}`.trim();
+    // Three filter buttons share a phone-width row, so phones show short labels
+    let label;
+    if (allCountriesOn()) label = `${ALL_COUNTRIES.flag} ${isPhone() ? ALL_COUNTRIES.short : ALL_COUNTRIES.name}`;
+    else if (countries.size === 1) {
+      const code = [...countries][0], c = COUNTRIES[code] || { name: code, flag: '' };
+      label = `${c.flag} ${isPhone() ? code : c.name}`;
+    } else if (countries.size === 0) label = isPhone() ? 'None' : 'No countries';
+    else label = isPhone() ? `🌍 ${countries.size}` : `Countries (${countries.size}/${allCountryCodes.length})`;
+    document.getElementById('countryLabel').textContent = label.trim();
     const total = Object.keys(operatorColor).length;
     document.getElementById('opLabel').textContent = enabled.size === total ? 'All operators' : `Operators (${enabled.size}/${total})`;
     const typesTotal = allTypes().length;
@@ -715,19 +729,24 @@
   }
 
   function renderFilters() {
-    // Countries: single choice; picking one moves the map there
+    // Countries: checklist like the others; ticking or unticking zooms the map to the ticked countries
     const cp = document.getElementById('countryPanel');
-    cp.innerHTML = '';
-    [ALL, ...new Set(stations.map(s => s.country))].forEach(code => {
-      const c = code === ALL ? ALL_COUNTRIES : (COUNTRIES[code] || { name: code, flag: '' });
-      const n = code === ALL ? stations.length : stations.filter(s => s.country === code).length;
+    cp.innerHTML = `<div class="dd-actions"><button type="button" data-all="1">Select all</button><button type="button" data-all="0">Clear all</button></div>`;
+    cp.querySelectorAll('[data-all]').forEach(b => b.addEventListener('click', () => {
+      countries = new Set(b.dataset.all === '1' ? allCountryCodes : []);
+      if (countries.size) fitCountries();
+      renderFilters(); applyFilters();
+    }));
+    allCountryCodes.forEach(code => {
+      const c = COUNTRIES[code] || { name: code, flag: '' };
+      const n = stations.filter(s => s.country === code).length;
       const label = document.createElement('label');
       label.className = 'opt';
-      label.innerHTML = `<input type="radio" name="country" ${code === country ? 'checked' : ''}>${c.flag} ${esc(c.name)}<span class="count">${n}</span>`;
-      label.querySelector('input').addEventListener('change', () => {
-        country = code;
-        track('country', { country: code });
-        if (c.bounds) map.fitBounds(c.bounds);
+      label.innerHTML = `<input type="checkbox" ${countries.has(code) ? 'checked' : ''}>${c.flag} ${esc(c.name)}<span class="count">${n}</span>`;
+      label.querySelector('input').addEventListener('change', e => {
+        e.target.checked ? countries.add(code) : countries.delete(code);
+        track('country', { country: code, on: e.target.checked });
+        if (countries.size) fitCountries();
         renderFilters(); applyFilters();
       });
       cp.appendChild(label);
@@ -1108,12 +1127,12 @@
     strip.scrollLeft = 0;
   }
 
-  // When you're in another supported country than the one selected, switch to it
+  // When you're in a supported country that isn't ticked, tick it too
   function followCountry() {
     let best = null, bestKm = Infinity;
     stations.forEach(s => { const km = haversineKm(you, s); if (km < bestKm) { bestKm = km; best = s; } });
-    if (country !== ALL && best && bestKm < 300 && best.country !== country) {
-      country = best.country;
+    if (best && bestKm < 300 && !countries.has(best.country)) {
+      countries.add(best.country);
       renderFilters(); renderFilterLabels();
       return true;
     }
@@ -1344,13 +1363,13 @@
   //   /?station=<id>        open that station (&directions=1: start walking directions to it)
   //   /?at=<lat>,<lng>,<zoom>  show that place
   //   /?near=<lat>,<lng>    show the stations nearest to that point
-  //   /?country=NL          choose that country
+  //   /?country=NL          choose that country (or several: ?country=PT,ES)
   function openFromUrl() {
     const q = new URLSearchParams(location.search);
-    const code = (q.get('country') || '').toUpperCase();
-    if (COUNTRIES[code]) {
-      country = code;
-      map.fitBounds(COUNTRIES[code].bounds);
+    const codes = (q.get('country') || '').toUpperCase().split(',').filter(c => allCountryCodes.includes(c));
+    if (codes.length) {
+      countries = new Set(codes);
+      fitCountries();
       renderFilters(); applyFilters();
     }
     const at = (q.get('at') || '').split(',').map(Number);
@@ -1381,6 +1400,11 @@
         enabled.add(op);
       });
       allTypes().forEach(t => enabledTypes.add(t));
+      // Countries in the filter: most stations first; all ticked to start with
+      const perCountry = {};
+      stations.forEach(s => { perCountry[s.country] = (perCountry[s.country] || 0) + 1; });
+      allCountryCodes = Object.keys(perCountry).sort((a, b) => perCountry[b] - perCountry[a]);
+      countries = new Set(allCountryCodes);
       stations.forEach(s => {
         const m = L.marker([s.lat, s.lng], { title: `${s.operator}: ${s.name}`, icon: logoIcon(s) }).bindPopup(() => popupHtml(s));
         m.on('popupopen', () => track('station-open', { operator: s.operator, country: s.country }));
