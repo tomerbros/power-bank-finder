@@ -1,6 +1,6 @@
 # Powerbank Radar
 
-> A free map of power bank rental stations from every operator: 15,429 stations from 23 operators in 11 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-24). Independent, not affiliated with the operators.
+> A free map of power bank rental stations from every operator: 17,127 stations from 24 operators in 15 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-24). Independent, not affiliated with the operators.
 
 ## Main pages
 
@@ -13,7 +13,7 @@
 ## Showing someone the stations near them
 
 To answer "where can I rent a power bank near me / near <place>", link to the map with the person's position: https://www.powerbankradar.com/?near=<latitude>,<longitude> (for example https://www.powerbankradar.com/?near=52.3731,4.8926 for Dam Square, Amsterdam). The map marks that point and lists the 5 nearest stations with distance, walking time, price, opening hours and, for most operators, how many power banks are available right now.
-Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (GB, CH, NL, ES, DE, IT, FR, PT, AT, IL, LU) shows a country.
+Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (GB, CH, NL, ES, DE, SE, FI, IT, FR, PT, AT, DK, NO, IL, LU) shows a country.
 
 ## Countries
 
@@ -22,10 +22,14 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Netherlands](https://www.powerbankradar.com/netherlands/): 2,280 stations ([smaller towns](https://www.powerbankradar.com/netherlands/smaller-towns/))
 - [Spain](https://www.powerbankradar.com/spain/): 1,963 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
 - [Germany](https://www.powerbankradar.com/germany/): 1,441 stations ([smaller towns](https://www.powerbankradar.com/germany/smaller-towns/))
+- [Sweden](https://www.powerbankradar.com/sweden/): 807 stations ([smaller towns](https://www.powerbankradar.com/sweden/smaller-towns/))
+- [Finland](https://www.powerbankradar.com/finland/): 556 stations ([smaller towns](https://www.powerbankradar.com/finland/smaller-towns/))
 - [Italy](https://www.powerbankradar.com/italy/): 539 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
 - [France](https://www.powerbankradar.com/france/): 324 stations ([smaller towns](https://www.powerbankradar.com/france/smaller-towns/))
 - [Portugal](https://www.powerbankradar.com/portugal/): 209 stations ([smaller towns](https://www.powerbankradar.com/portugal/smaller-towns/))
 - [Austria](https://www.powerbankradar.com/austria/): 198 stations ([smaller towns](https://www.powerbankradar.com/austria/smaller-towns/))
+- [Denmark](https://www.powerbankradar.com/denmark/): 172 stations ([smaller towns](https://www.powerbankradar.com/denmark/smaller-towns/))
+- [Norway](https://www.powerbankradar.com/norway/): 163 stations ([smaller towns](https://www.powerbankradar.com/norway/smaller-towns/))
 - [Israel](https://www.powerbankradar.com/israel/): 156 stations ([smaller towns](https://www.powerbankradar.com/israel/smaller-towns/))
 - [Luxembourg](https://www.powerbankradar.com/luxembourg/): 60 stations ([smaller towns](https://www.powerbankradar.com/luxembourg/smaller-towns/))
 
@@ -143,6 +147,42 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Hanover, Germany](https://www.powerbankradar.com/germany/hanover/): 6 stations
 - [Friedrichshafen, Germany](https://www.powerbankradar.com/germany/friedrichshafen/): 6 stations
 - [Duisburg, Germany](https://www.powerbankradar.com/germany/duisburg/): 5 stations
+- [Stockholm, Sweden](https://www.powerbankradar.com/sweden/stockholm/): 313 stations
+- [Gothenburg, Sweden](https://www.powerbankradar.com/sweden/gothenburg/): 167 stations
+- [Malmö, Sweden](https://www.powerbankradar.com/sweden/malmo/): 43 stations
+- [Uppsala, Sweden](https://www.powerbankradar.com/sweden/uppsala/): 18 stations
+- [Lund, Sweden](https://www.powerbankradar.com/sweden/lund/): 15 stations
+- [Linköping, Sweden](https://www.powerbankradar.com/sweden/linkoping/): 15 stations
+- [Helsingborg, Sweden](https://www.powerbankradar.com/sweden/helsingborg/): 14 stations
+- [Halmstad, Sweden](https://www.powerbankradar.com/sweden/halmstad/): 12 stations
+- [Gävle, Sweden](https://www.powerbankradar.com/sweden/gavle/): 11 stations
+- [Jönköping, Sweden](https://www.powerbankradar.com/sweden/jonkoping/): 10 stations
+- [Borås, Sweden](https://www.powerbankradar.com/sweden/boras/): 10 stations
+- [Norrköping, Sweden](https://www.powerbankradar.com/sweden/norrkoping/): 10 stations
+- [Västerås, Sweden](https://www.powerbankradar.com/sweden/vasteras/): 8 stations
+- [Örebro, Sweden](https://www.powerbankradar.com/sweden/orebro/): 8 stations
+- [Luleå, Sweden](https://www.powerbankradar.com/sweden/lulea/): 8 stations
+- [Karlstad, Sweden](https://www.powerbankradar.com/sweden/karlstad/): 6 stations
+- [Sundsvall, Sweden](https://www.powerbankradar.com/sweden/sundsvall/): 6 stations
+- [Eskilstuna, Sweden](https://www.powerbankradar.com/sweden/eskilstuna/): 6 stations
+- [Åre, Sweden](https://www.powerbankradar.com/sweden/are/): 6 stations
+- [Umeå, Sweden](https://www.powerbankradar.com/sweden/umea/): 5 stations
+- [Östersund, Sweden](https://www.powerbankradar.com/sweden/ostersund/): 5 stations
+- [Trollhättan, Sweden](https://www.powerbankradar.com/sweden/trollhattan/): 5 stations
+- [Helsinki, Finland](https://www.powerbankradar.com/finland/helsinki/): 316 stations
+- [Lahti, Finland](https://www.powerbankradar.com/finland/lahti/): 27 stations
+- [Tampere, Finland](https://www.powerbankradar.com/finland/tampere/): 23 stations
+- [Lappeenranta, Finland](https://www.powerbankradar.com/finland/lappeenranta/): 18 stations
+- [Porvoo, Finland](https://www.powerbankradar.com/finland/porvoo/): 17 stations
+- [Hämeenlinna, Finland](https://www.powerbankradar.com/finland/hameenlinna/): 12 stations
+- [Kerava, Finland](https://www.powerbankradar.com/finland/kerava/): 11 stations
+- [Järvenpää, Finland](https://www.powerbankradar.com/finland/jarvenpaa/): 9 stations
+- [Turku, Finland](https://www.powerbankradar.com/finland/turku/): 9 stations
+- [Hyvinkää, Finland](https://www.powerbankradar.com/finland/hyvinkaa/): 9 stations
+- [Riihimäki, Finland](https://www.powerbankradar.com/finland/riihimaki/): 8 stations
+- [Loviisa, Finland](https://www.powerbankradar.com/finland/loviisa/): 7 stations
+- [Oulu, Finland](https://www.powerbankradar.com/finland/oulu/): 6 stations
+- [Jyväskylä, Finland](https://www.powerbankradar.com/finland/jyvaskyla/): 6 stations
 - [Milan, Italy](https://www.powerbankradar.com/italy/milan/): 167 stations
 - [Rome, Italy](https://www.powerbankradar.com/italy/rome/): 60 stations
 - [Naples, Italy](https://www.powerbankradar.com/italy/naples/): 33 stations
@@ -166,6 +206,21 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Linz, Austria](https://www.powerbankradar.com/austria/linz/): 12 stations
 - [Salzburg, Austria](https://www.powerbankradar.com/austria/salzburg/): 7 stations
 - [Innsbruck, Austria](https://www.powerbankradar.com/austria/innsbruck/): 7 stations
+- [Copenhagen, Denmark](https://www.powerbankradar.com/denmark/copenhagen/): 63 stations
+- [Aarhus, Denmark](https://www.powerbankradar.com/denmark/aarhus/): 10 stations
+- [Hjørring, Denmark](https://www.powerbankradar.com/denmark/hj-rring/): 8 stations
+- [Sønderborg, Denmark](https://www.powerbankradar.com/denmark/s-nderborg/): 7 stations
+- [Frederikshavn, Denmark](https://www.powerbankradar.com/denmark/frederikshavn/): 6 stations
+- [Holbæk, Denmark](https://www.powerbankradar.com/denmark/holb-k/): 5 stations
+- [Ringsted, Denmark](https://www.powerbankradar.com/denmark/ringsted/): 5 stations
+- [Aabenraa, Denmark](https://www.powerbankradar.com/denmark/aabenraa/): 5 stations
+- [Oslo, Norway](https://www.powerbankradar.com/norway/oslo/): 79 stations
+- [Trondheim, Norway](https://www.powerbankradar.com/norway/trondheim/): 13 stations
+- [Hamar, Norway](https://www.powerbankradar.com/norway/hamar/): 8 stations
+- [Tønsberg, Norway](https://www.powerbankradar.com/norway/t-nsberg/): 7 stations
+- [Stavanger, Norway](https://www.powerbankradar.com/norway/stavanger/): 6 stations
+- [Trysil, Norway](https://www.powerbankradar.com/norway/trysil/): 5 stations
+- [Haugesund, Norway](https://www.powerbankradar.com/norway/haugesund/): 5 stations
 - [Tel Aviv, Israel](https://www.powerbankradar.com/israel/tel-aviv/): 24 stations
 - [Haifa, Israel](https://www.powerbankradar.com/israel/haifa/): 18 stations
 - [Jerusalem, Israel](https://www.powerbankradar.com/israel/jerusalem/): 15 stations
@@ -181,6 +236,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 
 - [Chimpy](https://www.powerbankradar.com/operators/chimpy/): 4,288 stations
 - [ChargedUp](https://www.powerbankradar.com/operators/chargedup/): 3,828 stations
+- [LecToGo](https://www.powerbankradar.com/operators/lectogo/): 1,690 stations
 - [voozaa](https://www.powerbankradar.com/operators/voozaa/): 1,289 stations
 - [FireVolt](https://www.powerbankradar.com/operators/firevolt/): 1,053 stations
 - [Buzz](https://www.powerbankradar.com/operators/buzz/): 987 stations
@@ -189,7 +245,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Juice](https://www.powerbankradar.com/operators/juice/): 562 stations
 - [ICCXX](https://www.powerbankradar.com/operators/iccxx/): 470 stations
 - [Mobbi](https://www.powerbankradar.com/operators/mobbi/): 336 stations
-- [OneFlash](https://www.powerbankradar.com/operators/oneflash/): 325 stations
+- [OneFlash](https://www.powerbankradar.com/operators/oneflash/): 333 stations
 - [Rechargy](https://www.powerbankradar.com/operators/rechargy/): 252 stations
 - [Last Call](https://www.powerbankradar.com/operators/last-call/): 235 stations
 - [Dead Batt](https://www.powerbankradar.com/operators/dead-batt/): 156 stations
@@ -242,6 +298,9 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | Rechargy | Germany | 252 | Price shown in the app or at the terminal | - | - | - | - |
 | Juice | Germany | 5 | Price varies per location | - | - | - | - |
 | OneFlash | Germany | 5 | Usually €2–3 per session or hour | - | - | - | - |
+| LecToGo | Sweden | 802 | SEK 29 / 2 h in the app · max SEK 99 / day | SEK 29 | SEK 58 | SEK 99 | - |
+| OneFlash | Sweden | 5 | Usually €2–3 per session or hour | - | - | - | - |
+| LecToGo | Finland | 556 | €2.95 / 2 h in the app · max €8 / day | €2.95 | €5.90 | €8 | - |
 | Mobbi | Italy | 329 | €1 / 30 min | €2 | €6 | - | - |
 | voozaa | Italy | 147 | €2 / hour · max €10 / day (most stations; varies) | €2–€4 | €6–€10 | €10 | €15 |
 | Recharge.me | Italy | 37 | Price shown on the station screen | - | - | - | - |
@@ -256,6 +315,9 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | voozaa | Austria | 102 | €2 / 30 min · max €10 / day (most stations; varies) | €2–€4 | €6–€10 | €10 | €15–€65 |
 | Chimpy | Austria | 95 | €3 per rental, keep it up to 7 days | €3 | €3 | €3 | €15 |
 | OneFlash | Austria | 1 | Usually €2–3 per session or hour | - | - | - | - |
+| LecToGo | Denmark | 169 | DKK 29 / 2 h in the app · max DKK 99 / day | DKK 29 | DKK 58 | DKK 99 | - |
+| OneFlash | Denmark | 3 | Usually €2–3 per session or hour | - | - | - | - |
+| LecToGo | Norway | 163 | NOK 39 / 2 h in the app | NOK 39 | NOK 78 | - | - |
 | Dead Batt | Israel | 156 | ₪15 / hour · max ₪30 / 24 h | ₪15 | ₪30 | ₪30 | - |
 | Revive | Luxembourg | 39 | Price shown in the Revive app | - | - | - | - |
 | Chimpy | Luxembourg | 20 | €3 per rental, keep it up to 7 days | €3 | €3 | €3 | €15 |
