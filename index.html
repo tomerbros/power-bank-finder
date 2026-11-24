@@ -1143,6 +1143,18 @@
   function renderStrip(nearest) {
     strip.innerHTML = '';
     strip.hidden = stripDismissed || !nearest.length || !!guide;   // the directions panel takes its place
+    // A ✕ card at both ends of the strip, so it can be closed without swiping to the end
+    const closeCard = () => {
+      const close = document.createElement('div');
+      close.className = 'mini close-card';
+      close.title = 'Hide list';
+      close.setAttribute('role', 'button');
+      close.setAttribute('aria-label', 'Hide the nearest stations');
+      close.textContent = '✕';
+      close.addEventListener('click', () => { stripDismissed = true; strip.hidden = true; });
+      return close;
+    };
+    strip.appendChild(closeCard());
     nearest.forEach(({ s, km }) => {
       const info = infoFor(s);
       const card = document.createElement('div');
@@ -1154,12 +1166,7 @@
       card.addEventListener('click', () => openStation(s));
       strip.appendChild(card);
     });
-    const close = document.createElement('div');
-    close.className = 'mini close-card';
-    close.title = 'Hide list';
-    close.textContent = '✕';
-    close.addEventListener('click', () => { stripDismissed = true; strip.hidden = true; });
-    strip.appendChild(close);
+    strip.appendChild(closeCard());
     strip.scrollLeft = 0;
   }
 
