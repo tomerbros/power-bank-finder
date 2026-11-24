@@ -102,6 +102,7 @@ operators/fully/index.html
 operators/iccxx/index.html
 operators/index.html
 operators/juice/index.html
+operators/last-call/index.html
 operators/mobbi/index.html
 operators/oneflash/index.html
 operators/recharge-me/index.html
@@ -110,6 +111,15 @@ operators/revive/index.html
 operators/voltergy/index.html
 operators/voozaa/index.html
 operators/wessview/index.html
+portugal/almada/index.html
+portugal/coimbra/index.html
+portugal/costa-da-caparica/index.html
+portugal/ericeira/index.html
+portugal/index.html
+portugal/lisbon/index.html
+portugal/porto/index.html
+portugal/smaller-towns/index.html
+portugal/vila-nova-de-gaia/index.html
 prices/index.html
 privacy/index.html
 spain/alicante/index.html

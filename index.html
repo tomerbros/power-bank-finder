@@ -272,7 +272,7 @@
   </div>
   <nav aria-label="Site">
     <a href="/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/><path d="M8 2v16M16 6v16"/></svg>Map</a>
-    <details><summary><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>Countries<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><a href="/united-kingdom/">🇬🇧 United Kingdom<span class="count">4,469</span></a><a href="/switzerland/">🇨🇭 Switzerland<span class="count">3,790</span></a><a href="/netherlands/">🇳🇱 Netherlands<span class="count">2,273</span></a><a href="/spain/">🇪🇸 Spain<span class="count">1,932</span></a><a href="/germany/">🇩🇪 Germany<span class="count">1,441</span></a><a href="/italy/">🇮🇹 Italy<span class="count">539</span></a><a href="/france/">🇫🇷 France<span class="count">324</span></a><a href="/austria/">🇦🇹 Austria<span class="count">198</span></a><a href="/israel/">🇮🇱 Israel<span class="count">156</span></a><a href="/luxembourg/">🇱🇺 Luxembourg<span class="count">60</span></a></details>
+    <details><summary><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>Countries<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><a href="/united-kingdom/">🇬🇧 United Kingdom<span class="count">4,469</span></a><a href="/switzerland/">🇨🇭 Switzerland<span class="count">3,790</span></a><a href="/netherlands/">🇳🇱 Netherlands<span class="count">2,273</span></a><a href="/spain/">🇪🇸 Spain<span class="count">1,960</span></a><a href="/germany/">🇩🇪 Germany<span class="count">1,441</span></a><a href="/italy/">🇮🇹 Italy<span class="count">539</span></a><a href="/france/">🇫🇷 France<span class="count">324</span></a><a href="/portugal/">🇵🇹 Portugal<span class="count">209</span></a><a href="/austria/">🇦🇹 Austria<span class="count">198</span></a><a href="/israel/">🇮🇱 Israel<span class="count">156</span></a><a href="/luxembourg/">🇱🇺 Luxembourg<span class="count">60</span></a></details>
     <a href="/operators/"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2M6 10v4M10 10v4"/></svg>Operators</a>
     <a href="/prices/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><path d="M7 7h.01"/></svg>Prices</a>
     <a href="/faq/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg>FAQ</a>
@@ -296,7 +296,7 @@
         <h1>Powerbank Radar</h1>
       </div>
       <!-- intro: the key facts, written by scripts/build_pages.py (read by search engines and AI assistants) -->
-      <p class="sub">Power bank rental stations from every brand, on one map: 15,182 stations from 22 operators in 10 countries (the UK, Switzerland, the Netherlands, Spain, Germany, Italy, France, Austria, Israel and Luxembourg), with prices, opening hours and live availability. Updated daily.</p>
+      <p class="sub">Power bank rental stations from every brand, on one map: 15,419 stations from 23 operators in 11 countries (the UK, Switzerland, the Netherlands, Spain, Germany, Italy, France, Portugal, Austria, Israel and Luxembourg), with prices, opening hours and live availability. Updated daily.</p>
       <!-- /intro -->
     </div>
     <div class="sheet-head">
@@ -402,6 +402,7 @@
     CH: { name: 'Switzerland', flag: '🇨🇭', bounds: [[45.8, 5.95], [47.8, 10.5]] },
     LU: { name: 'Luxembourg', flag: '🇱🇺', bounds: [[49.44, 5.73], [50.19, 6.53]] },
     AT: { name: 'Austria', flag: '🇦🇹', bounds: [[46.37, 9.53], [49.02, 17.16]] },
+    PT: { name: 'Portugal', flag: '🇵🇹', bounds: [[36.95, -9.55], [42.15, -6.2]] },  // mainland
   };
   const ALL = 'ALL';  // "All countries", the default
   const ALL_COUNTRIES = { name: 'All countries', short: 'All', flag: '🌍', bounds: [[29.4, -9.3], [58.6, 35.9]] };
@@ -512,6 +513,21 @@
       return { offline: !online, available: online ? +x.freeNum : null, returnable: online ? +x.canReturnNum : null };
     },
   };
+  // Last Call's public venue list (its homepage map's, ~235 venues, open to other websites): count the
+  // power banks in the venue's stations; one download serves every Last Call venue opened within 10 seconds
+  LIVE_SOURCES['Last Call'] = async s => {
+    if (!lastCallCache || Date.now() - lastCallCache.at > 10 * 1000) {
+      lastCallCache = { at: Date.now(), promise: fetch('https://europe-west1-silent-caster-404015.cloudfunctions.net/venues/public/')
+        .then(r => r.json()).then(d => d.result || []) };
+      lastCallCache.promise.catch(() => { lastCallCache = null; });
+    }
+    const v = (await lastCallCache.promise).find(v => `lastcall-${v.googlePlaceId}` === s.id);
+    if (!v) throw new Error('venue not in feed');
+    const banks = v.stations.reduce((n, st) => n + (st.powerbanks?.length || 0), 0);
+    const slots = v.stations.reduce((n, st) => n + (st.slots || 0), 0);
+    return { offline: false, available: banks, returnable: Math.max(slots - banks, 0) };
+  };
+  let lastCallCache = null;   // { at, promise }
   let voozaaCache = null;   // { at, key, promise }
   function voozaaFeed(s) {
     const key = `${Math.round(s.lat)},${Math.round(s.lng)}`;

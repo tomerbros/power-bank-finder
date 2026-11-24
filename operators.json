@@ -22,6 +22,7 @@
     "ChargedUp":     { "color": "#1d3fbb", "logo": "logos/chargedup.ico", "site": "https://chargedup.green/", "price": "£2 / 30 min · max £12 / day", "extra": "First 5 min free · rent with the ChargedUp app, return at any ChargedUp station" },
     "voozaa":        { "color": "#8fb300", "logo": "logos/voozaa-96.png", "site": "https://voozaa.app/", "price": "€2 / hour · max €10 / day", "extra": "Deposit held on your card, refunded on return · rent with the voozaa app" },
     "OneFlash":      { "color": "#ee3d6c", "logo": "logos/oneflash.png", "site": "https://www.oneflash.fr/", "price": "Usually €2–3 per session or hour", "extra": "Price shown on the station before you pay · free at some venues (e.g. IKEA)" },
+    "Last Call":     { "color": "#b45309", "logo": "logos/lastcall-96.png", "site": "https://lastcall.pt/", "price": "Price shown on the station screen", "extra": "€15 deposit held on your card · no app: tap your card or phone to pay, return at any Last Call station" },
     "Chimpy":        { "color": "#5bb318", "logo": "logos/chimpy.png", "site": "https://heychimpy.com/how-to-rent", "price": "€4 per rental, keep it up to 7 days", "extra": "€15 deposit, refunded when you return it · no app: buy it at the kiosk checkout, return at any Chimpy point" }
   },
   "by_country": {
