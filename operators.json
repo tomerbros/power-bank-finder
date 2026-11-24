@@ -18,13 +18,18 @@
     "Rechargy":      { "color": "#6e56cf", "logo": "logos/rechargy.webp",     "site": "https://rechargy.de/standorte/", "price": "Price shown in the app or at the terminal", "extra": "Rent with a QR code · return at any Rechargy station" },
     "Dead Batt":     { "color": "#7cb518", "logo": "logos/deadbatt-96.png",      "site": "https://dead-batt.com/stations", "price": "₪15 / hour · max ₪30 / 24 h", "extra": "No app: tap your card or phone on the station · return at any Dead Batt station" },
     "Mobbi":         { "color": "#1a1a1a", "logo": "logos/mobbi.png",         "site": "https://www.mobbi.it/", "price": "€1 / 30 min", "extra": "First 3 min free · rent by scanning the QR code" },
-    "Recharge.me":   { "color": "#e5484d", "logo": "logos/rechargeme-96.png",    "site": "https://rechargeme.app/", "price": "Price shown on the station screen", "extra": "Pay only for the time you use" }
+    "Recharge.me":   { "color": "#e5484d", "logo": "logos/rechargeme-96.png",    "site": "https://rechargeme.app/", "price": "Price shown on the station screen", "extra": "Pay only for the time you use" },
+    "Chimpy":        { "color": "#5bb318", "logo": "logos/chimpy.png", "site": "https://heychimpy.com/how-to-rent", "price": "€4 per rental, keep it up to 7 days", "extra": "€15 deposit, refunded when you return it · no app: buy it at the kiosk checkout, return at any Chimpy point" }
   },
   "by_country": {
     "Buzz:ES":   { "site": "https://buzzpowerbanks.es/", "price": "€1.99 / 30 min · max €10 / day", "extra": "Return at any Buzz station in the city" },
     "Revive:ES": { "site": "https://revivesharing.com/", "price": "Price shown in the Revive app", "extra": "Billed per started half hour" },
     "Revive:GB": { "site": "https://revivesharing.com/", "price": "Price shown in the Revive app", "extra": "Billed per started half hour" },
     "Juice:FR":  { "site": "https://getjuice.fr/", "price": "Price varies per location", "extra": "Shown on the station screen before you rent" },
-    "Juice:DE":  { "site": "https://getjuice.nl/", "price": "Price varies per location", "extra": "Shown on the station screen before you rent" }
+    "Juice:DE":  { "site": "https://getjuice.nl/", "price": "Price varies per location", "extra": "Shown on the station screen before you rent" },
+    "Chimpy:CH": { "site": "https://heychimpy.com/how-to-rent", "price": "CHF 5 per rental, keep it up to 7 days", "extra": "CHF 15 deposit, refunded when you return it · no app: buy it at the kiosk checkout, return at any Chimpy point" },
+    "Chimpy:AT": { "site": "https://heychimpy.com/how-to-rent", "price": "€3 per rental, keep it up to 7 days", "extra": "€15 deposit, refunded when you return it · no app: buy it at the kiosk checkout, return at any Chimpy point" },
+    "Chimpy:IT": { "site": "https://heychimpy.com/how-to-rent", "price": "Price shown at the kiosk", "extra": "Deposit refunded when you return it · no app: buy it at the kiosk checkout, return at any Chimpy point" },
+    "Chimpy:LU": { "site": "https://heychimpy.com/how-to-rent", "price": "€3 per rental, keep it up to 7 days", "extra": "€15 deposit, refunded when you return it · no app: buy it at the kiosk checkout, return at any Chimpy point" }
   }
 }

@@ -1,6 +1,6 @@
 # Powerbank Radar
 
-> A free map of power bank rental stations from every operator: 5,454 stations from 18 operators in 9 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-23). Independent, not affiliated with the operators.
+> A free map of power bank rental stations from every operator: 9,742 stations from 19 operators in 10 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-24). Independent, not affiliated with the operators.
 
 ## Main pages
 
@@ -13,21 +13,46 @@
 ## Showing someone the stations near them
 
 To answer "where can I rent a power bank near me / near <place>", link to the map with the person's position: https://www.powerbankradar.com/?near=<latitude>,<longitude> (for example https://www.powerbankradar.com/?near=52.3731,4.8926 for Dam Square, Amsterdam). The map marks that point and lists the 5 nearest stations with distance, walking time, price, opening hours and, for most operators, how many power banks are available right now.
-Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (NL, ES, GB, IT, DE, IL, LU, FR, CH) shows a country.
+Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (CH, NL, ES, DE, GB, IT, IL, AT, LU, FR) shows a country.
 
 ## Countries
 
+- [Switzerland](https://www.powerbankradar.com/switzerland/): 3,787 stations ([smaller towns](https://www.powerbankradar.com/switzerland/smaller-towns/))
 - [Netherlands](https://www.powerbankradar.com/netherlands/): 2,258 stations ([smaller towns](https://www.powerbankradar.com/netherlands/smaller-towns/))
 - [Spain](https://www.powerbankradar.com/spain/): 1,724 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
+- [Germany](https://www.powerbankradar.com/germany/): 627 stations ([smaller towns](https://www.powerbankradar.com/germany/smaller-towns/))
 - [United Kingdom](https://www.powerbankradar.com/united-kingdom/): 616 stations ([smaller towns](https://www.powerbankradar.com/united-kingdom/smaller-towns/))
-- [Italy](https://www.powerbankradar.com/italy/): 368 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
-- [Germany](https://www.powerbankradar.com/germany/): 257 stations ([smaller towns](https://www.powerbankradar.com/germany/smaller-towns/))
+- [Italy](https://www.powerbankradar.com/italy/): 387 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
 - [Israel](https://www.powerbankradar.com/israel/): 156 stations ([smaller towns](https://www.powerbankradar.com/israel/smaller-towns/))
-- [Luxembourg](https://www.powerbankradar.com/luxembourg/): 39 stations
+- [Austria](https://www.powerbankradar.com/austria/): 95 stations ([smaller towns](https://www.powerbankradar.com/austria/smaller-towns/))
+- [Luxembourg](https://www.powerbankradar.com/luxembourg/): 59 stations ([smaller towns](https://www.powerbankradar.com/luxembourg/smaller-towns/))
 - [France](https://www.powerbankradar.com/france/): 33 stations ([smaller towns](https://www.powerbankradar.com/france/smaller-towns/))
 
 ## Cities
 
+- [Zurich, Switzerland](https://www.powerbankradar.com/switzerland/zurich/): 466 stations
+- [Bern, Switzerland](https://www.powerbankradar.com/switzerland/bern/): 159 stations
+- [Basel, Switzerland](https://www.powerbankradar.com/switzerland/basel/): 119 stations
+- [Geneva, Switzerland](https://www.powerbankradar.com/switzerland/geneva/): 114 stations
+- [Lausanne, Switzerland](https://www.powerbankradar.com/switzerland/lausanne/): 88 stations
+- [Lucerne, Switzerland](https://www.powerbankradar.com/switzerland/lucerne/): 84 stations
+- [Winterthur, Switzerland](https://www.powerbankradar.com/switzerland/winterthur/): 60 stations
+- [Biel/Bienne, Switzerland](https://www.powerbankradar.com/switzerland/biel-bienne/): 56 stations
+- [Fribourg, Switzerland](https://www.powerbankradar.com/switzerland/fribourg/): 46 stations
+- [Aarau, Switzerland](https://www.powerbankradar.com/switzerland/aarau/): 43 stations
+- [St. Gallen, Switzerland](https://www.powerbankradar.com/switzerland/st-gallen/): 40 stations
+- [Lugano, Switzerland](https://www.powerbankradar.com/switzerland/lugano/): 39 stations
+- [Baden, Switzerland](https://www.powerbankradar.com/switzerland/baden/): 33 stations
+- [Olten, Switzerland](https://www.powerbankradar.com/switzerland/olten/): 32 stations
+- [Zug, Switzerland](https://www.powerbankradar.com/switzerland/zug/): 31 stations
+- [Schaffhausen, Switzerland](https://www.powerbankradar.com/switzerland/schaffhausen/): 30 stations
+- [Thun, Switzerland](https://www.powerbankradar.com/switzerland/thun/): 29 stations
+- [Solothurn, Switzerland](https://www.powerbankradar.com/switzerland/solothurn/): 27 stations
+- [Neuchâtel, Switzerland](https://www.powerbankradar.com/switzerland/neuchatel/): 27 stations
+- [Chur, Switzerland](https://www.powerbankradar.com/switzerland/chur/): 25 stations
+- [Bellinzona, Switzerland](https://www.powerbankradar.com/switzerland/bellinzona/): 25 stations
+- [Sion, Switzerland](https://www.powerbankradar.com/switzerland/sion/): 25 stations
+- [Uster, Switzerland](https://www.powerbankradar.com/switzerland/uster/): 15 stations
 - [Amsterdam, Netherlands](https://www.powerbankradar.com/netherlands/amsterdam/): 660 stations
 - [Rotterdam, Netherlands](https://www.powerbankradar.com/netherlands/rotterdam/): 274 stations
 - [The Hague, Netherlands](https://www.powerbankradar.com/netherlands/the-hague/): 206 stations
@@ -78,6 +103,16 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Benalmádena, Spain](https://www.powerbankradar.com/spain/benalmadena/): 9 stations
 - [Torrevieja, Spain](https://www.powerbankradar.com/spain/torrevieja/): 5 stations
 - [Dénia, Spain](https://www.powerbankradar.com/spain/denia/): 5 stations
+- [Berlin, Germany](https://www.powerbankradar.com/germany/berlin/): 228 stations
+- [Hamburg, Germany](https://www.powerbankradar.com/germany/hamburg/): 70 stations
+- [Essen, Germany](https://www.powerbankradar.com/germany/essen/): 22 stations
+- [Ravensburg, Germany](https://www.powerbankradar.com/germany/ravensburg/): 13 stations
+- [Munich, Germany](https://www.powerbankradar.com/germany/munich/): 13 stations
+- [Stuttgart, Germany](https://www.powerbankradar.com/germany/stuttgart/): 12 stations
+- [Dortmund, Germany](https://www.powerbankradar.com/germany/dortmund/): 9 stations
+- [Karlsruhe, Germany](https://www.powerbankradar.com/germany/karlsruhe/): 8 stations
+- [Leipzig, Germany](https://www.powerbankradar.com/germany/leipzig/): 6 stations
+- [Cologne, Germany](https://www.powerbankradar.com/germany/cologne/): 5 stations
 - [London, United Kingdom](https://www.powerbankradar.com/united-kingdom/london/): 518 stations
 - [Sheffield, United Kingdom](https://www.powerbankradar.com/united-kingdom/sheffield/): 13 stations
 - [Reading, United Kingdom](https://www.powerbankradar.com/united-kingdom/reading/): 12 stations
@@ -91,12 +126,6 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Naples, Italy](https://www.powerbankradar.com/italy/naples/): 9 stations
 - [Marsala, Italy](https://www.powerbankradar.com/italy/marsala/): 6 stations
 - [Lampedusa, Italy](https://www.powerbankradar.com/italy/lampedusa/): 5 stations
-- [Berlin, Germany](https://www.powerbankradar.com/germany/berlin/): 172 stations
-- [Essen, Germany](https://www.powerbankradar.com/germany/essen/): 18 stations
-- [Hamburg, Germany](https://www.powerbankradar.com/germany/hamburg/): 14 stations
-- [Ravensburg, Germany](https://www.powerbankradar.com/germany/ravensburg/): 13 stations
-- [Karlsruhe, Germany](https://www.powerbankradar.com/germany/karlsruhe/): 7 stations
-- [Dortmund, Germany](https://www.powerbankradar.com/germany/dortmund/): 7 stations
 - [Tel Aviv, Israel](https://www.powerbankradar.com/israel/tel-aviv/): 24 stations
 - [Haifa, Israel](https://www.powerbankradar.com/israel/haifa/): 18 stations
 - [Jerusalem, Israel](https://www.powerbankradar.com/israel/jerusalem/): 15 stations
@@ -106,11 +135,13 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Ramat Gan, Israel](https://www.powerbankradar.com/israel/ramat-gan/): 7 stations
 - [Holon, Israel](https://www.powerbankradar.com/israel/holon/): 6 stations
 - [Eilat, Israel](https://www.powerbankradar.com/israel/eilat/): 6 stations
-- [Luxembourg City, Luxembourg](https://www.powerbankradar.com/luxembourg/luxembourg-city/): 35 stations
+- [Vienna, Austria](https://www.powerbankradar.com/austria/vienna/): 65 stations
+- [Luxembourg City, Luxembourg](https://www.powerbankradar.com/luxembourg/luxembourg-city/): 54 stations
 - [Paris, France](https://www.powerbankradar.com/france/paris/): 24 stations
 
 ## Operators
 
+- [Chimpy](https://www.powerbankradar.com/operators/chimpy/): 4,288 stations
 - [FireVolt](https://www.powerbankradar.com/operators/firevolt/): 1,048 stations
 - [Buzz](https://www.powerbankradar.com/operators/buzz/): 980 stations
 - [Revive](https://www.powerbankradar.com/operators/revive/): 766 stations
@@ -136,6 +167,8 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 
 | Operator | Country | Stations | Published price | 1 hour | 3 hours | Max per day | Deposit |
 |---|---|---|---|---|---|---|---|
+| Chimpy | Switzerland | 3,784 | CHF 5 per rental, keep it up to 7 days | CHF 5 | CHF 5 | CHF 5 | CHF 15 |
+| ANYWATT | Switzerland | 3 | Price shown at the station | - | - | - | - |
 | Buzz | Netherlands | 866 | €3 / hour · max €9 / day | €3 | €9 | €9 | €30 |
 | Juice | Netherlands | 524 | Price varies per location | - | - | - | - |
 | ICCXX | Netherlands | 470 | Max €3 per day | - | - | €3 | - |
@@ -152,14 +185,17 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | Fully | Spain | 25 | €3 / hour · max €12 / day | €3 | €9 | €12 | €35 |
 | Mobbi | Spain | 7 | €1 / 30 min (most stations; varies) | €2–€4 | €6–€12 | - | - |
 | FLAPY | Spain | 2 | €2 / 30 min · max €10 / day | €4 | €10 | €10 | €25 |
+| Chimpy | Germany | 370 | €4 per rental, keep it up to 7 days | €4 | €4 | €4 | €15 |
+| Rechargy | Germany | 252 | Price shown in the app or at the terminal | - | - | - | - |
+| Juice | Germany | 5 | Price varies per location | - | - | - | - |
 | Fast Charger | United Kingdom | 604 | Price shown in the Fast Charger app | - | - | - | - |
 | Revive | United Kingdom | 12 | Price shown in the Revive app | - | - | - | - |
 | Mobbi | Italy | 329 | €1 / 30 min | €2 | €6 | - | - |
 | Recharge.me | Italy | 37 | Price shown on the station screen | - | - | - | - |
+| Chimpy | Italy | 19 | Price shown at the kiosk | - | - | - | - |
 | ANYWATT | Italy | 2 | Price shown at the station | - | - | - | - |
-| Rechargy | Germany | 252 | Price shown in the app or at the terminal | - | - | - | - |
-| Juice | Germany | 5 | Price varies per location | - | - | - | - |
 | Dead Batt | Israel | 156 | ₪15 / hour · max ₪30 / 24 h | ₪15 | ₪30 | ₪30 | - |
+| Chimpy | Austria | 95 | €3 per rental, keep it up to 7 days | €3 | €3 | €3 | €15 |
 | Revive | Luxembourg | 39 | Price shown in the Revive app | - | - | - | - |
+| Chimpy | Luxembourg | 20 | €3 per rental, keep it up to 7 days | €3 | €3 | €3 | €15 |
 | Juice | France | 33 | Price varies per location | - | - | - | - |
-| ANYWATT | Switzerland | 3 | Price shown at the station | - | - | - | - |
