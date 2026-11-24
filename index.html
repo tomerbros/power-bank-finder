@@ -206,8 +206,18 @@
       box-shadow: 0 0 0 4px rgba(31,111,235,.25), 0 2px 6px rgba(0,0,0,.3); }
     .you-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--you); border: 3px solid #fff;
       box-shadow: 0 0 0 6px rgba(31,111,235,.25); }
-    .sheet-head { display: flex; gap: 8px; }
-    .sheet-head button.primary { flex: 1; }
+    .sheet-head { display: flex; gap: 8px; align-items: center; }
+    .sheet-head button.primary { flex: 1; min-width: 0; }
+    .sheet-head .locate-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    /* the Bubbles / All toggle sits left of the locate button, compact */
+    /* as tall as the locate button (align-self: stretch), with two equal-width halves */
+    .sheet-head .view-switch { flex: none; margin: 0; padding: 2px; align-self: stretch;
+      display: grid; grid-template-columns: 1fr 1fr; }
+    .sheet-head .view-switch button { padding: 0 10px; font-size: 12px; }
+    .sheet-head > button { align-self: stretch; }   /* toggle, locate and filter buttons share one height */
+    /* a smaller locate button so the toggle fits beside it (desktop panel and phone bar alike) */
+    #locate { padding: 8px 12px; gap: 7px; font-size: 13px; }
+    #locate .bolt { display: none; }
     button.filter-toggle { display: none; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px;
       background: var(--card); color: var(--fg); font-size: 15px; cursor: pointer; white-space: nowrap; }
     aside.open button.filter-toggle .caret { transform: rotate(180deg); }
@@ -231,6 +241,21 @@
       .map-menu { display: inline-flex; }
       .leaflet-control-zoom { display: none; }   /* phones pinch to zoom; the menu button takes that corner */
       .sheet-head button.primary, button.filter-toggle { padding: 8px 12px; font-size: 14px; }
+      /* three columns: toggle | locate | filters. The side columns are equal, so the locate button
+         sits in the middle of the bar; the toggle shrinks to fit its side. */
+      .sheet-head { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 5px; }
+      .sheet-head .view-switch { justify-self: start; max-width: 100%; }
+      .sheet-head .view-switch button { padding: 0 3px; font-size: 11px; min-width: 0; }
+      .sheet-head button.primary { flex: none; }
+      button.filter-toggle { justify-self: end; }
+      #locate { padding: 0 8px; gap: 5px; }
+      @media (max-width: 390px) {   /* narrow phones: a little smaller still, so "Bubbles" isn't clipped */
+        .sheet-head { gap: 3px; }
+        #locate { font-size: 12px; padding: 0 7px; }
+        .sheet-head .view-switch button { font-size: 10.5px; padding: 0 2px; }
+      }
+      button.filter-toggle { padding: 8px 11px; }
+      button.filter-toggle .caret { display: none; }   /* room for the locate label; the icon says enough */
       button.filter-toggle { display: inline-block; }
       .status { margin: 6px 2px 0; font-size: 12px; cursor: pointer; }
       .sheet-body { display: none; padding-top: 8px; }
@@ -299,15 +324,15 @@
       <!-- /intro -->
     </div>
     <div class="sheet-head">
-      <button class="primary" id="locate"><span class="ping" aria-hidden="true"></span><span class="locate-text">Find stations near me</span><span class="bolt" aria-hidden="true">⚡</span></button>
+      <div class="view-switch" role="radiogroup" aria-label="How stations show on the map">
+        <button type="button" role="radio" data-grouped="1" aria-checked="true">Bubbles</button>
+        <button type="button" role="radio" data-grouped="0" aria-checked="false">All</button>
+      </div>
+      <button class="primary" id="locate" aria-label="Find stations near me"><span class="ping" aria-hidden="true"></span><span class="locate-text">Stations near me</span><span class="bolt" aria-hidden="true">⚡</span></button>
       <button class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="sheetBody" aria-label="Filters" title="Filters"><svg class="filter-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg><span id="filterCount"></span> <span class="caret">▴</span></button>
     </div>
     <div class="status" id="status">Loading stations…</div>
     <div class="sheet-body" id="sheetBody">
-      <div class="view-switch" role="radiogroup" aria-label="How stations show on the map">
-        <button type="button" role="radio" data-grouped="1" aria-checked="true">Bubbles</button>
-        <button type="button" role="radio" data-grouped="0" aria-checked="false">All stations</button>
-      </div>
       <div class="filter-bar">
         <button class="dd" id="countryBtn" aria-expanded="false" aria-controls="countryPanel"><span id="countryLabel">Country</span><span class="caret">▾</span></button>
         <button class="dd" id="opBtn" aria-expanded="false" aria-controls="opPanel"><span id="opLabel">Operators</span><span class="caret">▾</span></button>
