@@ -863,7 +863,7 @@
     },
     // draw = false when the map is about to redraw anyway (after a move or zoom)
     setItems(items, draw = true) {
-      if (items.length !== this._items.length || items.some((s, i) => s !== this._items[i])) { this._items = items; this._proj = null; }
+      if (items.length !== this._items.length || items.some((s, i) => s !== this._items[i])) { this._items = items; this._proj = null; this._order = null; }
       if (draw && this._map) this._update();
     },
     // _update (Leaflet's) re-places the canvas for the current view, clears it and draws, so a redraw in
@@ -881,8 +881,19 @@
       L.Canvas.prototype._draw.call(this);
       this._drawDots();
     },
+    // Zoomed out, thousands of 5 px dots with white edges merged into one white blob. So the dots get
+    // smaller and their edge thinner (or none) the further out you are, and where they pile up only one
+    // dot is drawn per small patch of screen (cell). From zoom 11 every station is drawn at full size.
+    _style(zoom) {
+      if (zoom <= 5) return { R: 2, edge: 0, cell: 5 };
+      if (zoom <= 6) return { R: 2.5, edge: 0, cell: 6 };
+      if (zoom <= 7) return { R: 3, edge: 0.6, cell: 7 };
+      if (zoom <= 8) return { R: 3.5, edge: 0.8, cell: 8 };
+      if (zoom <= 10) return { R: 4, edge: 1.1, cell: 8 };
+      return { R: 5, edge: 1.5, cell: 0 };
+    },
     _drawDots() {
-      const map = this._map, ctx = this._ctx, b = this._bounds, R = 5;
+      const map = this._map, ctx = this._ctx, b = this._bounds;
       if (!ctx || !b) return;
       // Map positions are worked out once per zoom level; a pan only shifts them by the pixel origin
       const zoom = map.getZoom();
@@ -891,24 +902,39 @@
         this._items.forEach((s, i) => { const p = map.project([s.lat, s.lng], zoom); this._proj[2 * i] = p.x; this._proj[2 * i + 1] = p.y; });
         this._projZoom = zoom;
       }
+      // A fixed shuffled order, so where dots are thinned out every operator keeps its fair share of the
+      // dots shown (in list order, the first operator would win every crowded spot)
+      if (!this._order || this._order.length !== this._items.length) {
+        const h = s => { let x = 2166136261; for (const c of s.id) x = Math.imul(x ^ c.charCodeAt(0), 16777619); return x >>> 0; };
+        this._order = this._items.map((s, i) => [h(s), i]).sort((a, c) => a[0] - c[0]).map(a => a[1]);
+      }
+      const { R, edge, cell } = this._style(zoom);
       const o = map.getPixelOrigin();   // layer point = projected point - pixel origin
+      const taken = cell ? new Set() : null;
       const groups = new Map();
       this._pts = [];
-      this._items.forEach((s, i) => {
+      for (const i of this._order) {
+        const s = this._items[i];
         const x = this._proj[2 * i] - o.x, y = this._proj[2 * i + 1] - o.y;
-        if (x < b.min.x - R || y < b.min.y - R || x > b.max.x + R || y > b.max.y + R) return;
+        if (x < b.min.x - R || y < b.min.y - R || x > b.max.x + R || y > b.max.y + R) continue;
+        if (taken) {
+          // +o keeps the cells fixed to the map, so panning doesn't make dots blink in and out
+          const k = Math.floor((x + o.x) / cell) + ',' + Math.floor((y + o.y) / cell);
+          if (taken.has(k)) continue;
+          taken.add(k);
+        }
         this._pts.push([x, y, s]);
         const key = operatorColor[s.operator] + (s.status === 'offline' ? '|off' : '');
         if (!groups.has(key)) groups.set(key, []);
         groups.get(key).push({ x, y });
-      });
-      ctx.lineWidth = 1.5; ctx.strokeStyle = '#fff';
+      }
+      ctx.lineWidth = edge; ctx.strokeStyle = '#fff';
       groups.forEach((pts, key) => {
         const [color, off] = key.split('|');
         ctx.beginPath();
         for (const p of pts) { ctx.moveTo(p.x + R, p.y); ctx.arc(p.x, p.y, R, 0, 2 * Math.PI); }
         ctx.globalAlpha = off ? .4 : .95; ctx.fillStyle = color; ctx.fill();
-        ctx.globalAlpha = off ? .6 : 1; ctx.stroke();
+        if (edge) { ctx.globalAlpha = off ? .6 : 1; ctx.stroke(); }
       });
       ctx.globalAlpha = 1;
     },
