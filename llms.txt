@@ -1,6 +1,6 @@
 # Powerbank Radar
 
-> A free map of power bank rental stations from every operator: 17,308 stations from 28 operators in 18 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-25). Independent, not affiliated with the operators.
+> A free map of power bank rental stations from every operator: 17,322 stations from 28 operators in 18 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-25). Independent, not affiliated with the operators.
 
 ## Main pages
 
@@ -20,19 +20,19 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [United Kingdom](https://www.powerbankradar.com/united-kingdom/): 4,469 stations ([smaller towns](https://www.powerbankradar.com/united-kingdom/smaller-towns/))
 - [Switzerland](https://www.powerbankradar.com/switzerland/): 3,790 stations ([smaller towns](https://www.powerbankradar.com/switzerland/smaller-towns/))
 - [Netherlands](https://www.powerbankradar.com/netherlands/): 2,280 stations ([smaller towns](https://www.powerbankradar.com/netherlands/smaller-towns/))
-- [Spain](https://www.powerbankradar.com/spain/): 1,963 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
-- [Germany](https://www.powerbankradar.com/germany/): 1,441 stations ([smaller towns](https://www.powerbankradar.com/germany/smaller-towns/))
+- [Spain](https://www.powerbankradar.com/spain/): 1,970 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
+- [Germany](https://www.powerbankradar.com/germany/): 1,446 stations ([smaller towns](https://www.powerbankradar.com/germany/smaller-towns/))
 - [Sweden](https://www.powerbankradar.com/sweden/): 807 stations ([smaller towns](https://www.powerbankradar.com/sweden/smaller-towns/))
 - [Italy](https://www.powerbankradar.com/italy/): 579 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
 - [Finland](https://www.powerbankradar.com/finland/): 556 stations ([smaller towns](https://www.powerbankradar.com/finland/smaller-towns/))
 - [France](https://www.powerbankradar.com/france/): 324 stations ([smaller towns](https://www.powerbankradar.com/france/smaller-towns/))
 - [Portugal](https://www.powerbankradar.com/portugal/): 209 stations ([smaller towns](https://www.powerbankradar.com/portugal/smaller-towns/))
-- [Austria](https://www.powerbankradar.com/austria/): 198 stations ([smaller towns](https://www.powerbankradar.com/austria/smaller-towns/))
+- [Austria](https://www.powerbankradar.com/austria/): 199 stations ([smaller towns](https://www.powerbankradar.com/austria/smaller-towns/))
 - [Denmark](https://www.powerbankradar.com/denmark/): 172 stations ([smaller towns](https://www.powerbankradar.com/denmark/smaller-towns/))
 - [Norway](https://www.powerbankradar.com/norway/): 163 stations ([smaller towns](https://www.powerbankradar.com/norway/smaller-towns/))
 - [Israel](https://www.powerbankradar.com/israel/): 156 stations ([smaller towns](https://www.powerbankradar.com/israel/smaller-towns/))
 - [Poland](https://www.powerbankradar.com/poland/): 103 stations ([smaller towns](https://www.powerbankradar.com/poland/smaller-towns/))
-- [Luxembourg](https://www.powerbankradar.com/luxembourg/): 60 stations ([smaller towns](https://www.powerbankradar.com/luxembourg/smaller-towns/))
+- [Luxembourg](https://www.powerbankradar.com/luxembourg/): 61 stations ([smaller towns](https://www.powerbankradar.com/luxembourg/smaller-towns/))
 - [Iceland](https://www.powerbankradar.com/iceland/): 32 stations
 
 ## Cities
@@ -78,7 +78,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Bellinzona, Switzerland](https://www.powerbankradar.com/switzerland/bellinzona/): 25 stations
 - [Sion, Switzerland](https://www.powerbankradar.com/switzerland/sion/): 25 stations
 - [Uster, Switzerland](https://www.powerbankradar.com/switzerland/uster/): 15 stations
-- [Amsterdam, Netherlands](https://www.powerbankradar.com/netherlands/amsterdam/): 665 stations
+- [Amsterdam, Netherlands](https://www.powerbankradar.com/netherlands/amsterdam/): 664 stations
 - [Rotterdam, Netherlands](https://www.powerbankradar.com/netherlands/rotterdam/): 276 stations
 - [The Hague, Netherlands](https://www.powerbankradar.com/netherlands/the-hague/): 207 stations
 - [Utrecht, Netherlands](https://www.powerbankradar.com/netherlands/utrecht/): 98 stations
@@ -108,7 +108,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Arnhem, Netherlands](https://www.powerbankradar.com/netherlands/arnhem/): 6 stations
 - [Barcelona, Spain](https://www.powerbankradar.com/spain/barcelona/): 267 stations
 - [Valencia, Spain](https://www.powerbankradar.com/spain/valencia/): 248 stations
-- [Benidorm, Spain](https://www.powerbankradar.com/spain/benidorm/): 136 stations
+- [Benidorm, Spain](https://www.powerbankradar.com/spain/benidorm/): 137 stations
 - [Marbella, Spain](https://www.powerbankradar.com/spain/marbella/): 125 stations
 - [Ibiza, Spain](https://www.powerbankradar.com/spain/ibiza/): 125 stations
 - [Madrid, Spain](https://www.powerbankradar.com/spain/madrid/): 114 stations
@@ -125,7 +125,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Calp, Spain](https://www.powerbankradar.com/spain/calp/): 17 stations
 - [Seville, Spain](https://www.powerbankradar.com/spain/seville/): 16 stations
 - [Lloret de Mar, Spain](https://www.powerbankradar.com/spain/lloret-de-mar/): 15 stations
-- [Castellón de la Plana, Spain](https://www.powerbankradar.com/spain/castellon-de-la-plana/): 11 stations
+- [Castellón de la Plana, Spain](https://www.powerbankradar.com/spain/castellon-de-la-plana/): 13 stations
 - [Torrevieja, Spain](https://www.powerbankradar.com/spain/torrevieja/): 11 stations
 - [Benalmádena, Spain](https://www.powerbankradar.com/spain/benalmadena/): 9 stations
 - [Murcia, Spain](https://www.powerbankradar.com/spain/murcia/): 8 stations
@@ -134,7 +134,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Berlin, Germany](https://www.powerbankradar.com/germany/berlin/): 286 stations
 - [Hamburg, Germany](https://www.powerbankradar.com/germany/hamburg/): 111 stations
 - [Munich, Germany](https://www.powerbankradar.com/germany/munich/): 61 stations
-- [Cologne, Germany](https://www.powerbankradar.com/germany/cologne/): 58 stations
+- [Cologne, Germany](https://www.powerbankradar.com/germany/cologne/): 59 stations
 - [Leipzig, Germany](https://www.powerbankradar.com/germany/leipzig/): 55 stations
 - [Dresden, Germany](https://www.powerbankradar.com/germany/dresden/): 38 stations
 - [Frankfurt, Germany](https://www.powerbankradar.com/germany/frankfurt/): 29 stations
@@ -206,7 +206,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Costa da Caparica, Portugal](https://www.powerbankradar.com/portugal/costa-da-caparica/): 7 stations
 - [Coimbra, Portugal](https://www.powerbankradar.com/portugal/coimbra/): 5 stations
 - [Vienna, Austria](https://www.powerbankradar.com/austria/vienna/): 113 stations
-- [Linz, Austria](https://www.powerbankradar.com/austria/linz/): 12 stations
+- [Linz, Austria](https://www.powerbankradar.com/austria/linz/): 13 stations
 - [Salzburg, Austria](https://www.powerbankradar.com/austria/salzburg/): 7 stations
 - [Innsbruck, Austria](https://www.powerbankradar.com/austria/innsbruck/): 7 stations
 - [Copenhagen, Denmark](https://www.powerbankradar.com/denmark/copenhagen/): 63 stations
@@ -239,7 +239,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Bolesławiec, Poland](https://www.powerbankradar.com/poland/boleslawiec/): 8 stations
 - [Opole, Poland](https://www.powerbankradar.com/poland/opole/): 8 stations
 - [Poznań, Poland](https://www.powerbankradar.com/poland/poznan/): 7 stations
-- [Luxembourg City, Luxembourg](https://www.powerbankradar.com/luxembourg/luxembourg-city/): 55 stations
+- [Luxembourg City, Luxembourg](https://www.powerbankradar.com/luxembourg/luxembourg-city/): 56 stations
 - [Reykjavík, Iceland](https://www.powerbankradar.com/iceland/reykjavik/): 31 stations
 
 ## Operators
@@ -247,12 +247,12 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Chimpy](https://www.powerbankradar.com/operators/chimpy/): 4,288 stations
 - [ChargedUp](https://www.powerbankradar.com/operators/chargedup/): 3,828 stations
 - [LecToGo](https://www.powerbankradar.com/operators/lectogo/): 1,690 stations
-- [voozaa](https://www.powerbankradar.com/operators/voozaa/): 1,289 stations
-- [FireVolt](https://www.powerbankradar.com/operators/firevolt/): 1,053 stations
+- [voozaa](https://www.powerbankradar.com/operators/voozaa/): 1,296 stations
+- [FireVolt](https://www.powerbankradar.com/operators/firevolt/): 1,058 stations
 - [Buzz](https://www.powerbankradar.com/operators/buzz/): 987 stations
 - [Revive](https://www.powerbankradar.com/operators/revive/): 766 stations
 - [Fast Charger](https://www.powerbankradar.com/operators/fast-charger/): 604 stations
-- [Juice](https://www.powerbankradar.com/operators/juice/): 562 stations
+- [Juice](https://www.powerbankradar.com/operators/juice/): 563 stations
 - [ICCXX](https://www.powerbankradar.com/operators/iccxx/): 470 stations
 - [Mobbi](https://www.powerbankradar.com/operators/mobbi/): 336 stations
 - [OneFlash](https://www.powerbankradar.com/operators/oneflash/): 333 stations
@@ -270,8 +270,8 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [AIRVALL](https://www.powerbankradar.com/operators/airvall/): 13 stations
 - [W KONTAKCIE](https://www.powerbankradar.com/operators/w-kontakcie/): 12 stations
 - [HRS ENERGY](https://www.powerbankradar.com/operators/hrs-energy/): 6 stations
+- [FLAPY](https://www.powerbankradar.com/operators/flapy/): 3 stations
 - [ChargeBuddies](https://www.powerbankradar.com/operators/chargebuddies/): 2 stations
-- [FLAPY](https://www.powerbankradar.com/operators/flapy/): 2 stations
 
 ## Prices
 
@@ -288,17 +288,17 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | ANYWATT | Switzerland | 3 | Price shown at the station | - | - | - | - |
 | OneFlash | Switzerland | 3 | Usually €2–3 per session or hour | - | - | - | - |
 | Buzz | Netherlands | 873 | €3 / hour · max €9 / day | €3 | €9 | €9 | €30 |
-| Juice | Netherlands | 524 | Price varies per location | - | - | - | - |
+| Juice | Netherlands | 525 | Price varies per location | - | - | - | - |
 | ICCXX | Netherlands | 470 | Max €3 per day | - | - | €3 | - |
-| Revive | Netherlands | 334 | Price shown in the Revive app | - | - | - | - |
+| Revive | Netherlands | 333 | Price shown in the Revive app | - | - | - | - |
 | Amlo | Netherlands | 26 | €2.50 / hour | €2.50 | €7.50 | - | - |
 | Wessview | Netherlands | 23 | €2 / 30 min · max €10 / day | €4 | €10 | €10 | €20 |
 | OneFlash | Netherlands | 15 | Usually €2–3 per session or hour | - | - | - | - |
 | AIRVALL | Netherlands | 13 | €4 per 24 hours | €4 | €4 | €4 | - |
 | ChargeBuddies | Netherlands | 2 | €2 first hour, then per minute | €2.50 | - | - | - |
-| FireVolt | Spain | 1,053 | €6 / hour · max €30 / day (most stations; varies) | €1.90–€6 | €5–€18 | €5–€30 | €3–€20 |
+| FireVolt | Spain | 1,058 | €6 / hour · max €30 / day (most stations; varies) | €1.90–€6 | €5–€18 | €5–€30 | €3–€20 |
 | Revive | Spain | 381 | Price shown in the Revive app | - | - | - | - |
-| voozaa | Spain | 202 | €2 / hour · max €10 / day (most stations; varies) | €2–€4 | €6–€10 | €10 | €15–€45 |
+| voozaa | Spain | 203 | €2 / hour · max €10 / day (most stations; varies) | €2–€4 | €6–€10 | €10 | €15–€45 |
 | Buzz | Spain | 114 | €1.99 / 30 min · max €10 / day | €3.98 | €10 | €10 | - |
 | ANYWATT | Spain | 92 | Price shown at the station | - | - | - | - |
 | VolterGy | Spain | 55 | €1.75 / 30 min · max €8.75 / day | €3.50 | €8.75 | €8.75 | €19 |
@@ -306,8 +306,8 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | Fully | Spain | 23 | €3 / hour · max €12 / day | €3 | €9 | €12 | €35 |
 | Mobbi | Spain | 7 | €1 / 30 min (most stations; varies) | €2–€4 | €6–€12 | - | - |
 | OneFlash | Spain | 6 | Usually €2–3 per session or hour | - | - | - | - |
-| FLAPY | Spain | 2 | €2 / 30 min · max €10 / day | €4 | €10 | €10 | €25 |
-| voozaa | Germany | 809 | €2 / hour · max €10 / day (most stations; varies) | €2–€4 | €6–€10 | €8–€10 | €15–€65 |
+| FLAPY | Spain | 3 | €2 / 30 min · max €10 / day | €4 | €10 | €10 | €25 |
+| voozaa | Germany | 814 | €2 / hour · max €10 / day (most stations; varies) | €2–€4 | €6–€10 | €8–€10 | €15–€65 |
 | Chimpy | Germany | 370 | €4 per rental, keep it up to 7 days | €4 | €4 | €4 | €15 |
 | Rechargy | Germany | 252 | Price shown in the app or at the terminal | - | - | - | - |
 | Juice | Germany | 5 | Price varies per location | - | - | - | - |
@@ -327,7 +327,7 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | voozaa | France | 6 | €2 / 30 min · max €10 / day (most stations; varies) | €2–€4 | €6–€10 | €10 | €15–€45 |
 | Last Call | Portugal | 207 | Price shown on the station screen | - | - | - | - |
 | OneFlash | Portugal | 2 | Usually €2–3 per session or hour | - | - | - | - |
-| voozaa | Austria | 102 | €2 / 30 min · max €10 / day (most stations; varies) | €2–€4 | €6–€10 | €10 | €15–€65 |
+| voozaa | Austria | 103 | €2 / 30 min · max €10 / day (most stations; varies) | €2–€4 | €6–€10 | €10 | €15–€65 |
 | Chimpy | Austria | 95 | €3 per rental, keep it up to 7 days | €3 | €3 | €3 | €15 |
 | OneFlash | Austria | 1 | Usually €2–3 per session or hour | - | - | - | - |
 | LecToGo | Denmark | 169 | DKK 29 / 2 h in the app · max DKK 99 / day | DKK 29 | DKK 58 | DKK 99 | - |
@@ -336,7 +336,7 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | Dead Batt | Israel | 156 | ₪15 / hour · max ₪30 / 24 h | ₪15 | ₪30 | ₪30 | - |
 | Fast Energy | Poland | 91 | Price shown in the Fast Energy app | - | - | - | - |
 | W KONTAKCIE | Poland | 12 | From PLN 6 / hour | PLN 6 | PLN 18 | - | - |
-| Revive | Luxembourg | 39 | Price shown in the Revive app | - | - | - | - |
+| Revive | Luxembourg | 40 | Price shown in the Revive app | - | - | - | - |
 | Chimpy | Luxembourg | 20 | €3 per rental, keep it up to 7 days | €3 | €3 | €3 | €15 |
 | OneFlash | Luxembourg | 1 | Usually €2–3 per session or hour | - | - | - | - |
 | Buzz Iceland | Iceland | 32 | Start fee + per-minute rate, shown in the app before you rent | - | - | - | - |
