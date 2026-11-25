@@ -1035,8 +1035,15 @@
   function switchViewAnimated(toGrouped) {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const inView = map.getBounds().pad(0.15);
-    const vis = stations.filter(s => isVisible(s) && inView.contains([s.lat, s.lng]));
-    if (reduced || !vis.length || vis.length > 15000) { renderMarkers(); return; }
+    let vis = stations.filter(s => isVisible(s) && inView.contains([s.lat, s.lng]));
+    if (reduced || !vis.length) { renderMarkers(); return; }
+    // Too many dots to fly smoothly on a phone (zoomed out, 15,000+): fly an evenly spread sample; the
+    // rest appear as the new view fades in. (A hard cut-off here used to skip the animation entirely.)
+    const MAX_FLYING = 3000;
+    if (vis.length > MAX_FLYING) {
+      const step = vis.length / MAX_FLYING;
+      vis = Array.from({ length: MAX_FLYING }, (_, k) => vis[Math.floor(k * step)]);
+    }
 
     const pt = ll => map.latLngToContainerPoint(ll);
     const parentPt = s => { const p = cluster.getVisibleParent(markers.get(s.id)); return p ? pt(p.getLatLng()) : null; };
