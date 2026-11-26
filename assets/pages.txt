@@ -5,7 +5,13 @@ austria/linz/index.html
 austria/salzburg/index.html
 austria/smaller-towns/index.html
 austria/vienna/index.html
+bosnia-and-herzegovina/index.html
+bosnia-and-herzegovina/mostar/index.html
+bosnia-and-herzegovina/sarajevo/index.html
+bosnia-and-herzegovina/smaller-towns/index.html
 contact/index.html
+croatia/index.html
+croatia/zagreb/index.html
 czechia/index.html
 czechia/smaller-towns/index.html
 denmark/aabenraa/index.html
@@ -135,6 +141,7 @@ operators/buzz-iceland/index.html
 operators/buzz/index.html
 operators/chargebuddies/index.html
 operators/chargedup/index.html
+operators/chargi/index.html
 operators/chimpy/index.html
 operators/dead-batt/index.html
 operators/fast-charger/index.html
@@ -150,6 +157,7 @@ operators/last-call/index.html
 operators/lectogo/index.html
 operators/mobbi/index.html
 operators/oneflash/index.html
+operators/powerbrick/index.html
 operators/recharge-me/index.html
 operators/rechargy/index.html
 operators/revive/index.html
