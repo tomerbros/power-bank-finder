@@ -465,15 +465,14 @@
   const walkMin = km => Math.max(1, Math.round(km / WALK_KMH * 60));
 
   // Opens the place in Google Maps (pin + place card; the user can tap Directions there).
-  // Uses the operator's Google place link when available, otherwise searches "venue, address"
-  // so Google shows the business itself; falls back to the raw coordinates.
+  // Uses a Google place link only when it points at a known Google place (the operator's own
+  // place link or place id, which also carries our coordinates as the fallback). Otherwise it
+  // drops a pin on the station's coordinates: a text search for "station name, address" lands
+  // nowhere when the name is the operator's own label (e.g. "HRS Praha Anděl"), coordinates always land.
+  const GOOGLE_PLACE = /^https:\/\/(www\.google\.com\/maps\/search\/\?api=1&query=-?\d|maps\.google\.com\/\?cid=\d+$|www\.google\.com\/maps\?cid=\d+$|maps\.app\.goo\.gl\/\w{8,}$)/;
   function placeUrl(s) {
-    if (s.google_maps_url) return s.google_maps_url;
-    const name = (s.name || '').replace(/\s*\(\d+ (machines|points)\)$/, '');   // "(5 machines)" isn't part of the venue's name
-    const isVenueName = name && s.address && !s.address.startsWith(name);
-    const query = s.address ? (isVenueName ? `${name}, ${s.address}` : s.address) : `${s.lat},${s.lng}`;
-    const p = new URLSearchParams({ api: '1', query });
-    return `https://www.google.com/maps/search/?${p}`;
+    if (s.google_maps_url && GOOGLE_PLACE.test(s.google_maps_url)) return s.google_maps_url;
+    return `https://www.google.com/maps/search/?${new URLSearchParams({ api: '1', query: `${s.lat},${s.lng}` })}`;
   }
 
   // Venue type filter; stations without a known type are grouped under NO_TYPE
