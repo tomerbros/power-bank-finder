@@ -467,14 +467,35 @@
   const fmtDist = km => km < 1 ? `${Math.round(km * 1000)} m` : `${km.toFixed(1)} km`;
   const walkMin = km => Math.max(1, Math.round(km / WALK_KMH * 60));
 
-  // Opens the place in Google Maps (pin + place card; the user can tap Directions there).
-  // Uses a Google place link only when it points at a known Google place (the operator's own
-  // place link or place id, which also carries our coordinates as the fallback). Otherwise it
-  // drops a pin on the station's coordinates: a text search for "station name, address" lands
-  // nowhere when the name is the operator's own label (e.g. "HRS Praha Anděl"), coordinates always land.
-  const GOOGLE_PLACE = /^https:\/\/(www\.google\.com\/maps\/search\/\?api=1&query=-?\d|maps\.google\.com\/\?cid=\d+$|www\.google\.com\/maps\?cid=\d+$|maps\.app\.goo\.gl\/\w{8,}$)/;
+  // Opens the venue's own place in Google Maps (photos, reviews, hours; Directions from there).
+  // 1. The operator's link to the Google place itself (place id, cid or Google short link).
+  // 2. Otherwise a search for "venue name, address" around the station's coordinates, so Google opens
+  //    that venue right there (a coordinates-only pin shows the street, not the venue). The address
+  //    keeps Google from jumping to a same-named place elsewhere (tested 27 Nov 2026 on a sample of
+  //    every operator: a name alone sent a misspelt Chimpy name to the next town).
+  // 3. Names that aren't a venue Google knows (the operator's own labels like "HRS Praha Anděl" or
+  //    "Rechargy station (Berlin)", a street address, a town) get a pin on the coordinates instead:
+  //    searching them shows unrelated businesses.
+  const GOOGLE_PLACE = /^https:\/\/(www\.google\.com\/maps\/search\/\?api=1&query=-?[\d.]+%2C-?[\d.]+&query_place_id=[\w-]+$|maps\.google\.com\/\?cid=\d+$|www\.google\.com\/maps\?cid=\d+$|maps\.app\.goo\.gl\/\w{8,}$)/;
+  const fold = t => (t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  function venueQuery(s) {
+    const name = (s.name || '').replace(/\s*\(\d+ (machines|points)\)$/, '')   // "(5 machines)" isn't part of the name
+      .replace(/\s+-\s+\d{4,}$/, '').trim();                                       // "… - 110147": a machine number
+    const n = fold(name), op = fold(s.operator), addr = fold(s.address);
+    if (!n || n.length < 3) return null;
+    const opWord = op.split(/[\s.]/)[0];
+    if (n.includes(op) || (opWord.length >= 3 && n.startsWith(opWord + ' '))) return null;   // the operator's label ("HRS Praha Anděl")
+    if (/\d/.test(n) && addr.includes(n)) return null;                                // the name is the street address ("Amstel 1")
+    if (!/\s/.test(n) && new RegExp(`(^|[\\s,])${n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}($|[\\s,])`).test(addr)) return null;   // a town or district
+    // a lone "à" / "to" makes Google read the search as directions ("… Charcot 1 À, 42100 Saint-Étienne")
+    const address = (s.address || '').replace(/,\s*,/g, ',').replace(/(^|\s)(à|to)(?=\s|,|$)/gi, '$1').replace(/\s+/g, ' ').trim();
+    if (!address) return name;
+    return fold(address).startsWith(n) ? address : `${name}, ${address}`;   // ChargedUp's addresses start with the name
+  }
   function placeUrl(s) {
     if (s.google_maps_url && GOOGLE_PLACE.test(s.google_maps_url)) return s.google_maps_url;
+    const q = venueQuery(s);
+    if (q) return `https://www.google.com/maps/search/${encodeURIComponent(q)}/@${s.lat},${s.lng},17z`;
     return `https://www.google.com/maps/search/?${new URLSearchParams({ api: '1', query: `${s.lat},${s.lng}` })}`;
   }
 
