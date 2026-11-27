@@ -115,15 +115,18 @@ israel/smaller-towns/index.html
 israel/tel-aviv/index.html
 italy/catania/index.html
 italy/index.html
+italy/jesolo/index.html
 italy/lampedusa/index.html
 italy/marsala/index.html
 italy/milan/index.html
 italy/naples/index.html
 italy/palermo/index.html
+italy/rimini/index.html
 italy/rome/index.html
 italy/smaller-towns/index.html
 italy/turin/index.html
 italy/varese/index.html
+italy/viareggio/index.html
 latvia/index.html
 latvia/riga/index.html
 latvia/smaller-towns/index.html
@@ -134,6 +137,9 @@ lithuania/smaller-towns/index.html
 luxembourg/index.html
 luxembourg/luxembourg-city/index.html
 luxembourg/smaller-towns/index.html
+malta/index.html
+malta/mellieha/index.html
+malta/smaller-towns/index.html
 netherlands/alkmaar/index.html
 netherlands/almere/index.html
 netherlands/amersfoort/index.html
@@ -175,6 +181,7 @@ norway/trondheim/index.html
 norway/trysil/index.html
 operators/airvall/index.html
 operators/amlo/index.html
+operators/ampereone/index.html
 operators/anywatt/index.html
 operators/buzz-iceland/index.html
 operators/buzz/index.html
@@ -200,6 +207,7 @@ operators/last-call/index.html
 operators/lectogo/index.html
 operators/mobbi/index.html
 operators/nero-charge/index.html
+operators/nomopower/index.html
 operators/oneflash/index.html
 operators/power-bank-net/index.html
 operators/powerbrick/index.html
@@ -237,6 +245,8 @@ portugal/smaller-towns/index.html
 portugal/vila-nova-de-gaia/index.html
 prices/index.html
 privacy/index.html
+san-marino/index.html
+san-marino/smaller-towns/index.html
 serbia/belgrade/index.html
 serbia/index.html
 serbia/krusevac/index.html

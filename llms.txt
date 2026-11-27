@@ -1,6 +1,6 @@
 # Powerbank Radar
 
-> A free map of power bank rental stations from every operator: 19,016 stations from 38 operators in 31 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-27). Independent, not affiliated with the operators.
+> A free map of power bank rental stations from every operator: 19,115 stations from 40 operators in 33 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-27). Independent, not affiliated with the operators.
 
 ## Main pages
 
@@ -13,7 +13,7 @@
 ## Showing someone the stations near them
 
 To answer "where can I rent a power bank near me / near <place>", link to the map with the person's position: https://www.powerbankradar.com/?near=<latitude>,<longitude> (for example https://www.powerbankradar.com/?near=52.3731,4.8926 for Dam Square, Amsterdam). The map marks that point and lists the 5 nearest stations with distance, walking time, price, opening hours and, for most operators, how many power banks are available right now.
-Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (GB, CH, NL, ES, DE, SE, IT, GR, FI, PT, CY, FR, RS, AT, DK, NO, IL, PL, LU, BA, AD, BE, IS, LV, EE, HR, SK, LI, CZ, BG, LT) shows a country.
+Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (GB, CH, NL, ES, DE, SE, IT, GR, FI, PT, CY, FR, RS, AT, DK, NO, IL, PL, LU, BA, AD, BE, IS, LV, EE, HR, MT, SK, LI, CZ, BG, LT, SM) shows a country.
 
 ## Countries
 
@@ -23,7 +23,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Spain](https://www.powerbankradar.com/spain/): 1,954 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
 - [Germany](https://www.powerbankradar.com/germany/): 1,448 stations ([smaller towns](https://www.powerbankradar.com/germany/smaller-towns/))
 - [Sweden](https://www.powerbankradar.com/sweden/): 807 stations ([smaller towns](https://www.powerbankradar.com/sweden/smaller-towns/))
-- [Italy](https://www.powerbankradar.com/italy/): 580 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
+- [Italy](https://www.powerbankradar.com/italy/): 667 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
 - [Greece](https://www.powerbankradar.com/greece/): 565 stations ([smaller towns](https://www.powerbankradar.com/greece/smaller-towns/))
 - [Finland](https://www.powerbankradar.com/finland/): 556 stations ([smaller towns](https://www.powerbankradar.com/finland/smaller-towns/))
 - [Portugal](https://www.powerbankradar.com/portugal/): 465 stations ([smaller towns](https://www.powerbankradar.com/portugal/smaller-towns/))
@@ -43,6 +43,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Latvia](https://www.powerbankradar.com/latvia/): 18 stations
 - [Estonia](https://www.powerbankradar.com/estonia/): 12 stations ([smaller towns](https://www.powerbankradar.com/estonia/smaller-towns/))
 - [Croatia](https://www.powerbankradar.com/croatia/): 11 stations
+- [Malta](https://www.powerbankradar.com/malta/): 11 stations
 
 ## Cities
 
@@ -180,14 +181,17 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Umeå, Sweden](https://www.powerbankradar.com/sweden/umea/): 5 stations
 - [Östersund, Sweden](https://www.powerbankradar.com/sweden/ostersund/): 5 stations
 - [Trollhättan, Sweden](https://www.powerbankradar.com/sweden/trollhattan/): 5 stations
-- [Milan, Italy](https://www.powerbankradar.com/italy/milan/): 188 stations
-- [Rome, Italy](https://www.powerbankradar.com/italy/rome/): 60 stations
+- [Milan, Italy](https://www.powerbankradar.com/italy/milan/): 189 stations
+- [Rome, Italy](https://www.powerbankradar.com/italy/rome/): 62 stations
 - [Naples, Italy](https://www.powerbankradar.com/italy/naples/): 33 stations
 - [Palermo, Italy](https://www.powerbankradar.com/italy/palermo/): 26 stations
-- [Catania, Italy](https://www.powerbankradar.com/italy/catania/): 11 stations
+- [Catania, Italy](https://www.powerbankradar.com/italy/catania/): 12 stations
+- [Jesolo, Italy](https://www.powerbankradar.com/italy/jesolo/): 11 stations
+- [Rimini, Italy](https://www.powerbankradar.com/italy/rimini/): 11 stations
+- [Turin, Italy](https://www.powerbankradar.com/italy/turin/): 10 stations
 - [Varese, Italy](https://www.powerbankradar.com/italy/varese/): 9 stations
-- [Turin, Italy](https://www.powerbankradar.com/italy/turin/): 6 stations
 - [Marsala, Italy](https://www.powerbankradar.com/italy/marsala/): 6 stations
+- [Viareggio, Italy](https://www.powerbankradar.com/italy/viareggio/): 6 stations
 - [Lampedusa, Italy](https://www.powerbankradar.com/italy/lampedusa/): 5 stations
 - [Athens, Greece](https://www.powerbankradar.com/greece/athens/): 294 stations
 - [Piraeus, Greece](https://www.powerbankradar.com/greece/piraeus/): 38 stations
@@ -283,6 +287,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Riga, Latvia](https://www.powerbankradar.com/latvia/riga/): 17 stations
 - [Tallinn, Estonia](https://www.powerbankradar.com/estonia/tallinn/): 7 stations
 - [Zagreb, Croatia](https://www.powerbankradar.com/croatia/zagreb/): 11 stations
+- [Mellieħa, Malta](https://www.powerbankradar.com/malta/mellieha/): 7 stations
 - [Vysoké Tatry, Slovakia](https://www.powerbankradar.com/slovakia/vysoke-tatry/): 8 stations
 
 ## Operators
@@ -308,6 +313,8 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [ANYWATT](https://www.powerbankradar.com/operators/anywatt/): 97 stations
 - [Chargi](https://www.powerbankradar.com/operators/chargi/): 56 stations
 - [VolterGy](https://www.powerbankradar.com/operators/voltergy/): 55 stations
+- [Nomopower](https://www.powerbankradar.com/operators/nomopower/): 51 stations
+- [AmpereOne](https://www.powerbankradar.com/operators/ampereone/): 48 stations
 - [Nero Charge](https://www.powerbankradar.com/operators/nero-charge/): 41 stations
 - [Recharge.me](https://www.powerbankradar.com/operators/recharge-me/): 37 stations
 - [Buzz Iceland](https://www.powerbankradar.com/operators/buzz-iceland/): 32 stations
@@ -369,8 +376,10 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | OneFlash | Sweden | 5 | Usually €2–3 per session or hour | - | - | - | - |
 | Mobbi | Italy | 329 | €1 / 30 min | €2 | €6 | - | - |
 | voozaa | Italy | 148 | €2 / hour · max €10 / day (most stations; varies) | €2–€4 | €6–€10 | €10 | €15 |
+| Nomopower | Italy | 50 | Price shown at the station or in the app | - | - | - | - |
 | Fast Energy | Italy | 40 | Price shown in the Fast Energy app | - | - | - | - |
 | Recharge.me | Italy | 37 | Price shown on the station screen | - | - | - | - |
+| AmpereOne | Italy | 37 | Price shown in the AmpereOne app | - | - | - | - |
 | Chimpy | Italy | 19 | Price shown at the kiosk | - | - | - | - |
 | OneFlash | Italy | 5 | Usually €2–3 per session or hour | - | - | - | - |
 | ANYWATT | Italy | 2 | Price shown at the station | - | - | - | - |
@@ -404,8 +413,10 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | PowerRabbit | Latvia | 18 | Riga: €1.99 first hour, then €1.49 / hour · max €6.99 / day | €1.49 | €4.47 | €6.99 | - |
 | ChargeNet | Estonia | 12 | Price shown in the ChargeNet app | - | - | - | - |
 | PowerBrick | Croatia | 11 | €3 per 24 hours | €3 | €3 | €3 | - |
+| AmpereOne | Malta | 11 | Price shown in the AmpereOne app | - | - | - | - |
 | power-bank.net | Slovakia | 9 | €2 per rental, up to 24 hours | €2 | €2 | €2 | €20 |
 | Chimpy | Liechtenstein | 6 | CHF 5 per rental, keep it up to 7 days | CHF 5 | CHF 5 | CHF 5 | CHF 15 |
 | HRS ENERGY | Czechia | 6 | Price shown at the station | - | - | - | - |
 | HUBO | Bulgaria | 6 | €2 per 24 hours | €2 | €2 | €2 | - |
 | E-bee | Lithuania | 4 | €1.49 / hour | €1.49 | €4.47 | - | - |
+| Nomopower | San Marino | 1 | Price shown at the station or in the app | - | - | - | - |

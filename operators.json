@@ -38,6 +38,8 @@
     "Dopuni.se":     { "color": "#1e9be0", "logo": "logos/dopuni.png", "site": "https://dopuni.se/en/rent", "price": "RSD 120 / hour · max RSD 500 / day", "extra": "Or the day plan: RSD 120 per day · not returned within 3 days: RSD 3,500 · rent with the Dopuni.se app, return at any Dopuni.se station" },
     "HUBO":          { "color": "#ec332e", "logo": "logos/hubo.svg", "site": "https://www.hubo.bg/", "price": "€2 per 24 hours", "extra": "No start fee · USB-C, Lightning and micro-USB cables · rent with the HUBO app, return at any HUBO station" },
     "power-bank.net": { "color": "#2f7d32", "logo": "logos/powerbanknet.png", "site": "https://www.power-bank.net/", "price": "€2 per rental, up to 24 hours", "extra": "€20 deposit, refunded on return · keep it up to 3 days · no app: tap your card or phone on the station" },
+    "AmpereOne":     { "color": "#0b1f5c", "logo": "logos/ampereone.png", "site": "https://ampereone.it/en/installations-map", "price": "Price shown in the AmpereOne app", "extra": "Rent with the AmpereOne app · cables included · return at any AmpereOne station" },
+    "Nomopower":     { "color": "#7cb800", "logo": "logos/nomopower.png", "site": "https://nomopower.com/en/", "price": "Price shown at the station or in the app", "extra": "Pay with your card or phone at the station · deposit held, the rental is deducted and the rest refunded on return · USB-C, Lightning and micro-USB cables" },
     "Chimpy":        { "color": "#5bb318", "logo": "logos/chimpy.png", "site": "https://heychimpy.com/how-to-rent", "price": "€4 per rental, keep it up to 7 days", "extra": "€15 deposit, refunded when you return it · no app: buy it at the kiosk checkout, return at any Chimpy point" }
   },
   "by_country": {
