@@ -35,6 +35,9 @@ denmark/index.html
 denmark/ringsted/index.html
 denmark/smaller-towns/index.html
 denmark/sonderborg/index.html
+estonia/index.html
+estonia/smaller-towns/index.html
+estonia/tallinn/index.html
 faq/index.html
 finland/hameenlinna/index.html
 finland/helsinki/index.html
@@ -114,6 +117,11 @@ italy/rome/index.html
 italy/smaller-towns/index.html
 italy/turin/index.html
 italy/varese/index.html
+latvia/index.html
+latvia/riga/index.html
+latvia/smaller-towns/index.html
+lithuania/index.html
+lithuania/smaller-towns/index.html
 luxembourg/index.html
 luxembourg/luxembourg-city/index.html
 luxembourg/smaller-towns/index.html
@@ -163,9 +171,11 @@ operators/buzz-iceland/index.html
 operators/buzz/index.html
 operators/chargebuddies/index.html
 operators/chargedup/index.html
+operators/chargenet/index.html
 operators/chargi/index.html
 operators/chimpy/index.html
 operators/dead-batt/index.html
+operators/e-bee/index.html
 operators/fast-charger/index.html
 operators/fast-energy/index.html
 operators/firevolt/index.html
@@ -181,6 +191,7 @@ operators/mobbi/index.html
 operators/nero-charge/index.html
 operators/oneflash/index.html
 operators/powerbrick/index.html
+operators/powerrabbit/index.html
 operators/recharge-me/index.html
 operators/rechargy/index.html
 operators/revive/index.html

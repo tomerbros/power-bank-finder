@@ -1,6 +1,6 @@
 # Powerbank Radar
 
-> A free map of power bank rental stations from every operator: 18,682 stations from 32 operators in 23 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-27). Independent, not affiliated with the operators.
+> A free map of power bank rental stations from every operator: 18,716 stations from 35 operators in 26 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-27). Independent, not affiliated with the operators.
 
 ## Main pages
 
@@ -13,7 +13,7 @@
 ## Showing someone the stations near them
 
 To answer "where can I rent a power bank near me / near <place>", link to the map with the person's position: https://www.powerbankradar.com/?near=<latitude>,<longitude> (for example https://www.powerbankradar.com/?near=52.3731,4.8926 for Dam Square, Amsterdam). The map marks that point and lists the 5 nearest stations with distance, walking time, price, opening hours and, for most operators, how many power banks are available right now.
-Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (GB, CH, NL, ES, DE, SE, IT, FI, GR, PT, CY, FR, AT, DK, NO, IL, PL, LU, BA, BE, IS, HR, CZ) shows a country.
+Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (GB, CH, NL, ES, DE, SE, IT, FI, GR, PT, CY, FR, AT, DK, NO, IL, PL, LU, BA, BE, IS, LV, EE, HR, CZ, LT) shows a country.
 
 ## Countries
 
@@ -38,6 +38,8 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Bosnia and Herzegovina](https://www.powerbankradar.com/bosnia-and-herzegovina/): 56 stations
 - [Belgium](https://www.powerbankradar.com/belgium/): 42 stations ([smaller towns](https://www.powerbankradar.com/belgium/smaller-towns/))
 - [Iceland](https://www.powerbankradar.com/iceland/): 32 stations
+- [Latvia](https://www.powerbankradar.com/latvia/): 18 stations
+- [Estonia](https://www.powerbankradar.com/estonia/): 12 stations ([smaller towns](https://www.powerbankradar.com/estonia/smaller-towns/))
 - [Croatia](https://www.powerbankradar.com/croatia/): 11 stations
 
 ## Cities
@@ -270,6 +272,8 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Mostar, Bosnia and Herzegovina](https://www.powerbankradar.com/bosnia-and-herzegovina/mostar/): 12 stations
 - [Antwerp, Belgium](https://www.powerbankradar.com/belgium/antwerp/): 34 stations
 - [Reykjavík, Iceland](https://www.powerbankradar.com/iceland/reykjavik/): 31 stations
+- [Riga, Latvia](https://www.powerbankradar.com/latvia/riga/): 17 stations
+- [Tallinn, Estonia](https://www.powerbankradar.com/estonia/tallinn/): 7 stations
 - [Zagreb, Croatia](https://www.powerbankradar.com/croatia/zagreb/): 11 stations
 
 ## Operators
@@ -300,10 +304,13 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Amlo](https://www.powerbankradar.com/operators/amlo/): 26 stations
 - [Wessview](https://www.powerbankradar.com/operators/wessview/): 23 stations
 - [Fully](https://www.powerbankradar.com/operators/fully/): 23 stations
+- [PowerRabbit](https://www.powerbankradar.com/operators/powerrabbit/): 18 stations
 - [AIRVALL](https://www.powerbankradar.com/operators/airvall/): 13 stations
 - [W KONTAKCIE](https://www.powerbankradar.com/operators/w-kontakcie/): 12 stations
+- [ChargeNet](https://www.powerbankradar.com/operators/chargenet/): 12 stations
 - [PowerBrick](https://www.powerbankradar.com/operators/powerbrick/): 11 stations
 - [HRS ENERGY](https://www.powerbankradar.com/operators/hrs-energy/): 6 stations
+- [E-bee](https://www.powerbankradar.com/operators/e-bee/): 4 stations
 - [FLAPY](https://www.powerbankradar.com/operators/flapy/): 3 stations
 - [ChargeBuddies](https://www.powerbankradar.com/operators/chargebuddies/): 2 stations
 
@@ -380,5 +387,8 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | Nero Charge | Belgium | 41 | Small hourly fee, shown on the station screen | - | - | - | - |
 | voozaa | Belgium | 1 | €2 / 30 min · max €10 / day | €4 | €10 | €10 | €45 |
 | Buzz Iceland | Iceland | 32 | Start fee + per-minute rate, shown in the app before you rent | - | - | - | - |
+| PowerRabbit | Latvia | 18 | Riga: €1.99 first hour, then €1.49 / hour · max €6.99 / day | €1.49 | €4.47 | €6.99 | - |
+| ChargeNet | Estonia | 12 | Price shown in the ChargeNet app | - | - | - | - |
 | PowerBrick | Croatia | 11 | €3 per 24 hours | €3 | €3 | €3 | - |
 | HRS ENERGY | Czechia | 6 | Price shown at the station | - | - | - | - |
+| E-bee | Lithuania | 4 | €1.49 / hour | €1.49 | €4.47 | - | - |
