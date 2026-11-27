@@ -55,30 +55,47 @@
     .sub { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
     button.primary { width: 100%; padding: 10px; border: 0; border-radius: 8px; background: var(--accent);
       color: #fff; font-size: 15px; cursor: pointer; }
-    /* "Find stations near me": a glowing gradient pill with a radar ping */
-    #locate { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; gap: 10px;
-      padding: 12px 18px; border-radius: 999px; font-weight: 800; letter-spacing: .1px;
-      background: linear-gradient(100deg, #2f6bff, #7b4dff 45%, #ff3d9a 90%) 0 0 / 200% 100%;
-      box-shadow: 0 6px 20px -6px rgba(123,77,255,.65), inset 0 1px 0 rgba(255,255,255,.25);
-      transition: transform .15s ease, box-shadow .2s ease, background-position .6s ease; }
-    #locate:hover { background-position: 100% 0; box-shadow: 0 8px 26px -6px rgba(255,61,154,.6), inset 0 1px 0 rgba(255,255,255,.25); }
-    #locate:active { transform: scale(.97); }
+    /* Address search: a field with suggestions as you type (Photon, OpenStreetMap data; Nominatim's policy
+       doesn't allow search-as-you-type) and a round "Use my current location" button inside it.
+       On phones the field moves to the top of the screen while you type (body.searching). */
+    .sheet-head { position: relative; }   /* the suggestions open under the whole bar, not just under the field */
+    .search { flex: 1; min-width: 0; display: flex; gap: 8px; align-items: center; }
+    .search-box { position: relative; flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px; height: 100%;
+      min-height: 44px; padding: 0 4px 0 12px; border-radius: 999px; background: var(--card); border: 2px solid var(--accent);
+      box-shadow: 0 6px 20px -8px rgba(123,77,255,.6); transition: box-shadow .2s ease; }
+    .search-box:focus-within { box-shadow: 0 0 0 4px rgba(31,111,235,.25); }
+    .search-box > svg { width: 18px; height: 18px; flex: none; fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-linecap: round; }
+    #search { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--fg); font: inherit; font-size: 15px;
+      outline: none; padding: 9px 0; -webkit-appearance: none; appearance: none; }
+    #search::placeholder { color: var(--muted); }
+    #search::-webkit-search-cancel-button { display: none; }
+    .search-clear { flex: none; width: 26px; height: 26px; border: 0; border-radius: 50%; background: transparent; color: var(--muted);
+      font-size: 15px; cursor: pointer; }
+    .search-clear[hidden] { display: none; }
+    /* "Use my current location": the old near-me button's gradient, now a round button inside the field */
+    #locate { flex: none; width: 36px; height: 36px; border: 0; border-radius: 50%; cursor: pointer; display: grid; place-items: center;
+      background: linear-gradient(135deg, #2f6bff, #7b4dff 50%, #ff3d9a); box-shadow: 0 3px 10px -3px rgba(123,77,255,.7); }
+    #locate svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 2.2; stroke-linecap: round; }
     #locate:focus-visible { outline: 3px solid #ff9bd0; outline-offset: 2px; }
-    /* a soft shine that sweeps across every few seconds */
-    #locate::after { content: ""; position: absolute; inset: 0; pointer-events: none;
-      background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.35) 50%, transparent 65%);
-      transform: translateX(-120%); animation: locate-shine 4.5s ease-in-out infinite; }
-    #locate .ping { position: relative; width: 10px; height: 10px; flex: none; border-radius: 50%; background: #fff; }
-    #locate .ping::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #fff;
-      animation: locate-ping 1.8s cubic-bezier(0,0,.2,1) infinite; }
-    #locate .bolt { font-size: 15px; filter: drop-shadow(0 0 4px rgba(255,220,80,.8)); }
-    #locate.locating .ping::before { animation-duration: .8s; }
-    #locate.locating { background-position: 100% 0; }
-    @keyframes locate-ping { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(3); opacity: 0; } }
-    @keyframes locate-shine { 0%, 60% { transform: translateX(-120%); } 85%, 100% { transform: translateX(120%); } }
-    @media (prefers-reduced-motion: reduce) {
-      #locate::after, #locate .ping::before { animation: none; }
-    }
+    #locate.locating svg { animation: locate-spin 1s linear infinite; }
+    @keyframes locate-spin { to { transform: rotate(360deg); } }
+    .search-cancel { display: none; flex: none; border: 0; background: none; color: var(--accent); font: inherit; font-weight: 700;
+      font-size: 15px; cursor: pointer; padding: 6px 2px; }
+    .suggest { position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 2000; list-style: none; margin: 0; padding: 4px;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 10px 28px rgba(0,0,0,.22);
+      max-height: 60vh; overflow-y: auto; }
+    .suggest[hidden] { display: none; }
+    .suggest li { display: flex; gap: 10px; align-items: center; padding: 9px 10px; border-radius: 10px; cursor: pointer; }
+    .suggest li[aria-selected="true"], .suggest li:hover { background: var(--card); }
+    .suggest li svg { width: 18px; height: 18px; flex: none; fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; }
+    .suggest .here svg { stroke: var(--accent); }
+    .suggest .s-text { min-width: 0; }
+    .suggest .s-main, .suggest .s-sub { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .suggest .s-main { font-size: 14px; font-weight: 600; }
+    .suggest .here .s-main { color: var(--accent); }
+    .suggest .s-sub { font-size: 12px; color: var(--muted); }
+    .suggest li.note { cursor: default; color: var(--muted); font-size: 12px; background: none; }
+    @media (prefers-reduced-motion: reduce) { #locate.locating svg { animation: none; } }
     /* Filter dropdowns: a button per filter that opens a checklist below it */
     .filter-bar { display: flex; gap: 6px; margin-bottom: 8px; }
     .dd { flex: 1; display: flex; justify-content: space-between; align-items: center; gap: 6px; padding: 7px 10px;
@@ -206,22 +223,21 @@
       box-shadow: 0 0 0 4px rgba(31,111,235,.25), 0 2px 6px rgba(0,0,0,.3); }
     .you-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--you); border: 3px solid #fff;
       box-shadow: 0 0 0 6px rgba(31,111,235,.25); }
-    .sheet-head { display: flex; gap: 8px; align-items: center; }
-    .sheet-head button.primary { flex: 1; min-width: 0; }
-    .sheet-head .locate-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    /* the Bubbles / All toggle sits left of the locate button, compact */
-    /* as tall as the locate button (align-self: stretch), with two equal-width halves */
+    /* Computers: the search field takes a full row above the Bubbles / All toggle (the 360 px panel is too narrow
+       for both on one line); the suggestions open right under the field. Phones put them in one bar (below). */
+    .sheet-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .sheet-head .search { order: -1; flex: 1 1 100%; position: relative; }
+    @media (min-width: 761px) { .sheet-head .view-switch { min-height: 34px; } }
+    /* the Bubbles / All toggle, compact */
+    /* as tall as the search field (align-self: stretch), with two equal-width halves */
     .sheet-head .view-switch { flex: none; margin: 0; padding: 2px; align-self: stretch;
       display: grid; grid-template-columns: 1fr 1fr; }
     .sheet-head .view-switch button { padding: 0 10px; font-size: 12px; }
-    .sheet-head > button { align-self: stretch; }   /* toggle, locate and filter buttons share one height */
-    /* a smaller locate button so the toggle fits beside it (desktop panel and phone bar alike) */
-    #locate { padding: 8px 12px; gap: 7px; font-size: 13px; }
-    #locate .bolt { display: none; }
+    .sheet-head > button { align-self: stretch; }   /* toggle, search and filter button share one height */
     button.filter-toggle { display: none; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px;
       background: var(--card); color: var(--fg); font-size: 15px; cursor: pointer; white-space: nowrap; }
     aside.open button.filter-toggle .caret { transform: rotate(180deg); }
-    button.filter-toggle { border-radius: 999px; }   /* matches the pill-shaped locate button */
+    button.filter-toggle { border-radius: 999px; }   /* matches the pill-shaped search field */
     button.filter-toggle .filter-icon { width: 20px; height: 20px; vertical-align: -5px; fill: none; stroke: currentColor;
       stroke-width: 2; stroke-linecap: round; }
     button.filter-toggle #filterCount { color: var(--accent, #1f6feb); font-weight: 700; }
@@ -240,22 +256,30 @@
       .brand { display: none; }
       .map-menu { display: inline-flex; }
       .leaflet-control-zoom { display: none; }   /* phones pinch to zoom; the menu button takes that corner */
-      .sheet-head button.primary, button.filter-toggle { padding: 8px 12px; font-size: 14px; }
-      /* three columns: toggle | locate | filters. The side columns are equal, so the locate button
-         sits in the middle of the bar; the toggle shrinks to fit its side. */
-      .sheet-head { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 5px; }
+      button.filter-toggle { padding: 8px 12px; font-size: 14px; }
+      /* three columns: the toggle, the search field taking the room in the middle, the filters button */
+      .sheet-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 5px; }
       .sheet-head .view-switch { justify-self: start; max-width: 100%; }
       .sheet-head .view-switch button { padding: 0 3px; font-size: 11px; min-width: 0; }
-      .sheet-head button.primary { flex: none; }
       button.filter-toggle { justify-self: end; }
-      #locate { padding: 0 8px; gap: 5px; }
-      @media (max-width: 390px) {   /* narrow phones: a little smaller still, so "Bubbles" isn't clipped */
+      @media (max-width: 390px) {   /* narrow phones: a little smaller still */
         .sheet-head { gap: 3px; }
-        #locate { font-size: 12px; padding: 0 7px; }
         .sheet-head .view-switch button { font-size: 10.5px; padding: 0 2px; }
       }
+      .sheet-head .search { order: 0; flex: none; position: static; align-self: stretch; }
+      .search-box { min-height: 38px; padding-left: 10px; }
+      .search-box > svg { width: 16px; height: 16px; }
+      #search { font-size: 16px; padding: 6px 0; }   /* 16 px: phones don't zoom in on the field */
+      #locate { width: 30px; height: 30px; }
+      #locate svg { width: 17px; height: 17px; }
+      /* While typing on a phone: the field at the top of the screen, suggestions below it, the keyboard underneath */
+      body.searching aside { z-index: 3000; }
+      body.searching .search { position: fixed; top: 0; left: 0; right: 0; z-index: 3000;
+        padding: calc(10px + env(safe-area-inset-top)) 12px 10px; background: var(--bg); box-shadow: 0 4px 16px rgba(0,0,0,.18); }
+      body.searching .search-cancel { display: block; }
+      body.searching .suggest { left: 12px; right: 12px; max-height: calc(100dvh - 90px); }
       button.filter-toggle { padding: 8px 11px; }
-      button.filter-toggle .caret { display: none; }   /* room for the locate label; the icon says enough */
+      button.filter-toggle .caret { display: none; }   /* room for the search field; the icon says enough */
       button.filter-toggle { display: inline-block; }
       .status { margin: 6px 2px 0; font-size: 12px; cursor: pointer; }
       .sheet-body { display: none; padding-top: 8px; }
@@ -296,7 +320,7 @@
   </div>
   <nav aria-label="Site">
     <a href="/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/><path d="M8 2v16M16 6v16"/></svg>Map</a>
-    <details><summary><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>Countries<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><a href="/united-kingdom/">🇬🇧 United Kingdom<span class="count">4,469</span></a><a href="/switzerland/">🇨🇭 Switzerland<span class="count">3,790</span></a><a href="/netherlands/">🇳🇱 Netherlands<span class="count">2,289</span></a><a href="/spain/">🇪🇸 Spain<span class="count">1,954</span></a><a href="/germany/">🇩🇪 Germany<span class="count">1,448</span></a><a href="/sweden/">🇸🇪 Sweden<span class="count">807</span></a><a href="/italy/">🇮🇹 Italy<span class="count">667</span></a><a href="/greece/">🇬🇷 Greece<span class="count">565</span></a><a href="/finland/">🇫🇮 Finland<span class="count">556</span></a><a href="/portugal/">🇵🇹 Portugal<span class="count">465</span></a><a href="/cyprus/">🇨🇾 Cyprus<span class="count">448</span></a><a href="/france/">🇫🇷 France<span class="count">324</span></a><a href="/serbia/">🇷🇸 Serbia<span class="count">218</span></a><a href="/austria/">🇦🇹 Austria<span class="count">200</span></a><a href="/denmark/">🇩🇰 Denmark<span class="count">172</span></a><a href="/norway/">🇳🇴 Norway<span class="count">163</span></a><a href="/israel/">🇮🇱 Israel<span class="count">156</span></a><a href="/poland/">🇵🇱 Poland<span class="count">103</span></a><a href="/luxembourg/">🇱🇺 Luxembourg<span class="count">60</span></a><a href="/bosnia-and-herzegovina/">🇧🇦 Bosnia and Herzegovina<span class="count">56</span></a><a href="/andorra/">🇦🇩 Andorra<span class="count">47</span></a><a href="/belgium/">🇧🇪 Belgium<span class="count">42</span></a><a href="/iceland/">🇮🇸 Iceland<span class="count">32</span></a><a href="/latvia/">🇱🇻 Latvia<span class="count">18</span></a><a href="/estonia/">🇪🇪 Estonia<span class="count">12</span></a><a href="/croatia/">🇭🇷 Croatia<span class="count">11</span></a><a href="/malta/">🇲🇹 Malta<span class="count">11</span></a><a href="/slovakia/">🇸🇰 Slovakia<span class="count">9</span></a><a href="/liechtenstein/">🇱🇮 Liechtenstein<span class="count">6</span></a><a href="/czechia/">🇨🇿 Czechia<span class="count">6</span></a><a href="/bulgaria/">🇧🇬 Bulgaria<span class="count">6</span></a><a href="/lithuania/">🇱🇹 Lithuania<span class="count">4</span></a><a href="/san-marino/">🇸🇲 San Marino<span class="count">1</span></a></details>
+    <details><summary><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>Countries<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><a href="/united-kingdom/">🇬🇧 United Kingdom<span class="count">4,469</span></a><a href="/switzerland/">🇨🇭 Switzerland<span class="count">3,790</span></a><a href="/netherlands/">🇳🇱 Netherlands<span class="count">2,289</span></a><a href="/spain/">🇪🇸 Spain<span class="count">1,954</span></a><a href="/germany/">🇩🇪 Germany<span class="count">1,448</span></a><a href="/ukraine/">🇺🇦 Ukraine<span class="count">973</span></a><a href="/sweden/">🇸🇪 Sweden<span class="count">807</span></a><a href="/italy/">🇮🇹 Italy<span class="count">667</span></a><a href="/greece/">🇬🇷 Greece<span class="count">565</span></a><a href="/finland/">🇫🇮 Finland<span class="count">556</span></a><a href="/portugal/">🇵🇹 Portugal<span class="count">465</span></a><a href="/cyprus/">🇨🇾 Cyprus<span class="count">448</span></a><a href="/france/">🇫🇷 France<span class="count">324</span></a><a href="/serbia/">🇷🇸 Serbia<span class="count">218</span></a><a href="/austria/">🇦🇹 Austria<span class="count">200</span></a><a href="/denmark/">🇩🇰 Denmark<span class="count">172</span></a><a href="/norway/">🇳🇴 Norway<span class="count">163</span></a><a href="/israel/">🇮🇱 Israel<span class="count">156</span></a><a href="/poland/">🇵🇱 Poland<span class="count">103</span></a><a href="/luxembourg/">🇱🇺 Luxembourg<span class="count">60</span></a><a href="/bosnia-and-herzegovina/">🇧🇦 Bosnia and Herzegovina<span class="count">56</span></a><a href="/andorra/">🇦🇩 Andorra<span class="count">47</span></a><a href="/belgium/">🇧🇪 Belgium<span class="count">42</span></a><a href="/iceland/">🇮🇸 Iceland<span class="count">32</span></a><a href="/latvia/">🇱🇻 Latvia<span class="count">18</span></a><a href="/estonia/">🇪🇪 Estonia<span class="count">12</span></a><a href="/croatia/">🇭🇷 Croatia<span class="count">11</span></a><a href="/malta/">🇲🇹 Malta<span class="count">11</span></a><a href="/slovakia/">🇸🇰 Slovakia<span class="count">9</span></a><a href="/liechtenstein/">🇱🇮 Liechtenstein<span class="count">6</span></a><a href="/czechia/">🇨🇿 Czechia<span class="count">6</span></a><a href="/bulgaria/">🇧🇬 Bulgaria<span class="count">6</span></a><a href="/lithuania/">🇱🇹 Lithuania<span class="count">4</span></a><a href="/san-marino/">🇸🇲 San Marino<span class="count">1</span></a></details>
     <a href="/operators/"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2M6 10v4M10 10v4"/></svg>Operators</a>
     <a href="/prices/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><path d="M7 7h.01"/></svg>Prices</a>
     <a href="/faq/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg>FAQ</a>
@@ -320,7 +344,7 @@
         <h1>Powerbank Radar</h1>
       </div>
       <!-- intro: the key facts, written by scripts/build_pages.py (read by search engines and AI assistants) -->
-      <p class="sub">Power bank rental stations from every brand, on one map: 19,115 stations from 40 operators in 33 countries (the UK, Switzerland, the Netherlands, Spain, Germany, Sweden, Italy, Greece, Finland, Portugal, Cyprus, France, Serbia, Austria, Denmark, Norway, Israel, Poland, Luxembourg, Bosnia and Herzegovina, Andorra, Belgium, Iceland, Latvia, Estonia, Croatia, Malta, Slovakia, Liechtenstein, Czechia, Bulgaria, Lithuania and San Marino), with prices, opening hours and live availability. Updated daily.</p>
+      <p class="sub">Power bank rental stations from every brand, on one map: 20,088 stations from 40 operators in 34 countries (the UK, Switzerland, the Netherlands, Spain, Germany, Ukraine, Sweden, Italy, Greece, Finland, Portugal, Cyprus, France, Serbia, Austria, Denmark, Norway, Israel, Poland, Luxembourg, Bosnia and Herzegovina, Andorra, Belgium, Iceland, Latvia, Estonia, Croatia, Malta, Slovakia, Liechtenstein, Czechia, Bulgaria, Lithuania and San Marino), with prices, opening hours and live availability. Updated daily.</p>
       <!-- /intro -->
     </div>
     <div class="sheet-head">
@@ -328,7 +352,18 @@
         <button type="button" role="radio" data-grouped="1" aria-checked="true">Bubbles</button>
         <button type="button" role="radio" data-grouped="0" aria-checked="false">All</button>
       </div>
-      <button class="primary" id="locate" aria-label="Find stations near me"><span class="ping" aria-hidden="true"></span><span class="locate-text">Stations near me</span><span class="bolt" aria-hidden="true">⚡</span></button>
+      <div class="search" id="searchWrap">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input id="search" type="search" placeholder="Type an address or town" autocomplete="off" autocapitalize="off" spellcheck="false"
+            enterkeyhint="search" role="combobox" aria-expanded="false" aria-controls="suggest" aria-autocomplete="list"
+            aria-label="Find power bank stations near an address or town">
+          <button type="button" class="search-clear" id="searchClear" aria-label="Clear" hidden>✕</button>
+          <button type="button" id="locate" aria-label="Use my current location" title="Use my current location"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></button>
+        </div>
+        <button type="button" class="search-cancel" id="searchCancel">Cancel</button>
+        <ul class="suggest" id="suggest" role="listbox" aria-label="Places" hidden></ul>
+      </div>
       <button class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="sheetBody" aria-label="Filters" title="Filters"><svg class="filter-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg><span id="filterCount"></span> <span class="caret">▴</span></button>
     </div>
     <div class="status" id="status">Loading stations…</div>
@@ -448,8 +483,9 @@
     SK: { name: 'Slovakia', flag: '🇸🇰', bounds: [[48.9, 19.9], [49.3, 20.5]] },   // where the stations are (High Tatras)
     MT: { name: 'Malta', flag: '🇲🇹', bounds: [[35.80, 14.18], [36.08, 14.58]] },
     SM: { name: 'San Marino', flag: '🇸🇲', bounds: [[43.89, 12.40], [43.99, 12.52]] },
+    UA: { name: 'Ukraine', flag: '🇺🇦', bounds: [[45.2, 22.1], [51.6, 36.6]] },
   };
-  const ALL_COUNTRIES = { name: 'All countries', short: 'All', flag: '🌍', bounds: [[29.4, -22.8], [65.8, 35.9]] };   // Reykjavík to Israel
+  const ALL_COUNTRIES = { name: 'All countries', short: 'All', flag: '🌍', bounds: [[29.4, -22.8], [65.8, 36.6]] };   // Reykjavík to Israel and Kharkiv
   // Countries ticked in the Country filter (several allowed); filled with every country once stations load
   let countries = new Set();
   let allCountryCodes = [];
@@ -464,6 +500,10 @@
   let markers = new Map();
   let you = null;
   let youMarker = null, youCircle = null;
+  // Where 'you' came from: 'gps' (Use my current location) or 'place' (an address searched for, a ?near= link).
+  // Directions start from a place as it is; only 'gps' follows the phone's position
+  // youLabel: the place's short name for "From … to …"; youTip: its full address, the dot's tooltip
+  let youFrom = null, youLabel = '', youTip = '';
   const hideOffline = document.getElementById('hideOffline');
 
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -767,15 +807,20 @@
   }
 
   // Turn-by-turn walking directions in Google Maps, for people who want voice navigation. The link
-  // works everywhere: it opens the app when installed and starts from the phone's own location.
-  function directionsUrl(s) {
-    return `https://www.google.com/maps/dir/?${new URLSearchParams({ api: '1', destination: `${s.lat},${s.lng}`, travelmode: 'walking' })}`;
+  // works everywhere: it opens the app when installed and starts from the phone's own location, or
+  // from `from` (an address searched for) when given.
+  function directionsUrl(s, from) {
+    return `https://www.google.com/maps/dir/?${new URLSearchParams({ api: '1',
+      ...(from ? { origin: `${from.lat.toFixed(6)},${from.lng.toFixed(6)}` } : {}),
+      destination: `${s.lat},${s.lng}`, travelmode: 'walking' })}`;
   }
+  // A searched-for place is where the walk starts; with your own location Google Maps uses the phone's
+  const routeFrom = () => (you && youFrom === 'place' ? you : null);
   const NAV_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>';
   // Main button: walking guidance on our own map (startGuide). Small extra links hand over to the
   // phone's maps app for people who want voice navigation.
   const directionsLinks = s => `<button type="button" class="dir-btn" data-guide="${esc(s.id)}">${NAV_ICON}Directions</button>`;
-  const appLinks = s => `<a href="${directionsUrl(s)}" target="_blank" rel="noopener" data-track="directions-google" data-op="${esc(s.operator)}">Google Maps</a>`;
+  const appLinks = s => `<a href="${directionsUrl(s, routeFrom())}" target="_blank" rel="noopener" data-track="directions-google" data-op="${esc(s.operator)}">Google Maps</a>`;
 
   function popupHtml(s) {
     const km = you ? haversineKm(you, s) : null;
@@ -1272,11 +1317,14 @@
     return false;
   }
 
-  function setYou(lat, lng, accuracy) {
+  function setYou(lat, lng, accuracy, label, tip) {
     stripDismissed = false;
     you = { lat, lng };
+    youFrom = accuracy ? 'gps' : 'place';
+    youLabel = label || '';
+    youTip = tip || label || '';
     const followed = followCountry();
-    placeYou(lat, lng, accuracy);
+    placeYou(lat, lng, accuracy, youTip);
 
     const near = stations.filter(isVisible)
       .sort((a, b) => haversineKm(you, a) - haversineKm(you, b)).slice(0, 3);
@@ -1286,8 +1334,8 @@
     renderNearest();
   }
 
-  // The blue "you are here" dot and its accuracy ring
-  function placeYou(lat, lng, accuracy) {
+  // The blue "you are here" dot and its accuracy ring; a searched-for place shows its address as the tooltip
+  function placeYou(lat, lng, accuracy, label) {
     if (!youMarker) {
       youMarker = L.marker([lat, lng], {
         icon: L.divIcon({ className: '', html: '<div class="you-dot"></div>', iconSize: [16, 16], iconAnchor: [8, 8] }),
@@ -1296,6 +1344,7 @@
     } else {
       youMarker.setLatLng([lat, lng]);
     }
+    youMarker.setTooltipContent(label ? esc(label) : 'You are here');
     if (youCircle) youCircle.remove();
     youCircle = accuracy ? L.circle([lat, lng], { radius: accuracy, weight: 1, fillOpacity: 0.08 }).addTo(map) : null;
   }
@@ -1327,6 +1376,8 @@
     guide = { s, coords: null, steps: [], layers: L.layerGroup().addTo(map), lastFetch: 0 };
     strip.hidden = true;
     track('guide-start', { operator: s.operator });
+    // Picked an address (or opened a ?near= link): the route starts there, without asking for the phone's location
+    if (you && youFrom === 'place') { guide.fixed = true; onGuidePosition(you.lat, you.lng); return; }
     renderGuide({ main: 'Finding your location…' });
     if (!navigator.geolocation) {
       if (you) onGuidePosition(you.lat, you.lng);
@@ -1356,7 +1407,8 @@
   function onGuidePosition(lat, lng, accuracy) {
     if (!guide) return;
     you = { lat, lng };
-    placeYou(lat, lng, accuracy);
+    if (!guide.fixed) youFrom = 'gps';
+    placeYou(lat, lng, accuracy, guide.fixed ? youTip : '');
     if (!guide.coords && !guide.loading) fetchRoute(true);
     else if (!guide.loading) updateGuide();
   }
@@ -1436,7 +1488,7 @@
     const list = g.showSteps && g.steps.length ? `<ol class="g-list">${g.steps.map((st, i) =>
       `<li class="${i === stepIndex ? 'now' : i < stepIndex ? 'done' : ''}">${esc(st.text)}${st.distance ? ` <span>${fmtM(st.distance)}</span>` : ''}</li>`).join('')}</ol>` : '';
     guideBox.innerHTML = `
-      <div class="g-head">${brandMark(s.operator)}<span class="g-to">To <b>${esc(s.name)}</b></span>
+      <div class="g-head">${brandMark(s.operator)}<span class="g-to">${g.fixed && youLabel ? `From <b>${esc(youLabel)}</b> to` : 'To'} <b>${esc(s.name)}</b></span>
         <button type="button" class="g-end" aria-label="End directions">✕</button></div>
       <div class="g-main">${esc(main)}</div>
       ${sub ? `<div class="g-sub">${esc(sub)}</div>` : ''}
@@ -1459,24 +1511,142 @@
     if (s) startGuide(s);
   }, true);
 
-  document.getElementById('locate').addEventListener('click', e => {
+  // ---- Finding stations near a place: your location, or an address you search for ----
+  const locateBtn = document.getElementById('locate');
+  function useMyLocation() {
     const status = document.getElementById('status');
-    const btn = e.currentTarget;
-    if (!navigator.geolocation) { status.textContent = 'Your browser does not support location. Click on the map instead.'; return; }
+    if (!navigator.geolocation) { status.textContent = 'Your browser does not support location. Type an address instead.'; return; }
     status.textContent = 'Finding your location…';
     track('locate');
-    btn.classList.add('locating');   // faster ping while we wait for GPS
+    locateBtn.classList.add('locating');   // the crosshair spins while we wait for GPS
     navigator.geolocation.getCurrentPosition(
-      p => { btn.classList.remove('locating'); setYou(p.coords.latitude, p.coords.longitude, p.coords.accuracy); },
-      () => { btn.classList.remove('locating'); status.textContent = 'Location unavailable or denied. Allow location access for this site to see the nearest stations.'; },
+      p => { locateBtn.classList.remove('locating'); searchInput.value = ''; showClear(); setYou(p.coords.latitude, p.coords.longitude, p.coords.accuracy); },
+      () => { locateBtn.classList.remove('locating'); status.textContent = 'Location unavailable or denied. Allow location access for this site, or type an address.'; },
       { enableHighAccuracy: true, timeout: 10000 }
     );
+  }
+  locateBtn.addEventListener('click', () => { closeSearch(); useMyLocation(); });
+
+  // Address suggestions from Photon (photon.komoot.io, run by komoot, OpenStreetMap data), nearest to the map's
+  // centre first. Only what's typed goes there, after a short pause and from 3 letters on. (Nominatim's usage
+  // policy forbids search-as-you-type.)
+  const PHOTON = 'https://photon.komoot.io/api/';
+  const searchWrap = document.getElementById('searchWrap');
+  const searchInput = document.getElementById('search');
+  const suggestBox = document.getElementById('suggest');
+  const clearBtn = document.getElementById('searchClear');
+  const PIN_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>';
+  const HERE_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>';
+  let places = [], activeIdx = -1, searchNote = '', searchTimer = null, searchSeq = 0;
+  // Photon names places in English, German or French (else each place's own language)
+  const photonLang = () => { const l = (navigator.language || 'en').slice(0, 2).toLowerCase(); return ['de', 'en', 'fr'].includes(l) ? l : 'en'; };
+  function placeText(p) {
+    const street = [p.street, p.housenumber].filter(Boolean).join(' ');
+    const main = p.name || street || p.city || p.county || '';
+    const town = [p.postcode, p.city && p.city !== main ? p.city : ''].filter(Boolean).join(' ');
+    const sub = [p.name && street && street !== main ? street : '', town, p.country].filter(Boolean).join(', ');
+    // Duplicates are the same name + street + town (Photon returns a long street's pieces separately, with different postcodes)
+    const key = [main, p.street && p.street !== main ? p.street : '', p.city || p.county || '', p.countrycode || ''].join('|').toLowerCase();
+    return { main, sub, key };
+  }
+  const showClear = () => { clearBtn.hidden = !searchInput.value; };
+  function renderSuggest() {
+    const items = [{ here: true, main: 'Use my current location', sub: '' }, ...places];
+    suggestBox.innerHTML = items.map((p, i) => `<li role="option" id="sg${i}" data-i="${i}" aria-selected="${i === activeIdx}"${p.here ? ' class="here"' : ''}>`
+      + `${p.here ? HERE_ICON : PIN_ICON}<span class="s-text"><span class="s-main">${esc(p.main)}</span>${p.sub ? `<span class="s-sub">${esc(p.sub)}</span>` : ''}</span></li>`).join('')
+      + (searchNote ? `<li class="note" aria-disabled="true">${esc(searchNote)}</li>` : '');
+    searchInput.setAttribute('aria-activedescendant', activeIdx >= 0 ? `sg${activeIdx}` : '');
+  }
+  function openSearch() {
+    if (isPhone()) document.body.classList.add('searching');
+    suggestBox.hidden = false;
+    searchInput.setAttribute('aria-expanded', 'true');
+    renderSuggest();
+  }
+  function closeSearch() {
+    suggestBox.hidden = true;
+    searchInput.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('searching');
+    activeIdx = -1;
+  }
+  async function fetchPlaces(q) {
+    const seq = ++searchSeq;
+    const c = map.getCenter();
+    const url = `${PHOTON}?q=${encodeURIComponent(q)}&limit=8&lang=${photonLang()}&lat=${c.lat.toFixed(3)}&lon=${c.lng.toFixed(3)}`;
+    try {
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(r.status);
+      const d = await r.json();
+      if (seq !== searchSeq) return null;   // the text changed meanwhile
+      const all = (d.features || []).filter(f => f.geometry && f.geometry.coordinates);
+      // Places in the countries the map covers first; elsewhere only when there's nothing else
+      const ours = all.filter(f => COUNTRIES[(f.properties.countrycode || '').toUpperCase()]);
+      places = (ours.length ? ours : all).map(f => ({ lat: f.geometry.coordinates[1], lng: f.geometry.coordinates[0], ...placeText(f.properties) }))
+        .filter((p, i, a) => p.main && a.findIndex(x => x.key === p.key) === i)
+        .slice(0, 5);
+      searchNote = places.length ? '' : 'No places found. Try a town or a street name.';
+    } catch {
+      if (seq !== searchSeq) return null;
+      places = []; searchNote = 'Address search is unavailable right now. Use your location or move the map.';
+    }
+    activeIdx = -1;
+    if (!suggestBox.hidden) renderSuggest();
+    return places;
+  }
+  function choosePlace(p) {
+    closeSearch();
+    searchInput.blur();
+    if (p.here) { useMyLocation(); return; }
+    searchInput.value = p.main;
+    showClear();
+    track('search');
+    setYou(p.lat, p.lng, null, p.main, [p.main, p.sub].filter(Boolean).join(', '));
+  }
+  searchInput.addEventListener('focus', openSearch);
+  searchInput.addEventListener('input', () => {
+    showClear();
+    clearTimeout(searchTimer);
+    const q = searchInput.value.trim();
+    // Every keystroke drops the old suggestions, so Enter can't pick a result for earlier text
+    if (q.length < 3) { places = []; activeIdx = -1; searchNote = ''; searchSeq++; renderSuggest(); return; }
+    places = []; activeIdx = -1; searchNote = 'Searching…'; searchSeq++; renderSuggest();
+    searchTimer = setTimeout(() => fetchPlaces(q), 250);
   });
+  searchInput.addEventListener('keydown', async e => {
+    const count = places.length + 1;
+    if (e.key === 'ArrowDown') { e.preventDefault(); if (suggestBox.hidden) openSearch(); activeIdx = (activeIdx + 1) % count; renderSuggest(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); activeIdx = (activeIdx - 1 + count) % count; renderSuggest(); }
+    else if (e.key === 'Escape') { closeSearch(); searchInput.blur(); }
+    else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (activeIdx === 0) { choosePlace({ here: true }); return; }
+      if (activeIdx > 0) { choosePlace(places[activeIdx - 1]); return; }
+      const q = searchInput.value.trim();
+      if (!q) return;
+      clearTimeout(searchTimer);
+      const found = places.length ? places : await fetchPlaces(q);
+      if (found && found.length && searchInput.value.trim() === q) choosePlace(found[0]);
+    }
+  });
+  // pointerdown, not click: picks the place before the field loses focus
+  suggestBox.addEventListener('pointerdown', e => {
+    const li = e.target.closest('li[data-i]');
+    if (!li) return;
+    e.preventDefault();
+    const i = Number(li.dataset.i);
+    choosePlace(i === 0 ? { here: true } : places[i - 1]);
+  });
+  clearBtn.addEventListener('click', () => { searchInput.value = ''; showClear(); places = []; activeIdx = -1; searchNote = ''; searchSeq++; searchInput.focus(); openSearch(); });
+  document.getElementById('searchCancel').addEventListener('click', () => { closeSearch(); searchInput.blur(); });
+  document.addEventListener('pointerdown', e => { if (!suggestBox.hidden && !searchWrap.contains(e.target)) closeSearch(); });
 
   // A tap on the map only closes an open station (Leaflet does that by itself). The one exception:
   // walking directions without GPS ask you to tap where you are, as the start point.
   map.on('click', e => {
-    if (guide && (!guide.coords || guide.mode === 'line')) onGuidePosition(e.latlng.lat, e.latlng.lng);
+    if (guide && (!guide.coords || guide.mode === 'line')) {
+      if (guide.fixed) youLabel = youTip = '';   // a tapped start is no longer the address searched for
+      onGuidePosition(e.latlng.lat, e.latlng.lng);
+    }
   });
   hideOffline.addEventListener('change', () => { renderMarkers(); renderNearest(); });
 

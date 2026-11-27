@@ -1,6 +1,6 @@
 # Powerbank Radar
 
-> A free map of power bank rental stations from every operator: 19,115 stations from 40 operators in 33 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-27). Independent, not affiliated with the operators.
+> A free map of power bank rental stations from every operator: 20,088 stations from 40 operators in 34 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-27). Independent, not affiliated with the operators.
 
 ## Main pages
 
@@ -13,7 +13,7 @@
 ## Showing someone the stations near them
 
 To answer "where can I rent a power bank near me / near <place>", link to the map with the person's position: https://www.powerbankradar.com/?near=<latitude>,<longitude> (for example https://www.powerbankradar.com/?near=52.3731,4.8926 for Dam Square, Amsterdam). The map marks that point and lists the 5 nearest stations with distance, walking time, price, opening hours and, for most operators, how many power banks are available right now.
-Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (GB, CH, NL, ES, DE, SE, IT, GR, FI, PT, CY, FR, RS, AT, DK, NO, IL, PL, LU, BA, AD, BE, IS, LV, EE, HR, MT, SK, LI, CZ, BG, LT, SM) shows a country.
+Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (GB, CH, NL, ES, DE, UA, SE, IT, GR, FI, PT, CY, FR, RS, AT, DK, NO, IL, PL, LU, BA, AD, BE, IS, LV, EE, HR, MT, SK, LI, CZ, BG, LT, SM) shows a country.
 
 ## Countries
 
@@ -22,6 +22,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Netherlands](https://www.powerbankradar.com/netherlands/): 2,289 stations ([smaller towns](https://www.powerbankradar.com/netherlands/smaller-towns/))
 - [Spain](https://www.powerbankradar.com/spain/): 1,954 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
 - [Germany](https://www.powerbankradar.com/germany/): 1,448 stations ([smaller towns](https://www.powerbankradar.com/germany/smaller-towns/))
+- [Ukraine](https://www.powerbankradar.com/ukraine/): 973 stations ([smaller towns](https://www.powerbankradar.com/ukraine/smaller-towns/))
 - [Sweden](https://www.powerbankradar.com/sweden/): 807 stations ([smaller towns](https://www.powerbankradar.com/sweden/smaller-towns/))
 - [Italy](https://www.powerbankradar.com/italy/): 667 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
 - [Greece](https://www.powerbankradar.com/greece/): 565 stations ([smaller towns](https://www.powerbankradar.com/greece/smaller-towns/))
@@ -159,6 +160,18 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Hanover, Germany](https://www.powerbankradar.com/germany/hanover/): 6 stations
 - [Friedrichshafen, Germany](https://www.powerbankradar.com/germany/friedrichshafen/): 6 stations
 - [Duisburg, Germany](https://www.powerbankradar.com/germany/duisburg/): 5 stations
+- [Kyiv, Ukraine](https://www.powerbankradar.com/ukraine/kyiv/): 688 stations
+- [Lviv, Ukraine](https://www.powerbankradar.com/ukraine/lviv/): 79 stations
+- [Odesa, Ukraine](https://www.powerbankradar.com/ukraine/odesa/): 63 stations
+- [Bukovel, Ukraine](https://www.powerbankradar.com/ukraine/bukovel/): 21 stations
+- [Dnipro, Ukraine](https://www.powerbankradar.com/ukraine/dnipro/): 11 stations
+- [Chernivtsi, Ukraine](https://www.powerbankradar.com/ukraine/chernivtsi/): 11 stations
+- [Khmelnytskyi, Ukraine](https://www.powerbankradar.com/ukraine/khmelnytskyi/): 9 stations
+- [Uzhhorod, Ukraine](https://www.powerbankradar.com/ukraine/uzhhorod/): 7 stations
+- [Lutsk, Ukraine](https://www.powerbankradar.com/ukraine/lutsk/): 7 stations
+- [Rivne, Ukraine](https://www.powerbankradar.com/ukraine/rivne/): 6 stations
+- [Kharkiv, Ukraine](https://www.powerbankradar.com/ukraine/kharkiv/): 5 stations
+- [Poltava, Ukraine](https://www.powerbankradar.com/ukraine/poltava/): 5 stations
 - [Stockholm, Sweden](https://www.powerbankradar.com/sweden/stockholm/): 313 stations
 - [Gothenburg, Sweden](https://www.powerbankradar.com/sweden/gothenburg/): 167 stations
 - [Malmö, Sweden](https://www.powerbankradar.com/sweden/malmo/): 43 stations
@@ -297,6 +310,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [LecToGo](https://www.powerbankradar.com/operators/lectogo/): 1,690 stations
 - [voozaa](https://www.powerbankradar.com/operators/voozaa/): 1,301 stations
 - [WE53](https://www.powerbankradar.com/operators/we53/): 1,270 stations
+- [Fast Energy](https://www.powerbankradar.com/operators/fast-energy/): 1,104 stations
 - [FireVolt](https://www.powerbankradar.com/operators/firevolt/): 1,085 stations
 - [Buzz](https://www.powerbankradar.com/operators/buzz/): 994 stations
 - [Revive](https://www.powerbankradar.com/operators/revive/): 769 stations
@@ -309,7 +323,6 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Last Call](https://www.powerbankradar.com/operators/last-call/): 234 stations
 - [Dopuni.se](https://www.powerbankradar.com/operators/dopuni-se/): 218 stations
 - [Dead Batt](https://www.powerbankradar.com/operators/dead-batt/): 156 stations
-- [Fast Energy](https://www.powerbankradar.com/operators/fast-energy/): 131 stations
 - [ANYWATT](https://www.powerbankradar.com/operators/anywatt/): 97 stations
 - [Chargi](https://www.powerbankradar.com/operators/chargi/): 56 stations
 - [VolterGy](https://www.powerbankradar.com/operators/voltergy/): 55 stations
@@ -372,6 +385,7 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | Rechargy | Germany | 252 | Price shown in the app or at the terminal | - | - | - | - |
 | Juice | Germany | 5 | Price varies per location | - | - | - | - |
 | OneFlash | Germany | 5 | Usually €2–3 per session or hour | - | - | - | - |
+| Fast Energy | Ukraine | 973 | Price shown in the Fast Energy app when you scan the station | - | - | - | - |
 | LecToGo | Sweden | 802 | SEK 29 / 2 h in the app · max SEK 99 / day | SEK 29 | SEK 58 | SEK 99 | - |
 | OneFlash | Sweden | 5 | Usually €2–3 per session or hour | - | - | - | - |
 | Mobbi | Italy | 329 | €1 / 30 min | €2 | €6 | - | - |

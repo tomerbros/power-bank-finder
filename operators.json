@@ -43,6 +43,7 @@
     "Chimpy":        { "color": "#5bb318", "logo": "logos/chimpy.png", "site": "https://heychimpy.com/how-to-rent", "price": "€4 per rental, keep it up to 7 days", "extra": "€15 deposit, refunded when you return it · no app: buy it at the kiosk checkout, return at any Chimpy point" }
   },
   "by_country": {
+    "Fast Energy:UA": { "site": "https://fastenergy.world/ua/uk/", "price": "Price shown in the Fast Energy app when you scan the station", "extra": "Micro-USB, Type-C and Lightning cables built in · return at any Fast Energy station" },
     "Buzz:ES":   { "site": "https://buzzpowerbanks.es/", "price": "€1.99 / 30 min · max €10 / day", "extra": "Return at any Buzz station in the city" },
     "Revive:ES": { "site": "https://revivesharing.com/", "price": "Price shown in the Revive app", "extra": "Billed per started half hour" },
     "Revive:GB": { "site": "https://revivesharing.com/", "price": "Price shown in the Revive app", "extra": "Billed per started half hour" },
