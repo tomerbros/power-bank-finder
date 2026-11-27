@@ -30,6 +30,8 @@
     "HRS ENERGY":    { "color": "#2f8cff", "logo": "logos/hrsenergy-96.png", "site": "https://hrsenergy.cz/stanice", "price": "Price shown at the station", "extra": "Rent by scanning the QR code · return at any HRS ENERGY station" },
     "Chargi":        { "color": "#e8b400", "logo": "logos/chargi.png", "site": "https://chargi.ba/en/", "price": "Price per station, shown in the Chargi app", "extra": "10 KM held on your card, refunded on return · rent by scanning the QR code · return at any Chargi station" },
     "PowerBrick":    { "color": "#f07a2a", "logo": "logos/powerbrick.png", "site": "https://powerbrick.rent/", "price": "€3 per 24 hours", "extra": "First 5 min free · return at any PowerBrick base within 24 hours · rent with the PowerBrick app" },
+    "WE53":          { "color": "#3d9a2e", "logo": "logos/we53.png", "site": "https://we53.io/", "price": "Price shown in the WE53 app or on the station screen", "extra": "Rent with the WE53 app, or tap your card at stations with a card terminal · return at any WE53 station" },
+    "Nero Charge":   { "color": "#2bb59a", "logo": "logos/nerocharge.svg", "site": "https://nerocharge.be/", "price": "Small hourly fee, shown on the station screen", "extra": "No app: tap your card or phone on the station · deposit pre-authorised, released on return (charged if not back within 48 h) · return at any Nero station" },
     "Chimpy":        { "color": "#5bb318", "logo": "logos/chimpy.png", "site": "https://heychimpy.com/how-to-rent", "price": "€4 per rental, keep it up to 7 days", "extra": "€15 deposit, refunded when you return it · no app: buy it at the kiosk checkout, return at any Chimpy point" }
   },
   "by_country": {

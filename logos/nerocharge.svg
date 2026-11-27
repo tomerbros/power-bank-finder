@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- White background -->
+  <rect width="512" height="512" fill="white"/>
+  <!-- Black circle -->
+  <circle cx="256" cy="256" r="245" fill="#111111"/>
+  <!-- Teal border ring -->
+  <circle cx="256" cy="256" r="245" fill="none" stroke="#3ECFB2" stroke-width="18"/>
+  <!-- NERO text in teal -->
+  <text
+    x="256"
+    y="256"
+    font-family="Arial Black, 'Arial Bold', Impact, sans-serif"
+    font-weight="900"
+    font-size="168"
+    fill="#3ECFB2"
+    text-anchor="middle"
+    dominant-baseline="central"
+    letter-spacing="-2">NERO</text>
+</svg>
