@@ -1,6 +1,6 @@
 # Powerbank Radar
 
-> A free map of power bank rental stations from every operator: 18,716 stations from 35 operators in 26 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-27). Independent, not affiliated with the operators.
+> A free map of power bank rental stations from every operator: 18,955 stations from 38 operators in 31 countries, with prices, opening hours and live availability. Updated daily (last update 2026-11-27). Independent, not affiliated with the operators.
 
 ## Main pages
 
@@ -13,14 +13,14 @@
 ## Showing someone the stations near them
 
 To answer "where can I rent a power bank near me / near <place>", link to the map with the person's position: https://www.powerbankradar.com/?near=<latitude>,<longitude> (for example https://www.powerbankradar.com/?near=52.3731,4.8926 for Dam Square, Amsterdam). The map marks that point and lists the 5 nearest stations with distance, walking time, price, opening hours and, for most operators, how many power banks are available right now.
-Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (GB, CH, NL, ES, DE, SE, IT, FI, GR, PT, CY, FR, AT, DK, NO, IL, PL, LU, BA, BE, IS, LV, EE, HR, CZ, LT) shows a country.
+Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> shows an area; https://www.powerbankradar.com/?country=<ISO code> (GB, CH, NL, ES, DE, SE, IT, FI, GR, PT, CY, FR, RS, AT, DK, NO, IL, PL, LU, BA, BE, AD, IS, LV, EE, HR, SK, LI, CZ, BG, LT) shows a country.
 
 ## Countries
 
 - [United Kingdom](https://www.powerbankradar.com/united-kingdom/): 4,469 stations ([smaller towns](https://www.powerbankradar.com/united-kingdom/smaller-towns/))
 - [Switzerland](https://www.powerbankradar.com/switzerland/): 3,790 stations ([smaller towns](https://www.powerbankradar.com/switzerland/smaller-towns/))
 - [Netherlands](https://www.powerbankradar.com/netherlands/): 2,284 stations ([smaller towns](https://www.powerbankradar.com/netherlands/smaller-towns/))
-- [Spain](https://www.powerbankradar.com/spain/): 1,980 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
+- [Spain](https://www.powerbankradar.com/spain/): 1,945 stations ([smaller towns](https://www.powerbankradar.com/spain/smaller-towns/))
 - [Germany](https://www.powerbankradar.com/germany/): 1,448 stations ([smaller towns](https://www.powerbankradar.com/germany/smaller-towns/))
 - [Sweden](https://www.powerbankradar.com/sweden/): 807 stations ([smaller towns](https://www.powerbankradar.com/sweden/smaller-towns/))
 - [Italy](https://www.powerbankradar.com/italy/): 579 stations ([smaller towns](https://www.powerbankradar.com/italy/smaller-towns/))
@@ -29,6 +29,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Portugal](https://www.powerbankradar.com/portugal/): 472 stations ([smaller towns](https://www.powerbankradar.com/portugal/smaller-towns/))
 - [Cyprus](https://www.powerbankradar.com/cyprus/): 424 stations ([smaller towns](https://www.powerbankradar.com/cyprus/smaller-towns/))
 - [France](https://www.powerbankradar.com/france/): 324 stations ([smaller towns](https://www.powerbankradar.com/france/smaller-towns/))
+- [Serbia](https://www.powerbankradar.com/serbia/): 218 stations ([smaller towns](https://www.powerbankradar.com/serbia/smaller-towns/))
 - [Austria](https://www.powerbankradar.com/austria/): 199 stations ([smaller towns](https://www.powerbankradar.com/austria/smaller-towns/))
 - [Denmark](https://www.powerbankradar.com/denmark/): 172 stations ([smaller towns](https://www.powerbankradar.com/denmark/smaller-towns/))
 - [Norway](https://www.powerbankradar.com/norway/): 163 stations ([smaller towns](https://www.powerbankradar.com/norway/smaller-towns/))
@@ -37,6 +38,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Luxembourg](https://www.powerbankradar.com/luxembourg/): 60 stations ([smaller towns](https://www.powerbankradar.com/luxembourg/smaller-towns/))
 - [Bosnia and Herzegovina](https://www.powerbankradar.com/bosnia-and-herzegovina/): 56 stations
 - [Belgium](https://www.powerbankradar.com/belgium/): 42 stations ([smaller towns](https://www.powerbankradar.com/belgium/smaller-towns/))
+- [Andorra](https://www.powerbankradar.com/andorra/): 35 stations
 - [Iceland](https://www.powerbankradar.com/iceland/): 32 stations
 - [Latvia](https://www.powerbankradar.com/latvia/): 18 stations
 - [Estonia](https://www.powerbankradar.com/estonia/): 12 stations ([smaller towns](https://www.powerbankradar.com/estonia/smaller-towns/))
@@ -233,6 +235,9 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Lyon, France](https://www.powerbankradar.com/france/lyon/): 8 stations
 - [Nice, France](https://www.powerbankradar.com/france/nice/): 6 stations
 - [Marseille, France](https://www.powerbankradar.com/france/marseille/): 6 stations
+- [Belgrade, Serbia](https://www.powerbankradar.com/serbia/belgrade/): 171 stations
+- [Novi Sad, Serbia](https://www.powerbankradar.com/serbia/novi-sad/): 7 stations
+- [Kruševac, Serbia](https://www.powerbankradar.com/serbia/krusevac/): 5 stations
 - [Vienna, Austria](https://www.powerbankradar.com/austria/vienna/): 113 stations
 - [Linz, Austria](https://www.powerbankradar.com/austria/linz/): 13 stations
 - [Salzburg, Austria](https://www.powerbankradar.com/austria/salzburg/): 7 stations
@@ -271,14 +276,18 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [Sarajevo, Bosnia and Herzegovina](https://www.powerbankradar.com/bosnia-and-herzegovina/sarajevo/): 41 stations
 - [Mostar, Bosnia and Herzegovina](https://www.powerbankradar.com/bosnia-and-herzegovina/mostar/): 12 stations
 - [Antwerp, Belgium](https://www.powerbankradar.com/belgium/antwerp/): 34 stations
+- [Canillo, Andorra](https://www.powerbankradar.com/andorra/canillo/): 17 stations
+- [La Massana, Andorra](https://www.powerbankradar.com/andorra/la-massana/): 10 stations
+- [Ordino, Andorra](https://www.powerbankradar.com/andorra/ordino/): 7 stations
 - [Reykjavík, Iceland](https://www.powerbankradar.com/iceland/reykjavik/): 31 stations
 - [Riga, Latvia](https://www.powerbankradar.com/latvia/riga/): 17 stations
 - [Tallinn, Estonia](https://www.powerbankradar.com/estonia/tallinn/): 7 stations
 - [Zagreb, Croatia](https://www.powerbankradar.com/croatia/zagreb/): 11 stations
+- [Vysoké Tatry, Slovakia](https://www.powerbankradar.com/slovakia/vysoke-tatry/): 8 stations
 
 ## Operators
 
-- [Chimpy](https://www.powerbankradar.com/operators/chimpy/): 4,288 stations
+- [Chimpy](https://www.powerbankradar.com/operators/chimpy/): 4,294 stations
 - [ChargedUp](https://www.powerbankradar.com/operators/chargedup/): 3,828 stations
 - [LecToGo](https://www.powerbankradar.com/operators/lectogo/): 1,690 stations
 - [voozaa](https://www.powerbankradar.com/operators/voozaa/): 1,299 stations
@@ -293,6 +302,7 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [OneFlash](https://www.powerbankradar.com/operators/oneflash/): 333 stations
 - [Rechargy](https://www.powerbankradar.com/operators/rechargy/): 252 stations
 - [Last Call](https://www.powerbankradar.com/operators/last-call/): 234 stations
+- [Dopuni.se](https://www.powerbankradar.com/operators/dopuni-se/): 218 stations
 - [Dead Batt](https://www.powerbankradar.com/operators/dead-batt/): 156 stations
 - [Fast Energy](https://www.powerbankradar.com/operators/fast-energy/): 131 stations
 - [ANYWATT](https://www.powerbankradar.com/operators/anywatt/): 97 stations
@@ -309,7 +319,9 @@ Other links: https://www.powerbankradar.com/?at=<latitude>,<longitude>,<zoom> sh
 - [W KONTAKCIE](https://www.powerbankradar.com/operators/w-kontakcie/): 12 stations
 - [ChargeNet](https://www.powerbankradar.com/operators/chargenet/): 12 stations
 - [PowerBrick](https://www.powerbankradar.com/operators/powerbrick/): 11 stations
+- [power-bank.net](https://www.powerbankradar.com/operators/power-bank-net/): 9 stations
 - [HRS ENERGY](https://www.powerbankradar.com/operators/hrs-energy/): 6 stations
+- [HUBO](https://www.powerbankradar.com/operators/hubo/): 6 stations
 - [E-bee](https://www.powerbankradar.com/operators/e-bee/): 4 stations
 - [FLAPY](https://www.powerbankradar.com/operators/flapy/): 3 stations
 - [ChargeBuddies](https://www.powerbankradar.com/operators/chargebuddies/): 2 stations
@@ -337,7 +349,7 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | OneFlash | Netherlands | 15 | Usually €2–3 per session or hour | - | - | - | - |
 | AIRVALL | Netherlands | 13 | €4 per 24 hours | €4 | €4 | €4 | - |
 | ChargeBuddies | Netherlands | 2 | €2 first hour, then per minute | €2.50 | - | - | - |
-| FireVolt | Spain | 1,068 | €6 / hour · max €30 / day (most stations; varies) | €1.90–€6 | €2–€18 | €2–€30 | €3–€20 |
+| FireVolt | Spain | 1,033 | €6 / hour · max €30 / day (most stations; varies) | €1.90–€6 | €2–€18 | €2–€30 | €3–€20 |
 | Revive | Spain | 381 | Price shown in the Revive app | - | - | - | - |
 | voozaa | Spain | 203 | €2 / hour · max €10 / day (most stations; varies) | €2–€4 | €6–€10 | €10 | €15–€45 |
 | Buzz | Spain | 114 | €1.99 / 30 min · max €10 / day | €3.98 | €10 | €10 | - |
@@ -371,6 +383,7 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | OneFlash | France | 285 | Usually €2–3 per session or hour | - | - | - | - |
 | Juice | France | 33 | Price varies per location | - | - | - | - |
 | voozaa | France | 6 | €2 / 30 min · max €10 / day (most stations; varies) | €2–€4 | €6–€10 | €10 | €15–€45 |
+| Dopuni.se | Serbia | 218 | RSD 120 / hour · max RSD 500 / day | RSD 120 | RSD 360 | RSD 500 | - |
 | voozaa | Austria | 103 | €2 / 30 min · max €10 / day (most stations; varies) | €2–€4 | €6–€10 | €10 | €15–€65 |
 | Chimpy | Austria | 95 | €3 per rental, keep it up to 7 days | €3 | €3 | €3 | €15 |
 | OneFlash | Austria | 1 | Usually €2–3 per session or hour | - | - | - | - |
@@ -386,9 +399,13 @@ From each operator's published prices; 1 hour and 3 hours are billed per started
 | Chargi | Bosnia and Herzegovina | 56 | BAM 1 / hour · max BAM 5 / day (most stations; varies) | BAM 1–BAM 2.50 | BAM 3–BAM 7.50 | BAM 5–BAM 25 | - |
 | Nero Charge | Belgium | 41 | Small hourly fee, shown on the station screen | - | - | - | - |
 | voozaa | Belgium | 1 | €2 / 30 min · max €10 / day | €4 | €10 | €10 | €45 |
+| FireVolt | Andorra | 35 | €6 / hour · max €30 / day (most stations; varies) | €3–€6 | €6–€18 | €6–€30 | €6–€20 |
 | Buzz Iceland | Iceland | 32 | Start fee + per-minute rate, shown in the app before you rent | - | - | - | - |
 | PowerRabbit | Latvia | 18 | Riga: €1.99 first hour, then €1.49 / hour · max €6.99 / day | €1.49 | €4.47 | €6.99 | - |
 | ChargeNet | Estonia | 12 | Price shown in the ChargeNet app | - | - | - | - |
 | PowerBrick | Croatia | 11 | €3 per 24 hours | €3 | €3 | €3 | - |
+| power-bank.net | Slovakia | 9 | €2 per rental, up to 24 hours | €2 | €2 | €2 | €20 |
+| Chimpy | Liechtenstein | 6 | CHF 5 per rental, keep it up to 7 days | CHF 5 | CHF 5 | CHF 5 | CHF 15 |
 | HRS ENERGY | Czechia | 6 | Price shown at the station | - | - | - | - |
+| HUBO | Bulgaria | 6 | €2 per 24 hours | €2 | €2 | €2 | - |
 | E-bee | Lithuania | 4 | €1.49 / hour | €1.49 | €4.47 | - | - |

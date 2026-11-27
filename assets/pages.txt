@@ -1,4 +1,9 @@
 about/index.html
+andorra/canillo/index.html
+andorra/index.html
+andorra/la-massana/index.html
+andorra/ordino/index.html
+andorra/smaller-towns/index.html
 austria/index.html
 austria/innsbruck/index.html
 austria/linz/index.html
@@ -12,6 +17,8 @@ bosnia-and-herzegovina/index.html
 bosnia-and-herzegovina/mostar/index.html
 bosnia-and-herzegovina/sarajevo/index.html
 bosnia-and-herzegovina/smaller-towns/index.html
+bulgaria/index.html
+bulgaria/smaller-towns/index.html
 contact/index.html
 croatia/index.html
 croatia/zagreb/index.html
@@ -120,6 +127,8 @@ italy/varese/index.html
 latvia/index.html
 latvia/riga/index.html
 latvia/smaller-towns/index.html
+liechtenstein/index.html
+liechtenstein/smaller-towns/index.html
 lithuania/index.html
 lithuania/smaller-towns/index.html
 luxembourg/index.html
@@ -175,6 +184,7 @@ operators/chargenet/index.html
 operators/chargi/index.html
 operators/chimpy/index.html
 operators/dead-batt/index.html
+operators/dopuni-se/index.html
 operators/e-bee/index.html
 operators/fast-charger/index.html
 operators/fast-energy/index.html
@@ -182,6 +192,7 @@ operators/firevolt/index.html
 operators/flapy/index.html
 operators/fully/index.html
 operators/hrs-energy/index.html
+operators/hubo/index.html
 operators/iccxx/index.html
 operators/index.html
 operators/juice/index.html
@@ -190,6 +201,7 @@ operators/lectogo/index.html
 operators/mobbi/index.html
 operators/nero-charge/index.html
 operators/oneflash/index.html
+operators/power-bank-net/index.html
 operators/powerbrick/index.html
 operators/powerrabbit/index.html
 operators/recharge-me/index.html
@@ -225,6 +237,14 @@ portugal/smaller-towns/index.html
 portugal/vila-nova-de-gaia/index.html
 prices/index.html
 privacy/index.html
+serbia/belgrade/index.html
+serbia/index.html
+serbia/krusevac/index.html
+serbia/novi-sad/index.html
+serbia/smaller-towns/index.html
+slovakia/index.html
+slovakia/smaller-towns/index.html
+slovakia/vysoke-tatry/index.html
 spain/alicante/index.html
 spain/barcelona/index.html
 spain/benalmadena/index.html
